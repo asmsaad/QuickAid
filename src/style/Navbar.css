@@ -1,0 +1,37 @@
+.avatar-wrapper {
+    position: relative;
+    width: 102px;
+    height: 102px;
+}
+
+.avatar-border {
+    height: 104px;
+    width: 104px;
+    border-radius: 50%;
+    border: 2px dashed grey;
+    position: absolute;
+    top: 0;
+    left: 0;
+    animation: rotateBorder 25s linear infinite; /* Border rotates */
+}
+
+.avatar {
+    height: 100px;
+    width: 100px;
+    border-radius: 50%;
+    background-color: #e9ecef;
+    background-size: cover;
+    background-position: center;
+    position: absolute;
+    top: 2px; 
+    left: 2px; 
+}
+
+@keyframes rotateBorder {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}

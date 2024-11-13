@@ -1,0 +1,7 @@
+.navigate-button{
+    margin-bottom: 10px;
+}
+
+.navigate-button:first-child{
+    margin-top: 10px;
+}
