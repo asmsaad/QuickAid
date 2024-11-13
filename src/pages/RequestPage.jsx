@@ -26,31 +26,75 @@ const domainOptions = [
 
 
 
+const RequestPage = () => {
+
+
+
+    return (
+
+        <Box sx={{width:'100%',height:'100%', display:'flex', alignItems:{xs:'flex-start', md:'center'}, justifyContent:'center'}}>
+
+            <RequestForm />
+
+        </Box>
+
+    );
+};
+
+
 const initialvalue = {
     domain : {},
     services : {},
     note: "",
 }
-const RequestPage = () => {
+
+
+
+const RequestForm = ()=>{
     const [selectedData , setSelectedData] = useState(initialvalue)
     const [loadings, setLoadings] = useState([]);
 
 
-    return (
-        <Box sx={{ width: "400px", height: "600px", border: "0.15px solid gray", borderRadius: "5px", padding: "10px" }}>
-            <TooltipPopover title="Domain" display_info={tooltips.current_week} />
-            <Select placeholder="Domain" showSearch allowClear size="medium" style={{ width: "100%" }} optionFilterProp="label" filterSort={(optionA, optionB) => (optionA?.label ?? "").toLowerCase().localeCompare((optionB?.label ?? "").toLowerCase())} value={Object.keys(selectedData.domain).length > 0 ? selectedData.domain.value : ""} onChange={(value, selectedObject) => { setSelectedData({...selectedData, domain:selectedObject ? selectedObject : {}})} } options={domainOptions} />
-            <TooltipPopover title="Sevices" display_info={tooltips.current_week} />
-            <Select placeholder="Domain" showSearch allowClear size="medium" style={{ width: "100%" }} optionFilterProp="label" filterSort={(optionA, optionB) => (optionA?.label ?? "").toLowerCase().localeCompare((optionB?.label ?? "").toLowerCase())} value={Object.keys(selectedData.domain).length > 0 ? selectedData.services.value : ""} onChange={(value, selectedObject) => { setSelectedData({...selectedData, services: selectedObject ? selectedObject : {}})} } disabled={Object.keys(selectedData.domain).length === 0} options={domainOptions} />
-            <TooltipPopover title="Note" display_info={tooltips.current_week} />
-            <TextArea size="medium" showCount maxLength={1024} rows={3} value={selectedData.note} onChange={(e) => setSelectedData({ ...selectedData, note: e.target.value })} disabled={Object.keys(initialvalue.domain).length === 0 || Object.keys(initialvalue.services).length === 0} />
-            
-            <Button style={{ marginTop: '15px' }} type="primary"  loading={loadings[0]} onClick={() => {setLoadings([true]); setTimeout(() => setLoadings([false]), 3000)}}>Click me!</Button>
+    useEffect(()=>{
+        console.log(selectedData)
+    },[selectedData])
 
-            
-        </Box>
-    );
-};
+    return(
+        <Box sx={{ width: `calc(100% - 10px)`, maxWidth:'420px', marginTop:{xs:'20px', md:'0'}}}>
+
+        <Card
+            title="Submit Your Request !"
+            bordered={true}
+            type="inner"
+            style={{
+            width: '100%',
+            }}
+        >
+
+            <TooltipPopover title="Domain" display_info={tooltips.current_week} />
+
+            <Select placeholder="Domain" showSearch allowClear size="medium" style={{ width: "100%" }} optionFilterProp="label" filterSort={(optionA, optionB) => (optionA?.label ?? "").toLowerCase().localeCompare((optionB?.label ?? "").toLowerCase())} value={Object.keys(selectedData.domain).length > 0 ? selectedData.domain.value : ""} onChange={(value, selectedObject) => { setSelectedData({...selectedData, domain:selectedObject ? selectedObject : {}})} } options={domainOptions} />
+
+            <TooltipPopover title="Sevices" display_info={tooltips.current_week} />
+
+            <Select placeholder="Domain" showSearch allowClear size="medium" style={{ width: "100%" }} optionFilterProp="label" filterSort={(optionA, optionB) => (optionA?.label ?? "").toLowerCase().localeCompare((optionB?.label ?? "").toLowerCase())} value={Object.keys(selectedData.domain).length > 0 ? selectedData.services.value : ""} onChange={(value, selectedObject) => { setSelectedData({...selectedData, services: selectedObject ? selectedObject : {}})} } disabled={Object.keys(selectedData.domain).length === 0} options={domainOptions} />
+
+
+            <TooltipPopover title="Note" display_info={tooltips.current_week} />
+
+            <TextArea size="medium" showCount maxLength={1024} rows={3} value={selectedData.note} onChange={(e) => setSelectedData({ ...selectedData, note: e.target.value })} disabled={selectedData.services.value ? false : true} />
+
+            <Box sx={{display:'flex', justifyContent:'center'}}><Button style={{ marginTop: '15px' }} type="primary"  loading={loadings[0]} onClick={() => {setLoadings([true]); setTimeout(() => setLoadings([false]), 3000)}}>Submit</Button></Box>
+
+
+        </Card>
+
+        
+    </Box> 
+    )
+}
+
+
 
 /**
  * Displays an info icon with a popover containing additional information next to a label in a submission form.

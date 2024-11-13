@@ -1,0 +1,18 @@
+.custom-scrollbar{
+    scrollbar-gutter: stable both-edges;
+}
+.custom-scrollbar::-webkit-scrollbar {
+    width: 3px;
+    
+  }
+  
+  .custom-scrollbar::-webkit-scrollbar-track {
+    background-color: #e4e4e4;
+    border-radius: 100px;
+    margin: 10px 0;
+  }
+  
+  .custom-scrollbar::-webkit-scrollbar-thumb {
+    background-color: grey;
+    border-radius: 100px;
+  }

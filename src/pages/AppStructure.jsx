@@ -180,7 +180,7 @@ const AppStructure = (props) => {
             <Navbar />
             <Stack direction="row" flex="1" overflow="hidden">
                 <ShortLeftNavBar />
-                <Box sx={{ width: "100%", display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center", height: `calc(100vh -65px)`, overflow: "auto", padding:"10px" }}>
+                <Box sx={{ width: "100%", display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center", height: `calc(100vh -65px)`, overflow: "auto", padding:"10px", }}>
                     {location.pathname === "/quickaid" || location.pathname === "/quickaid/" ? <HomePage /> : <Outlet />}
                 </Box>
 
