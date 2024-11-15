@@ -8,7 +8,7 @@ import { FluentProvider, teamsLightTheme } from "@fluentui/react-components";
 // import { PageDoseNotExist } from "./Components/MessageDoodle";
 import HistoryPage from "./pages/HistoryPage";
 import AppStructure from "./pages/AppStructure";
-import RequestPage from "./pages/RequestPage";
+import RequestPage from "./pages/FormPage";
 
 
 // import PageDoseNotExist from "./PageDoseNotExist";
@@ -22,7 +22,8 @@ function App() {
                 <Router>
                     <Routes>
                         <Route path="quickaid" element={<AppStructure />}>
-                            <Route path="request" element={<RequestPage />} />
+                            <Route path="form" element={<RequestPage />} />
+                            {/* <Route path="request" element={<RequestPage />} /> */}
                             <Route path="history" element={<HistoryPage />} />
                         </Route>
                     </Routes>

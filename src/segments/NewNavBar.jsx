@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { makeStyles, mergeClasses, tokens, Button, Menu, MenuItem, MenuList, MenuPopover, MenuTrigger, Tab, TabList, useIsOverflowItemVisible, useOverflowMenu, Overflow, OverflowItem } from "@fluentui/react-components";
 import { Link, useLocation } from "react-router-dom";
-import { BugFilled, HomeFilled, bundleIcon, BugRegular, HomeRegular, ClipboardTextEditFilled, ClipboardTextEditRegular, ClipboardTextRtlRegular, ClipboardTextRtlFilled, DataPieFilled, DataPieRegular, PeopleCommunityRegular, PeopleCommunityFilled, OrganizationRegular, OrganizationFilled, PersonStarburstRegular, PersonStarburstFilled, MoreHorizontalFilled, MoreHorizontalRegular, BranchRequestFilled, HistoryFilled, HistoryRegular, BranchRequestRegular } from "@fluentui/react-icons";
+import { BugFilled, HomeFilled, bundleIcon, BugRegular, HomeRegular, ClipboardTextEditFilled, ClipboardTextEditRegular, ClipboardTextRtlRegular, ClipboardTextRtlFilled, DataPieFilled, DataPieRegular, PeopleCommunityRegular, PeopleCommunityFilled, OrganizationRegular, OrganizationFilled, PersonStarburstRegular, PersonStarburstFilled, MoreHorizontalFilled, MoreHorizontalRegular, BranchRequestFilled, HistoryFilled, HistoryRegular, BranchRequestRegular, FormFilled, FormRegular } from "@fluentui/react-icons";
 import { Box } from "@mui/material";
 import { useQuery } from "react-query"; //* React Query
 import axios from "axios"; //* React Query
@@ -17,6 +17,7 @@ const MoreHorizontal = bundleIcon(MoreHorizontalFilled, MoreHorizontalRegular);
 
 const IconBug = bundleIcon(BugFilled, BugRegular);
 const IconHome = bundleIcon(HomeFilled, HomeRegular);
+const IconForm = bundleIcon(FormFilled , FormRegular );
 const IconRequest = bundleIcon(BranchRequestFilled, BranchRequestRegular);
 const IconHistory = bundleIcon(HistoryFilled, HistoryRegular);
 
@@ -97,6 +98,7 @@ export const ShortLeftNavBar = () => {
 
     const tabs = [
         { id: "/quickaid", name: "Home", icon: <IconHome /> },
+        { id: "/form", name: "Form", icon: <IconForm /> },
         { id: "/request", name: "Request", icon: <IconRequest /> },
         { id: "/history", name: "History", icon: <IconHistory /> },
         // { id: "/subordinates", name: "Subordinates", icon: <IconSubordinates /> },
@@ -107,6 +109,7 @@ export const ShortLeftNavBar = () => {
 
     const allowed_tabs = {
         "/quickaid": true,
+        "/form": true,
         "/request": true,
         "/history": true,
         // "/subordinates": Object.keys(data_subordinateData?.data || {}).length > 0 ? true : false,

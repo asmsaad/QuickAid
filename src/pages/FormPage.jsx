@@ -3,6 +3,7 @@ import { Box } from "@mui/material";
 import { Button, Card, Popover, Select, Typography } from "antd";
 import TextArea from "antd/es/input/TextArea";
 import React, { useEffect, useState } from "react";
+import { ProfileCard } from "../components/ProfileCard";
 
 const { Text } = Typography;
 
@@ -26,7 +27,7 @@ const domainOptions = [
 
 
 
-const RequestPage = () => {
+const FormPage = () => {
 
 
 
@@ -34,7 +35,7 @@ const RequestPage = () => {
 
         <Box sx={{width:'100%',height:'100%', display:'flex', alignItems:{xs:'flex-start', md:'center'}, justifyContent:'center'}}>
 
-            <RequestForm />
+            <IssueForm />
 
         </Box>
 
@@ -50,7 +51,7 @@ const initialvalue = {
 
 
 
-const RequestForm = ()=>{
+const IssueForm = ()=>{
     const [selectedData , setSelectedData] = useState(initialvalue)
     const [loadings, setLoadings] = useState([]);
 
@@ -70,18 +71,25 @@ const RequestForm = ()=>{
             width: '100%',
             }}
         >
+            <TooltipPopover title="Submit for"  display_info={tooltips.current_week} top_margin={"-5px"}/>
+            <ProfileCard />
 
+            <TooltipPopover title="Manager" display_info={tooltips.current_week} />
+            <Select placeholder="Domain" showSearch allowClear size="medium" style={{ width: "100%" }} optionFilterProp="label" filterSort={(optionA, optionB) => (optionA?.label ?? "").toLowerCase().localeCompare((optionB?.label ?? "").toLowerCase())} value={Object.keys(selectedData.domain).length > 0 ? selectedData.domain.value : ""} onChange={(value, selectedObject) => { setSelectedData({...selectedData, domain:selectedObject ? selectedObject : {}})} } options={domainOptions} />
+            
+            <TooltipPopover title="Acknowledge" display_info={tooltips.current_week} />
+            <Select placeholder="Domain" showSearch allowClear size="medium" style={{ width: "100%" }} optionFilterProp="label" filterSort={(optionA, optionB) => (optionA?.label ?? "").toLowerCase().localeCompare((optionB?.label ?? "").toLowerCase())} value={Object.keys(selectedData.domain).length > 0 ? selectedData.domain.value : ""} onChange={(value, selectedObject) => { setSelectedData({...selectedData, domain:selectedObject ? selectedObject : {}})} } options={domainOptions} />
+            
             <TooltipPopover title="Domain" display_info={tooltips.current_week} />
-
             <Select placeholder="Domain" showSearch allowClear size="medium" style={{ width: "100%" }} optionFilterProp="label" filterSort={(optionA, optionB) => (optionA?.label ?? "").toLowerCase().localeCompare((optionB?.label ?? "").toLowerCase())} value={Object.keys(selectedData.domain).length > 0 ? selectedData.domain.value : ""} onChange={(value, selectedObject) => { setSelectedData({...selectedData, domain:selectedObject ? selectedObject : {}})} } options={domainOptions} />
 
             <TooltipPopover title="Sevices" display_info={tooltips.current_week} />
-
             <Select placeholder="Domain" showSearch allowClear size="medium" style={{ width: "100%" }} optionFilterProp="label" filterSort={(optionA, optionB) => (optionA?.label ?? "").toLowerCase().localeCompare((optionB?.label ?? "").toLowerCase())} value={Object.keys(selectedData.domain).length > 0 ? selectedData.services.value : ""} onChange={(value, selectedObject) => { setSelectedData({...selectedData, services: selectedObject ? selectedObject : {}})} } disabled={Object.keys(selectedData.domain).length === 0} options={domainOptions} />
 
-
+            <TooltipPopover title="Urgency" display_info={tooltips.current_week} />
+            <Select placeholder="Domain" showSearch allowClear size="medium" style={{ width: "100%" }} optionFilterProp="label" filterSort={(optionA, optionB) => (optionA?.label ?? "").toLowerCase().localeCompare((optionB?.label ?? "").toLowerCase())} value={Object.keys(selectedData.domain).length > 0 ? selectedData.domain.value : ""} onChange={(value, selectedObject) => { setSelectedData({...selectedData, domain:selectedObject ? selectedObject : {}})} } options={domainOptions} />
+            
             <TooltipPopover title="Note" display_info={tooltips.current_week} />
-
             <TextArea size="medium" showCount maxLength={1024} rows={3} value={selectedData.note} onChange={(e) => setSelectedData({ ...selectedData, note: e.target.value })} disabled={selectedData.services.value ? false : true} />
 
             <Box sx={{display:'flex', justifyContent:'center'}}><Button style={{ marginTop: '15px' }} type="primary"  loading={loadings[0]} onClick={() => {setLoadings([true]); setTimeout(() => setLoadings([false]), 3000)}}>Submit</Button></Box>
@@ -104,9 +112,9 @@ const RequestForm = ()=>{
  * @param {string} props.display_info - The information displayed in the popover when the info icon is hovered over.
  * @returns {JSX.Element} The rendered tooltip component with the info icon and title.
  */
-const TooltipPopover = ({ title, display_info }) => {
+const TooltipPopover = ({ title, display_info , top_margin="10px"}) => {
     return (
-        <Box sx={{ margin: "10px 0 5px 0" }}>
+        <Box sx={{ margin: `${top_margin} 0 5px 0` }}>
             <div>
                 <Text strong>{title}</Text>
                 <span style={{ marginLeft: "5px" }}>
@@ -168,4 +176,4 @@ const tooltips = {
     ),
 };
 
-export default RequestPage;
+export default FormPage;
