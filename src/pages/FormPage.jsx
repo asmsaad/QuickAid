@@ -5,6 +5,8 @@ import TextArea from "antd/es/input/TextArea";
 import React, { useEffect, useState } from "react";
 import { ProfileCard } from "../components/ProfileCard";
 
+
+
 const { Text } = Typography;
 
 const domainOptions = [
@@ -92,6 +94,7 @@ const IssueForm = ()=>{
             <TooltipPopover title="Note" display_info={tooltips.current_week} />
             <TextArea size="medium" showCount maxLength={1024} rows={3} value={selectedData.note} onChange={(e) => setSelectedData({ ...selectedData, note: e.target.value })} disabled={selectedData.services.value ? false : true} />
 
+           
             <Box sx={{display:'flex', justifyContent:'center'}}><Button style={{ marginTop: '15px' }} type="primary"  loading={loadings[0]} onClick={() => {setLoadings([true]); setTimeout(() => setLoadings([false]), 3000)}}>Submit</Button></Box>
 
 
@@ -102,6 +105,16 @@ const IssueForm = ()=>{
     )
 }
 
+
+
+
+
+
+
+  
+
+
+  
 
 
 /**

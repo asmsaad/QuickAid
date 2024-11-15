@@ -20,6 +20,7 @@ const IconHome = bundleIcon(HomeFilled, HomeRegular);
 const IconForm = bundleIcon(FormFilled , FormRegular );
 const IconRequest = bundleIcon(BranchRequestFilled, BranchRequestRegular);
 const IconHistory = bundleIcon(HistoryFilled, HistoryRegular);
+// const IconAdministrator = bundleIcon(HistoryFilled, HistoryRegular);
 
 const IconSubmission = bundleIcon(ClipboardTextEditFilled, ClipboardTextEditRegular);
 const IconSubmission_ = bundleIcon(ClipboardTextRtlFilled, ClipboardTextRtlRegular);
@@ -101,6 +102,8 @@ export const ShortLeftNavBar = () => {
         { id: "/form", name: "Form", icon: <IconForm /> },
         { id: "/request", name: "Request", icon: <IconRequest /> },
         { id: "/history", name: "History", icon: <IconHistory /> },
+        { id: "/administrator", name: "Administrator", icon: <IconAdministrator /> },
+        // { id: "/administrator ", name: "Administrator ", icon: <IconAdministrator /> },
         // { id: "/subordinates", name: "Subordinates", icon: <IconSubordinates /> },
         // { id: "/administrator", name: "Administrator", icon: <IconAdministrator /> },
         // { id: "/superuser", name: "Superuser", icon: <IconSuperuser /> },
@@ -112,6 +115,7 @@ export const ShortLeftNavBar = () => {
         "/form": true,
         "/request": true,
         "/history": true,
+        "/administrator": true,
         // "/subordinates": Object.keys(data_subordinateData?.data || {}).length > 0 ? true : false,
         // "/administrator": Object.keys(data_accessTags?.data?.["Administrator"] || {}).length > 0 ? true : false, //! Need to add loader sot that  after loading it can show
         // "/superuser": Object.keys(data_accessTags?.data?.["Superuser"] || {}).length > 0 ? true : false,

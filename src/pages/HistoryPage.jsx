@@ -242,25 +242,9 @@ const HistoryPageStucture = () => {
                 <RequestCard />
             </Box>
 
-<<<<<<< HEAD
             <Box sx={{ flex: "1", height: "100%", display: { xs: "none", md: "flex" } }}>
                 <RequestDescription />
             </Box>
-=======
-        <Box className="custom-scrollbar" sx={{ width: {xs:'100%', md:'400px'}, height: "100%", display: "flex", flexDirection:'column', gap:'5px', overflowY:'scroll', alignItems:{xs:'center', md:'flex-start'}, }}>
-            <RequestCard />
-            <RequestCard />
-            <RequestCard />
-            <RequestCard />
-            <RequestCard />
-            <RequestCard />
-            <RequestCard />
-            <RequestCard />
-            <RequestCard />
-            <RequestCard />
-            <RequestCard />
-            
->>>>>>> 76094cf3ec5e8897a0b40e9c52a17fc240205a98
         </Box>
     );
 };

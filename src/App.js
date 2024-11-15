@@ -9,6 +9,7 @@ import { FluentProvider, teamsLightTheme } from "@fluentui/react-components";
 import HistoryPage from "./pages/HistoryPage";
 import AppStructure from "./pages/AppStructure";
 import RequestPage from "./pages/FormPage";
+import AdministratorPage from "./pages/AdministratorPage";
 
 
 
@@ -26,6 +27,7 @@ function App() {
                             <Route path="form" element={<RequestPage />} />
                             {/* <Route path="request" element={<RequestPage />} /> */}
                             <Route path="history" element={<HistoryPage />} />
+                            <Route path="administrator" element={<AdministratorPage />} />
                         </Route>
                     </Routes>
                 </Router>
