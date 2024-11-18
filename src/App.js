@@ -10,28 +10,42 @@ import HistoryPage from "./pages/HistoryPage";
 import AppStructure from "./pages/AppStructure";
 import RequestPage from "./pages/FormPage";
 import AdministratorPage from "./pages/AdministratorPage";
-
-
+import { createTheme, MantineProvider } from "@mantine/core";
 
 // import PageDoseNotExist from "./PageDoseNotExist";
 
 const queryClient = new QueryClient();
 
+const theme = createTheme({
+    /** Put your mantine theme override here */
+});
+
+// function Demo() {
+//     return (
+//         <MantineProvider theme={theme}>
+//             {/* Your app here */}
+//             <StatsGrid />
+//         </MantineProvider>
+//     );
+// }
+
 function App() {
     return (
         <FluentProvider theme={teamsLightTheme}>
-            <QueryClientProvider client={queryClient}>
-                <Router>
-                    <Routes>
-                        <Route path="quickaid" element={<AppStructure />}>
-                            <Route path="form" element={<RequestPage />} />
-                            {/* <Route path="request" element={<RequestPage />} /> */}
-                            <Route path="history" element={<HistoryPage />} />
-                            <Route path="administrator" element={<AdministratorPage />} />
-                        </Route>
-                    </Routes>
-                </Router>
-            </QueryClientProvider>
+            
+                <QueryClientProvider client={queryClient}>
+                    <Router>
+                        <Routes>
+                            <Route path="quickaid" element={<AppStructure />}>
+                                <Route path="form" element={<RequestPage />} />
+                                {/* <Route path="request" element={<RequestPage />} /> */}
+                                <Route path="history" element={<HistoryPage />} />
+                                <Route path="administrator" element={<AdministratorPage />} />
+                            </Route>
+                        </Routes>
+                    </Router>
+                </QueryClientProvider>
+            
         </FluentProvider>
     );
 }

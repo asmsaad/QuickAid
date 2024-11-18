@@ -67,7 +67,7 @@ export const ProfileCardXS = (props) => {
         <Box sx={{ width: "calc(100% - 20px)", bgcolor: "#fbfbfb", borderRadius: "10px", padding: "10px",  }}>
             <Box sx={{ display: "flex",width:"100%" }}>
                 <Box sx={{heigh:"100%", display:"flex", alignItems:"center", }}>
-                    <Avatar size={36} initials="DR" color="dark-red" name="darkRed avatar" />
+                    <Avatar size={36}  color="dark-red" name={name} />
                 </Box>
                 <Box sx={{ display: "flex", flexDirection: "column", marginLeft: "10px",width:`calc(100% - 36px)`,  }}>
                     <Box sx={{ display: "flex", alignItems: "center",  }}>
