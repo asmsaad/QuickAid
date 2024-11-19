@@ -11,6 +11,7 @@ import AppStructure from "./pages/AppStructure";
 import RequestPage from "./pages/FormPage";
 import AdministratorPage from "./pages/AdministratorPage";
 import { createTheme, MantineProvider } from "@mantine/core";
+import { RequestDescription } from "./components/RequestDescription";
 
 // import PageDoseNotExist from "./PageDoseNotExist";
 
@@ -32,20 +33,21 @@ const theme = createTheme({
 function App() {
     return (
         <FluentProvider theme={teamsLightTheme}>
-            
-                <QueryClientProvider client={queryClient}>
-                    <Router>
-                        <Routes>
-                            <Route path="quickaid" element={<AppStructure />}>
-                                <Route path="form" element={<RequestPage />} />
-                                {/* <Route path="request" element={<RequestPage />} /> */}
-                                <Route path="history" element={<HistoryPage />} />
-                                <Route path="administrator" element={<AdministratorPage />} />
+            <QueryClientProvider client={queryClient}>
+                {/* <Router future={{ v7_relativeSplatPath: true }}> */}
+                <Router>
+                    <Routes>
+                        <Route path="quickaid" element={<AppStructure />}>
+                            <Route path="form" element={<RequestPage />} />
+                            {/* <Route path="request" element={<RequestPage />} /> */}
+                            <Route path="history" element={<HistoryPage />}>
+                                <Route path=":ticketID" element={<RequestDescription />} />
                             </Route>
-                        </Routes>
-                    </Router>
-                </QueryClientProvider>
-            
+                            <Route path="administrator" element={<AdministratorPage />} />
+                        </Route>
+                    </Routes>
+                </Router>
+            </QueryClientProvider>
         </FluentProvider>
     );
 }
