@@ -66,6 +66,7 @@ const Navbar = () => {
         <AppBar position="sticky">
             <StyledToolbar>
                 {/*//* APP NAME */}
+                {/* <Box sx={{ display: displayConfig_1, alignItems: "center", cursor: "pointer" }} onClick={() => navigate("/quickaid")}> */}
                 <Box sx={{ display: displayConfig_1, alignItems: "center", cursor: "pointer" }} onClick={() => navigate("/quickaid")}>
                     <Box style={{ width: "42px", display: "flex", justifyContent: "center", alignItems: "center", margin: "0 10px 0 15px" }}>
                         <img src={app_logo_img} alt="Descriptive Alt Text" style={{ maxWidth: "42px", height: "auto", userSelect: "none", pointerEvents: "none" }} draggable="false" />
@@ -73,17 +74,18 @@ const Navbar = () => {
                     <Typography variant="h6">Quick Aid</Typography>
                 </Box>
 
-                <Typography variant="h6" sx={{ display: displayConfig_2 }}>
-                    <Box display="flex" justifyContent="center" alignItems="center" gap="15px">
-                        {/* <TemporaryDrawer /> */}
-                        <Box onClick={() => navigate("/quickaid")}>
-                        Quick Aid
-                            {/* <Box style={{ width: "42px", display: "flex", justifyContent: "center", alignItems: "center", margin: "0 10px 0 15px" }}>
-                                <img src={app_logo_img} alt="Descriptive Alt Text" style={{ maxWidth: "42px", height: "auto", userSelect: "none", pointerEvents: "none" }} draggable="false" />
-                            </Box> */}
-                        </Box>
+                <Box sx={{ display: displayConfig_2, alignItems: "center", cursor: "pointer" }} onClick={() => navigate("/quickaid")}>
+                    <Box style={{ width: "42px", display: "flex", justifyContent: "center", alignItems: "center", margin: "0 10px 0 0px" }}>
+                        <img src={app_logo_img} alt="Descriptive Alt Text" style={{ maxWidth: "42px", height: "auto", userSelect: "none", pointerEvents: "none" }} draggable="false" />
                     </Box>
-                </Typography>
+                    <Typography variant="h6">Quick Aid</Typography>
+                </Box>
+
+                {/* <Typography variant="h6" sx={{ display: displayConfig_2 }}>
+                    <Box display="flex" justifyContent="center" alignItems="center" gap="15px">
+                        <Box onClick={() => navigate("/quickaid")}>Quick Aid</Box>
+                    </Box>
+                </Typography> */}
 
                 {/*//* AVATER AND INFO */}
                 {!open && (

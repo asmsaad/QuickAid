@@ -8,10 +8,17 @@ import { FluentProvider, teamsLightTheme } from "@fluentui/react-components";
 // import { PageDoseNotExist } from "./Components/MessageDoodle";
 import HistoryPage from "./pages/HistoryPage";
 import AppStructure from "./pages/AppStructure";
-import RequestPage from "./pages/FormPage";
+import FormPage from "./pages/FormPage";
 import AdministratorPage from "./pages/AdministratorPage";
 import { createTheme, MantineProvider } from "@mantine/core";
 import { RequestDescription } from "./components/RequestDescription";
+import MentionPage from "./pages/MentionPage";
+import RequestPage from "./pages/RequestPage";
+import IssueTab from "./pages/AdministratorPage/IssueTab";
+import SubIssueTab from "./pages/AdministratorPage/SubIssueTab";
+import HierarchyTab from "./pages/AdministratorPage/HierarchyTab";
+import WorkDistributionTab from "./pages/AdministratorPage/WorkDistributionTab";
+import LocationTab from "./pages/AdministratorPage/LocationTab";
 
 // import PageDoseNotExist from "./PageDoseNotExist";
 
@@ -38,12 +45,24 @@ function App() {
                 <Router>
                     <Routes>
                         <Route path="quickaid" element={<AppStructure />}>
-                            <Route path="form" element={<RequestPage />} />
-                            {/* <Route path="request" element={<RequestPage />} /> */}
+                            <Route path="form" element={<FormPage />} />
+
                             <Route path="history" element={<HistoryPage />}>
                                 <Route path=":ticketID" element={<RequestDescription />} />
                             </Route>
-                            <Route path="administrator" element={<AdministratorPage />} />
+                            <Route path="mentioned" element={<MentionPage />}>
+                                <Route path=":ticketID" element={<RequestDescription />} />
+                            </Route>
+                            <Route path="requests" element={<RequestPage />}>
+                                <Route path=":ticketID" element={<RequestDescription />} />
+                            </Route>
+                            <Route path="admin" element={<AdministratorPage />}>
+                                <Route path="issue" element={<IssueTab />} />
+                                <Route path="sub-issue" element={<SubIssueTab />} />
+                                <Route path="hierarchy" element={<HierarchyTab />} />
+                                <Route path="distributions" element={<WorkDistributionTab />} />
+                                <Route path="locations" element={<LocationTab />} />
+                            </Route>
                         </Route>
                     </Routes>
                 </Router>

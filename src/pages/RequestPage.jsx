@@ -26,42 +26,46 @@ import { TicketViewerPageStructure } from "../segments/TicketViewerStructure";
 
 const { Text } = Typography;
 
-const HistoryPage = () => {
+const RequestPage = () => {
     //Todo[QUEARY] Get all ticket by empid
     //*API Setup
-    const fetchAllTicketsByEmpID = () => {
-        return axios.post(getAPI("get-all-ticket-by-empid"), { empid: getLoginUserID() }, { headers: { "Content-Type": "application/json", "X-CSRFToken": getCookie("csrftoken") } });
+    const fetchAllAccessabnleTicketsByEmpID = () => {
+        return axios.post(getAPI("get-accessible-requests"), { empid: getLoginUserID() }, { headers: { "Content-Type": "application/json", "X-CSRFToken": getCookie("csrftoken") } });
     };
 
     //*Query Callback
     const {
-        isLoading: isLoading_getAllTicketsByEmpID,
-        data: data_getAllTicketsByEmpID,
-        isError: isError_getAllTicketsByEmpID,
-        error: error_getAllTicketsByEmpID,
-        isFetching: isFetching_getAllTicketsByEmpID,
-        refetch: refetch_getAllTicketsByEmpID,
-    } = useQuery("get-all-ticket-by-empid-UNIQUE-1", fetchAllTicketsByEmpID, {
+        isLoading: isLoading_getAllAccessabnleTicketsByEmpID,
+        data: data_getAllAccessabnleTicketsByEmpID,
+        isError: isError_getAllAccessabnleTicketsByEmpID,
+        error: error_getAllAccessabnleTicketsByEmpID,
+        isFetching: isFetching_getAllAccessabnleTicketsByEmpID,
+        refetch: refetch_getAllAccessabnleTicketsByEmpID,
+    } = useQuery("get-accessible-requests-UNIQUE-1", fetchAllAccessabnleTicketsByEmpID, {
         enabled: true,
     });
 
     //*Query Response Actions
     useEffect(() => {
-        if (isLoading_getAllTicketsByEmpID) {
-            logPrint("🔍   getAllTicketsByEmpID  ➤  🔄");
-        } else if (data_getAllTicketsByEmpID?.data) {
-            logPrint("🔍   getAllTicketsByEmpID  ➤  🟢", data_getAllTicketsByEmpID?.data);
-        } else if (isError_getAllTicketsByEmpID) {
-            logPrint("🔍   getAllTicketsByEmpID  ➤  ⚠️", [error_getAllTicketsByEmpID?.message, error_getAllTicketsByEmpID?.response.data]);
+        if (isLoading_getAllAccessabnleTicketsByEmpID) {
+            logPrint("🔍   getAllAccessabnleTicketsByEmpID  ➤  🔄");
+        } else if (data_getAllAccessabnleTicketsByEmpID?.data) {
+            logPrint("🔍   getAllAccessabnleTicketsByEmpID  ➤  🟢", data_getAllAccessabnleTicketsByEmpID?.data);
+        } else if (isError_getAllAccessabnleTicketsByEmpID) {
+            logPrint("🔍   getAllAccessabnleTicketsByEmpID  ➤  ⚠️", [error_getAllAccessabnleTicketsByEmpID?.message, error_getAllAccessabnleTicketsByEmpID?.response.data]);
         }
-    }, [isLoading_getAllTicketsByEmpID, data_getAllTicketsByEmpID, isError_getAllTicketsByEmpID, error_getAllTicketsByEmpID]);
+    }, [isLoading_getAllAccessabnleTicketsByEmpID, data_getAllAccessabnleTicketsByEmpID, isError_getAllAccessabnleTicketsByEmpID, error_getAllAccessabnleTicketsByEmpID]);
+
+
+
+    
 
     return (
         <Box sx={{ width: "100%", height: "100%", display: "flex" }}>
-            <TicketViewerPageStructure isLoading_getAllTicketsByEmpID={isLoading_getAllTicketsByEmpID} data_getAllTicketsByEmpID={data_getAllTicketsByEmpID} isError_getAllTicketsByEmpID={isError_getAllTicketsByEmpID} error_getAllTicketsByEmpID={error_getAllTicketsByEmpID} />
+            <TicketViewerPageStructure isLoading_getAllTicketsByEmpID={isLoading_getAllAccessabnleTicketsByEmpID} data_getAllTicketsByEmpID={data_getAllAccessabnleTicketsByEmpID} isError_getAllTicketsByEmpID={isError_getAllAccessabnleTicketsByEmpID} error_getAllTicketsByEmpID={error_getAllAccessabnleTicketsByEmpID} />
         </Box>
     );
 };
 
 
-export default HistoryPage;
+export default RequestPage;

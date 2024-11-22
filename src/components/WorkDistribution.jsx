@@ -1,5 +1,5 @@
 import { Box } from "@mui/system";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Cascader, Flex, Switch } from "antd";
 import { ProfileCardXS } from "./ProfileCard";
 import { OrganizationChart } from "primereact/organizationchart";
@@ -74,15 +74,11 @@ const department_ = {
     },
 };
 
-
-
 const domain_ = {
     d001: { name: "IT-Security" },
     d002: { name: "IT-Repair" },
     d003: { name: "IT-New" },
 };
-
-
 
 const members_ = {
     210113: { name: "A S M Mehedi Hasan Sad" },
@@ -101,7 +97,7 @@ const cascader_data = Object.keys(members_).map((empid) => {
                 value: domainIdx,
                 label: domain_[domainIdx]["name"],
                 children: Object.keys(department_).map((departmentIdx) => {
-                    const floor_des = department_[departmentIdx]["loc"]
+                    const floor_des = department_[departmentIdx]["loc"];
                     return {
                         value: departmentIdx,
                         label: department_[departmentIdx]["name"],
@@ -121,92 +117,74 @@ const cascader_data = Object.keys(members_).map((empid) => {
 console.log(cascader_data);
 
 const cascader_data2 = Object.keys(members_).map((empid) => {
-    return{
-        value:empid,
-        label: members_[empid]['name'],
+    return {
+        value: empid,
+        label: members_[empid]["name"],
         children: Array.from({ length: 5 }, (_, index) => {
-            return{
-                value: index+1,
-                label: index+1,
-            }
-        })
-    }
-})
+            return {
+                value: index + 1,
+                label: index + 1,
+            };
+        }),
+    };
+});
+
+////
+////
+////
+////
+////
+////
+////
+////
+////
+////
+////
+////
+////
+////
+////
+////
+////
+////
+////
+////
+////
+
+export const WorkDistribution = (props) => {
+
+    const {workDistributionData, setWorkDistributionData} = props
 
 
-export const WorkDistribution = () => {
     const [disabled, setDisabled] = useState(false);
     const onChange = (value) => {
         console.log(value);
     };
-    const onMultipleChange = (value) => {
-        console.log(value);
+    const onMultipleChange = (value, jjd) => {
+        console.log(value, jjd);
     };
     return (
         <Box>
             <Flex vertical gap="small" align="flex-start">
                 <Switch checked={disabled} checkedChildren="Enabled" unCheckedChildren="Disabled" onChange={setDisabled} aria-label="disabled switch" />
-                {/* <Cascader.Panel options={options} onChange={onChange} disabled={disabled} /> */}
                 <Cascader.Panel size="small" multiple options={cascader_data} onChange={onMultipleChange} disabled={disabled} />
-                {/* <Cascader.Panel /> */}
             </Flex>
         </Box>
     );
 };
 
-const reportingOrderOptions = [
-    {
-        value: "A S M Mehedi Hasan Sad",
-        label: "A S M Mehedi Hasan Sad",
-        children: [
-            { value: "1", label: "1st" },
-            { value: "2", label: "2nd" },
-            { value: "3", label: "3rd" },
-            { value: "4", label: "4th" },
-            { value: "5", label: "5th" },
-        ],
-    },
-    {
-        value: "Hafizur Rahaman",
-        label: "Hafizur Rahaman",
-        children: [
-            { value: "1", label: "1st" },
-            { value: "2", label: "2nd" },
-            { value: "3", label: "3rd" },
-            { value: "4", label: "4th" },
-            { value: "5", label: "5th" },
-        ],
-    },
-    {
-        value: "Jubayer Liyakot",
-        label: "Jubayer Liyakot",
-        children: [
-            { value: "1", label: "1st" },
-            { value: "2", label: "2nd" },
-            { value: "3", label: "3rd" },
-            { value: "4", label: "4th" },
-            { value: "5", label: "5th" },
-        ],
-    },
-    {
-        value: "Minhazul Azmir",
-        label: "Minhazul Azmir",
-        children: [
-            { value: "1", label: "1st" },
-            { value: "2", label: "2nd" },
-            { value: "3", label: "3rd" },
-            { value: "4", label: "4th" },
-            { value: "5", label: "5th" },
-        ],
-    },
-];
+////
+////
+////
+////
+////
+////
+////
 
 export const ReportingOrder = (props) => {
-    const {setReportingOrderData}  = props
+    const { workDistributionData, setWorkDistributionData } = props;
     const [disabled, setDisabled] = useState(false);
-    // const onChange = (value) => {
-    //     console.log(value);
-    // };
+
 
     const [hierarchy, setHierarchy] = useState({});
 
@@ -225,8 +203,15 @@ export const ReportingOrder = (props) => {
 
         console.log(">>", aa);
         setHierarchy(aa);
-        setReportingOrderData(aa) //* pass data to toplevel
+        // setReportingOrderData(aa); //* pass data to toplevel
     };
+
+
+
+
+    useEffect(()=> {
+
+    },[workDistributionData,hierarchy])
 
     return (
         <Box>
@@ -247,9 +232,7 @@ export const ReportingOrder = (props) => {
             </Box>
             <Flex vertical gap="small" align="flex-start">
                 <Switch checked={disabled} checkedChildren="Enabled" unCheckedChildren="Disabled" onChange={setDisabled} aria-label="disabled switch" />
-                {/* <Cascader.Panel options={options} onChange={onChange} disabled={disabled} /> */}
                 <Cascader.Panel size="small" multiple options={cascader_data2} onChange={onMultipleChange} disabled={disabled} />
-                {/* <Cascader.Panel /> */}
             </Flex>
         </Box>
     );
