@@ -4,9 +4,9 @@ from .views import *
 
 
 urlpatterns = [
-    path('', views.home, name= 'Home'),
-    path('populate-designations/', PopulateDesignationsView.as_view(), name='populate-designations'),
-    path('populate-user/', PopulateUserInfoView.as_view(), name='populate-designations'),
+    # path('', views.home, name= 'Home'),
+    # path('populate-designations/', PopulateDesignationsView.as_view(), name='populate-designations'),
+    # path('populate-user/', PopulateUserInfoView.as_view(), name='populate-designations'),
     
     
     
@@ -30,15 +30,23 @@ urlpatterns = [
     path('get_viewer_by_request/', get_viewer_by_request, name='update-ticket-status'),
     
     
-    # Administrator or Access Control
+    # Administrator & Access Control
     path('get-assign-to-user/', get_assign_to_user, name='get-request-by-acknowledge'),
     path('update-request-viewed-users/', update_request_viewed_users, name='update-request-viewed-users'), 
     path('get-accessible-requests/', get_accessible_requests, name='get-all-request-by-empid'),
     path('get-request-access/', get_request_access, name='get-all-request-by-empid'),
+
+    
+    
+    # Login & Authentication API's
+    path('check-user-email/', check_user_email, name='check-user-email'),  
+    path('get-user-info-by-email/', get_user_info_by_email, name='get-user-info-by-email'),  
+    path('update-profile-url/', update_profile_url, name='update-profile-url'),  
       
     
     # Create Entry API's
     path('create-new-request/', create_new_request, name='create-new-request'),
     path('create-new-domain/', create_new_domain, name='create-new-domain'),
     path('create-new-sub-domain/', create_new_sub_domain, name='create-new-domain'),
+    path('submit-rating/', submit_rating, name='submit-rating'),
 ]

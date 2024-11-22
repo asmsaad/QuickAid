@@ -11,88 +11,98 @@ from .models import designation
 from django.db import IntegrityError
 
 
-def home(request):
-    return HttpResponse("Yoooooooooo I am working Fine!")
+# def home(request):
+#     return HttpResponse("Yoooooooooo I am working Fine!")
 
-class PopulateDesignationsView(APIView):
-    def post(self, request, *args, **kwargs):
-        # List of designations to add
-        designations = [
-            'Assistant Engineer', 'Assistant Engineering Program Manager',
-            'Assistant Engineering Program Manager (AEPM)', 'Assistant Manager',
-            'Assistant Manager-Finance & Accounts', 'Assistant Program Manager',
-            'Assistant Technical Manager', 'Director', 'Engineer',
-            'Executive-Branding & PR', 'Junior Executive-Facility Management',
-            'Junior Executive-Maintenance', 'Junior Executive-Procurement & Inventory',
-            'Manager-Branding & PR', 'Manager-Finance & Accounts',
-            'Member Of Business Team-I, HR', 'Member of Technical Staff (MTS)',
-            'Procurement & Administration Officer', 'Program Manager',
-            'Senior Director', 'Senior Director-IC Design, EDA & IT',
-            'Senior Engineer', 'Senior Executive', 'Senior Executive-HR',
-            'Senior Executive-HR & QMS', 'Senior IT Specialist', 'Senior Manager-HR',
-            'Senior Officer-Facility Management', 'Senior Program Manager & Critical Services',
-            'Senior Technical Manager', 'Store Coordinator-Facility Management',
-            'Technical Manager', 'Trainee Engineer', 'VP', 'Well-being Counselor'
-        ]
+# class PopulateDesignationsView(APIView):
+#     def post(self, request, *args, **kwargs):
+#         # List of designations to add
+#         designations = [
+#                         "Assistant Engineer",
+#                         "Assistant Engineering Program Manager",
+#                         "Assistant Program Manager",
+#                         "Assistant Technical Manager",
+#                         "Director",
+#                         "Engineer",
+#                         "Executive",
+#                         "Junior Executive",
+#                         "Manager",
+#                         "Member Of Business Team",
+#                         "Member of Technical Staff",
+#                         "Officer",
+#                         "Program Manager",
+#                         "Senior Director",
+#                         "Senior Engineer",
+#                         "Senior Executive",
+#                         "Senior Manager",
+#                         "Senior Officer",
+#                         "Senior Program Manager",
+#                         "Senior Technical Manager",
+#                         "Store Coordinator",
+#                         "Technical Manager",
+#                         "Trainee Engineer",
+#                         "VP",
+#                         "Well-being Counselor"
+#                     ]
 
-        # Add designations to the database
-        added_designations = []
-        for des in designations:
-            obj, created = designation.objects.get_or_create(designation=des)
-            if created:
-                added_designations.append(des)
+#         # Add designations to the database
+#         added_designations = []
+#         for des in designations:
+#             obj, created = designation.objects.get_or_create(designation=des)
+#             if created:
+#                 added_designations.append(des)
 
-        return Response(
-            {"message": "Designations added successfully!", "added": added_designations},
-            status=200,
-        )
+#         return Response(
+#             {"message": "Designations added successfully!", "added": added_designations},
+#             status=200,
+#         )
  
         
-from rest_framework.response import Response
-from rest_framework.views import APIView
-from django.utils import timezone
-from .models import user_info, genders
+# from rest_framework.response import Response
+# from rest_framework.views import APIView
+# from django.utils import timezone
+# from .models import user_info, genders
 
-class PopulateUserInfoView(APIView):
-    def post(self, request, *args, **kwargs):
-        user_data_list = request.data.get('data', [])
+# class PopulateUserInfoView(APIView):
+#     def post(self, request, *args, **kwargs):
+#         user_data_list = request.data.get('data', [])
         
-        # Iterate over each user's data
-        for user_data in user_data_list:
-            try:
-                # Try to get the existing user by empid
-                user_info_obj, created = user_info.objects.get_or_create(empid=user_data['empid'])
+#         # Iterate over each user's data
+#         for user_data in user_data_list:
+#             try:
+#                 # Try to get the existing user by empid
+#                 user_info_obj, created = user_info.objects.get_or_create(empid=user_data['empid'])
 
-                # Only update the user if it was newly created
-                if created:
-                    gender = self.get_gender(user_data['gender'])  # Get gender instance safely
+#                 # Only update the user if it was newly created
+#                 if created:
+#                     gender = self.get_gender(user_data['gender'])  # Get gender instance safely
 
-                    # Update user info with provided data
-                    user_info_obj.name = user_data['name']
-                    user_info_obj.email = user_data['email']
-                    user_info_obj.gender = gender
-                    user_info_obj.phone_number = user_data.get('phone', '')
+#                     # Update user info with provided data
+#                     user_info_obj.name = user_data['name']
+#                     user_info_obj.email = user_data['email']
+#                     user_info_obj.gender = gender
+#                     user_info_obj.phone_number = user_data.get('phone', '')
 
-                    user_info_obj.joining_date = user_data['doj']
+#                     user_info_obj.joining_date = user_data['doj']
 
-                    user_info_obj.create_on = timezone.now()
-                    user_info_obj.save()
+#                     user_info_obj.create_on = timezone.now()
+#                     user_info_obj.save()
 
-            except Exception as e:
-                # You can log the error here instead of returning immediately.
-                # logging.exception(f"Error processing empid {user_data['empid']}: {str(e)}")
-                return Response({'error': str(e)}, status=400)
+#             except Exception as e:
+#                 # You can log the error here instead of returning immediately.
+#                 # logging.exception(f"Error processing empid {user_data['empid']}: {str(e)}")
+#                 return Response({'error': str(e)}, status=400)
 
-        return Response({'Success': 'Succeeded'}, status=200)
+#         return Response({'Success': 'Succeeded'}, status=200)
 
-    def get_gender(self, gender_name):
-        """Retrieve or create gender if not found."""
-        try:
-            gender = genders.objects.get(gender=gender_name)
-        except genders.DoesNotExist:
-            # Handle the case where gender doesn't exist, possibly create it or return a default
-            gender = None  # Or handle it as needed, e.g., create a default gender
-        return gender
+#     def get_gender(self, gender_name):
+#         """Retrieve or create gender if not found."""
+#         try:
+#             gender = genders.objects.get(gender=gender_name)
+#         except genders.DoesNotExist:
+#             # Handle the case where gender doesn't exist, possibly create it or return a default
+#             gender = None  # Or handle it as needed, e.g., create a default gender
+#         return gender
 
 
 
@@ -848,6 +858,33 @@ def get_viewer_by_request(request):
         return Response({'error': str(e)}, status=500)
     
     
+    
+@api_view(["POST"])
+def submit_rating(request):
+    
+    try:
+        request_id = request.data.get('ticket_id')
+        rating = request.data.get('rating', {})
+        comment = request.data.get('comment', '')
+        
+        if not request_id:
+            return Response({'error': 'ticket_id is required'}, status=400)
+        
+        try:
+            request_obj = all_requests.objects.get(request_id=request_id)
+        except all_requests.DoesNotExist:
+            return Response({'error': 'Ticket does not exist'}, status=404)
+        
+        
+        request_obj.rating = rating
+        request_obj.comment = comment
+        
+        request_obj.save()
+    
+        return Response({'message':'Rating received successfully'}, status=200)
+        
+    except Exception as e:
+        return Response({'error': str(e)}, status=500)
 
     
 
@@ -984,3 +1021,89 @@ def create_new_service(request):
 
     
     
+
+###################################### Log in Authentication ######################################
+@api_view(['POST'])
+def check_user_email(request):
+    email = request.data.get('email', None)
+
+    # email = 'hasan.sad@ulkasemi.com'
+    print(email)
+
+    if not email:
+        return Response({'error': 'Email is required.'}, status=404)
+    
+    if not email.endswith('@ulkasemi.com'):
+        return Response({'error': 'Unauthorized mail address.'}, status=401)
+
+    user_exists = user_info.objects.filter(email=email).exists()
+
+    if user_exists:
+        return Response({'result': True, 'empid':user_info.objects.filter(email=email).first().empid}, status=200)
+    else:
+        return Response({'result': False}, status=200)
+    
+
+
+@api_view(['POST'])
+def get_user_info_by_email(request):
+    # Get the email from the request data
+    email = request.data.get('email')
+    
+
+    if not email:
+        return Response({'error': 'Email parameter is required.'}, status=400)
+
+    user = user_info.objects.filter(email=email).first()
+
+    if not user:
+        return Response({'error': 'User not found.'}, status=404)
+
+    user_data = {
+        'empid': user.empid,
+        'name': user.name,
+        'email': user.email,
+        'picture': user.profile_url,
+        'department': [dept.department for dept in user.department.all()],
+        'designation': user.designation.designation if user.designation else None,
+    }
+
+    return Response(user_data, status=200)
+
+
+@api_view(['POST'])
+def update_profile_url(request):
+    email = request.data.get('email')
+    new_profile_url = request.data.get('profile_url')
+
+    if not email or not new_profile_url:
+        return Response(
+            {"error": "Email and profile URL are required."}, 
+            status=400
+        )
+
+    try:
+        user = user_info.objects.get(email=email)
+
+        if user.profile_url != new_profile_url:
+            user.profile_url = new_profile_url
+            user.save()
+
+            return Response(
+                {"message": "Profile URL updated successfully."}, 
+                status=200
+            )
+        else:
+            return Response(
+                {"message": "No update needed. Profile URL is the same."}, 
+                status=200
+            )
+
+    except user_info.DoesNotExist:
+        return Response(
+            {"error": "User with provided email does not exist."}, 
+            status=404
+        )
+        
+        
+
