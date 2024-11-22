@@ -25,7 +25,15 @@ SECRET_KEY = 'django-insecure-1e@)og9cxr&&2@2!a+mvf6cg85#hb!bgt=&o^v!3hpa^byivz2
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['192.168.5.187',]
+ALLOWED_HOSTS = ['192.168.5.187','http://localhost:3000', '192.168.5.146']
+
+CORS_ALLOWED_ORIGINS = [
+    "http://localhost:3000",
+    "https://localhost:3000",
+    "http://192.168.5.187:8080",
+    'http://192.168.5.146:3000',
+    'https://192.168.5.146:3000'
+]
 
 
 # Application definition
@@ -34,6 +42,7 @@ INSTALLED_APPS = [
     'Backend',
     
     'rest_framework',
+    "corsheaders",
     
     'django.contrib.admin',
     'django.contrib.auth',
@@ -44,6 +53,9 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
+    "corsheaders.middleware.CorsMiddleware",
+    "django.middleware.common.CommonMiddleware",
+    
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -90,6 +102,18 @@ DATABASES = {
         },
         
     },
+        'ammar': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'quick_aid',
+        'USER' : 'ammarkhan',
+        'PASSWORD': 'ammarkhan',
+        'HOST': 'localhost',
+        'PORT': '3306',
+        'OPTIONS': {
+            'init_command': "SET sql_mode='STRICT_TRANS_TABLES'",
+        },
+        
+    }
 }
 
 

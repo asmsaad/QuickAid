@@ -18,7 +18,7 @@ def generate_random_user_id():
     return str(hashed_id)
 
 
-class status(models.Model):
+class request_status(models.Model):
     status_id = models.CharField(max_length = 100, default = '', null = True, blank=True)
     color = models.CharField(max_length = 30, default = 'red', null = True, )
     status = models.CharField(max_length = 30, default = '', null = True)
@@ -122,7 +122,7 @@ class locations(models.Model):
     others = models.CharField(max_length = 300, default = '', null = True , blank=True)
     department = models.ManyToManyField(departments, blank=True)
     def __str__(self):
-        return f'{self.building}_{self.floor}'
+        return f'{self.building}_{self.floor}{f"_{self.others}" if self.others is not None else ""}'
 
     def save(self, *args, **kwargs):
         if not self.location_id and not self.pk: 
@@ -146,11 +146,23 @@ class sub_domains(models.Model):
     domain = models.ForeignKey(domains, on_delete=models.CASCADE, null=True, blank=True)
     sub_domain = models.CharField(max_length = 100, default = '', null = True)
     def __str__(self):
-        return f'{self.sub_domain}'
+        return f'{self.domain} > {self.sub_domain}'
 
     def save(self, *args, **kwargs):
         if not self.sub_domain_id and not self.pk: 
             self.sub_domain_id = generate_hashed_unique_id()
+        super().save(*args, **kwargs)  
+        
+class services(models.Model):
+    service_id = models.CharField(max_length = 100, default = '', null = True, blank=True)
+    sub_domain = models.ForeignKey(sub_domains, on_delete=models.CASCADE, null=True, blank=True)
+    service = models.CharField(max_length = 100, default = '', null = True)
+    def __str__(self):
+        return f'{self.sub_domain} > {self.service}'
+
+    def save(self, *args, **kwargs):
+        if not self.service_id and not self.pk: 
+            self.service_id = generate_hashed_unique_id()
         super().save(*args, **kwargs)  
         
 class urgency(models.Model):
@@ -177,6 +189,8 @@ class user_info(models.Model):
     designation = models.ForeignKey(designation, on_delete=models.CASCADE, null=True, blank=True)
     phone_number = models.CharField(max_length = 20, default = '', null = True)
     joining_date = models.DateField(default=timezone.now)
+    location = models.ForeignKey(locations, on_delete=models.CASCADE, null=True, blank=True)
+    desk_number = models.CharField(max_length = 20, default = '', null = True)
     create_on = models.DateTimeField(default=timezone.now)
     
     def __str__(self):
@@ -190,15 +204,73 @@ class employee_supervisors(models.Model):
     def __str__(self):
         return f"{self.employee}'s supervisors"
     
+    
+class access_level(models.Model):
+    level = models.IntegerField() 
+    def __str__(self):
+        return f'{self.level}'  
+    
+class domain_minimum_access_level(models.Model):
+    dmaid = models.CharField(max_length = 100, default = '', null = True, blank=True)
+    domain = models.ForeignKey(domains, on_delete=models.CASCADE, null=True, blank=True)
+    access_level = models.ForeignKey(access_level, on_delete=models.CASCADE, null=True, blank=True)
+    
+    def __str__(self):
+        return f'{self.domain}_minimum level : {self.access_level}'
+    
+    def save(self, *args, **kwargs):
+        if not self.dmaid and not self.pk: 
+            self.dmaid = generate_hashed_unique_id()
+        super().save(*args, **kwargs)   
+        
+class admin_access_priority(models.Model):
+    apid = models.CharField(max_length = 100, default = '', null = True, blank=True)
+    user = models.ForeignKey(user_info, on_delete=models.CASCADE, null=True, blank=True)
+    sub_domain = models.ForeignKey(sub_domains, on_delete=models.CASCADE, null=True, blank=True)
+    access_level = models.ForeignKey(access_level, on_delete=models.CASCADE, null=True, blank=True)
+    
+    def __str__(self):
+        return f'{self.sub_domain}_{self.user}_Level : {self.access_level}'
+    
+    def save(self, *args, **kwargs):
+        if not self.apid and not self.pk: 
+            self.apid = generate_hashed_unique_id()
+        super().save(*args, **kwargs)   
+    
+class admin_access(models.Model):
+    access_id = models.CharField(max_length = 100, default = '', null = True, blank=True)
+    user = models.ForeignKey(user_info, on_delete=models.CASCADE, null=True, blank=True)
+    domain = models.ManyToManyField(domains, blank=True)
+    sub_domain = models.ManyToManyField(sub_domains, blank=True)
+    service = models.ManyToManyField(services, blank=True)
+    department = models.ManyToManyField(departments, blank=True)
+    location = models.ManyToManyField(locations, blank=True)
+    
+    def __str__(self):
+        return f'{self.user}'
+    
+    def save(self, *args, **kwargs):
+        if not self.access_id and not self.pk: 
+            self.access_id = generate_hashed_unique_id()
+        super().save(*args, **kwargs)   
+    
+    
+#! Need to implement counter on future. Else create a big error.......  
 class all_requests(models.Model):
     request_id = models.CharField(max_length = 100, default = '', null = True, blank=True)
     request_by = models.ForeignKey(user_info, on_delete=models.CASCADE, null=True, blank=True,related_name='requests_by_user')
     manager = models.ManyToManyField(user_info, blank=True, related_name='managing_requests')
     acknowledge = models.ManyToManyField(user_info, blank=True, related_name='acknowledged_requests')
+    requestor_department = models.ManyToManyField(departments, blank=True)
     domain = models.ForeignKey(domains, on_delete=models.CASCADE, null=True, blank=True)
     sub_domain = models.ForeignKey(sub_domains, on_delete=models.CASCADE, null=True, blank=True)
+    service = models.ForeignKey(services, on_delete=models.CASCADE, null=True, blank=True)
     urgency = models.ForeignKey(urgency, on_delete=models.CASCADE, null=True, blank=True)
-    note = models.TextField(blank=True)
+    location = models.ForeignKey(locations, on_delete=models.CASCADE, null=True, blank=True)
+    desk_number = models.CharField(max_length = 100, default = '', null = True, blank=True)
+    note = models.TextField(blank=True, null=True)
+    status = models.ForeignKey(request_status, on_delete=models.CASCADE, null=True, blank=True)
+    create_on = models.DateTimeField(default=timezone.now)
     def __str__(self):
         return f'{self.request_by}_{self.request_id}'
     
@@ -211,3 +283,31 @@ class all_requests(models.Model):
             total_count = all_requests.objects.filter(request_by=self.request_by).count() + 1
             self.request_id = f"{empid}-{total_count:02d}"  
         super().save(*args, **kwargs)
+        
+        
+class all_request_status_flow(models.Model):
+    request_status_id = models.CharField(max_length = 100, default = '', null = True, blank=True)
+    request = models.ForeignKey(all_requests, on_delete=models.CASCADE, null=True, blank=True,related_name='requestor')
+    status = models.ForeignKey(request_status, on_delete=models.CASCADE, null=True, blank=True,related_name='requests_by_user')
+    note = models.TextField(blank=True, null=True)
+    assign_to = models.ForeignKey(user_info, on_delete=models.CASCADE, null=True, blank=True,related_name='assign_to')
+    updated_by = models.ForeignKey(user_info, on_delete=models.CASCADE, null=True, blank=True,related_name='updated_by')
+    update_on = models.DateTimeField(default=timezone.now)
+    
+    def __str__(self):
+        return f'{self.request}_{self.status}'
+    
+    def save(self, *args, **kwargs):
+        if not self.request_status_id and not self.pk: 
+            self.request_status_id = generate_hashed_unique_id()
+        super().save(*args, **kwargs)   
+        
+        
+        
+
+class request_view_status(models.Model):
+    request = models.OneToOneField(all_requests, on_delete=models.CASCADE, null=True, blank=True)
+    viewed_by = models.ManyToManyField(user_info, blank=True)
+    
+    def __str__(self):
+        return f'{self.request}'
