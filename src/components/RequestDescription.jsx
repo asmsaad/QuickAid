@@ -253,6 +253,42 @@ export const RequestDescription = () => {
     const [availableStatus, setAvailableStatus] = useState([]);
     const [statusChangedInfo, setStatusChangedInfo] = useState({ status_id: undefined, note: undefined, assign_to: undefined });
 
+
+
+
+    //Todo[QUEARY] Get All Ticket Status Timeline
+    //*API Setup
+    const fetchRegisterTicketViewedByUser = () => {
+        return axios.post(getAPI("update-request-viewed-users"), { empid: getLoginUserID(), ticket_id: ticketID }, { headers: { "Content-Type": "application/json", "X-CSRFToken": getCookie("csrftoken") } });
+    };
+
+    //*Query Callback
+    const {
+        isLoading: isLoading_saveTicketViewedByUser,
+        data: data_saveTicketViewedByUser,
+        isError: isError_saveTicketViewedByUser,
+        error: error_saveTicketViewedByUser,
+        isFetching: isFetching_saveTicketViewedByUser,
+        refetch: refetch_saveTicketViewedByUser,
+    } = useQuery("update-request-viewed-users-UNIQUE-1", fetchRegisterTicketViewedByUser, {
+        enabled: false,
+    });
+
+    //*Query Response Actions
+    useEffect(() => {
+        if (isLoading_saveTicketViewedByUser) {
+            logPrint("🔍   saveTicketViewedByUser  ➤  🔄");
+        } else if (data_saveTicketViewedByUser?.data) {
+            logPrint("🔍   saveTicketViewedByUser  ➤  🟢", data_saveTicketViewedByUser?.data);
+        } else if (isError_saveTicketViewedByUser) {
+            logPrint("🔍   saveTicketViewedByUser  ➤  ⚠️", [error_saveTicketViewedByUser?.message, error_saveTicketViewedByUser?.response.data]);
+        }
+    }, [isLoading_saveTicketViewedByUser, data_saveTicketViewedByUser, isError_saveTicketViewedByUser, error_saveTicketViewedByUser]);
+
+
+
+
+
     //Todo[QUEARY] Get Ticket Header Info
     //*API Setup
     const fetchTicketHeaderInfo = () => {
@@ -517,9 +553,18 @@ export const RequestDescription = () => {
     useEffect(() => {
         setActiveLoading(true);
 
+        setTimeout(()=>{
+            refetch_saveTicketViewedByUser();
+        },1500)
+
         refetch_getTicketHeaderInfo();
         refetch_getTicketStatusTimeline();
     }, [ticketID]);
+
+
+
+
+  
 
     return (
         <Box sx={{ width: "100%", height: "100%" }}>
