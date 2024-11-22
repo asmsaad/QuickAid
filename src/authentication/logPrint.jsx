@@ -1,4 +1,4 @@
-const developerMood = false;
+const developerMood = true;
 
 export const logPrint = (name, print_parameters) => {
     if (developerMood) {

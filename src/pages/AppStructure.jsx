@@ -113,7 +113,7 @@ const AppStructure = (props) => {
     //             refetch_updateUserAvater();
     //         }
     //     } else if (isError_isRegisteredUser) {
-    //         logPrint("🔍   checkRegisterdUserEmail  ➤  ⚠️", [error_isRegisteredUser.message, error_isRegisteredUser.response.data]);
+    //         logPrint("🔍   checkRegisterdUserEmail  ➤  ⚠️", [error_isRegisteredUser?.message, error_isRegisteredUser?.response.data]);
     //     }
     // }, [isLoading_isRegisteredUser, data_isRegisteredUser, isError_isRegisteredUser, error_isRegisteredUser]);
     // ////
@@ -140,7 +140,7 @@ const AppStructure = (props) => {
     //         saveDataToLocalStorage("user-credential", data_getUserInfo?.data); //todo store data at local storage
     //         setLogin(true);
     //     } else if (isError_getUserInfo) {
-    //         logPrint("🔍   getUserInfo  ➤  ⚠️", [isError_getUserInfo.message, isError_getUserInfo.response.data]);
+    //         logPrint("🔍   getUserInfo  ➤  ⚠️", [isError_getUserInfo?.message, isError_getUserInfo?.response.data]);
     //     }
     // }, [isLoading_getUserInfo, data_getUserInfo, isError_getUserInfo, error_getUserInfo]);
     // ////
@@ -163,7 +163,7 @@ const AppStructure = (props) => {
     //         logPrint("🔍   updateUserAvater  ➤  🟢", data_updateUserAvater?.data);
     //         refetch_getUserInfo();
     //     } else if (isError_updateUserAvater) {
-    //         logPrint("🔍   updateUserAvater  ➤  ⚠️", [isError_updateUserAvater.message, isError_updateUserAvater.response.data]);
+    //         logPrint("🔍   updateUserAvater  ➤  ⚠️", [isError_updateUserAvater?.message, isError_updateUserAvater?.response.data]);
     //     }
     // }, [isLoading_updateUserAvater, data_updateUserAvater, isError_updateUserAvater, error_updateUserAvater]);
     // ////
@@ -176,10 +176,10 @@ const AppStructure = (props) => {
     logPrint("Location", location);
 
     return (
-        <Box display="flex" flexDirection="column" height="100vh" width="100vw" overflow="hidden">
+        <Box display="flex" flexDirection="column" height="100dvh" width="100vw" overflow="hidden">
             <Navbar />
             <Stack direction="row" flex="1" overflow="hidden">
-                <ShortLeftNavBar />
+                <ShortLeftNavBar vertical={true}/>
                 <Box sx={{ width: "100%", display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center", height: `calc(100vh -65px)`, overflow: "auto",  }}>
                     {location.pathname === "/quickaid" || location.pathname === "/quickaid/" ? <HomePage /> : <Outlet />}
                 </Box>
@@ -191,6 +191,7 @@ const AppStructure = (props) => {
                 </Box> */}
             </Stack>
             {/* <Navbar2 /> */}
+            <ShortLeftNavBar vertical={false}/>
         </Box>
     );
 };

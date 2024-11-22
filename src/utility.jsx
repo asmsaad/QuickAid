@@ -102,3 +102,42 @@ export const getStartEndDate = () => {
         start: formatDate(eightDaysAgo),
     };
 };
+
+
+
+//todo this is used to elemenet REact link style
+export const reactLinkStyleRemove = {
+    textDecoration: "none",
+    color: "inherit",
+    all: "unset",
+    height: "fit-content",
+};
+
+
+
+
+
+// todo Convert ISO time Stamp intio date time separeted
+export function convertTimestamp(isoString) {
+    const date = new Date(isoString);
+
+    // Format date
+    const options = { day: '2-digit', month: 'short', year: 'numeric' };
+    const formattedDate = date.toLocaleDateString('en-GB', options).replace(/(\d{2} \w{3}) (\d{4})/, '$1, $2');
+    
+
+    // Format time with time zone
+    const optionsTime = { hour: '2-digit', minute: '2-digit', hour12: true, timeZone: 'Asia/Dhaka' };
+    const formattedTime = date.toLocaleTimeString('en-US', optionsTime);
+
+    return {
+        date: formattedDate,
+        time: formattedTime ,
+    };
+}
+
+// // Example usage
+// const isoString = "2024-11-20T13:28:57.361220Z";
+// const result = convertTimestamp(isoString);
+// console.log(result);
+// // Output: { date: '20 Nov, 2024', time: '07:28 PM BDT' }
