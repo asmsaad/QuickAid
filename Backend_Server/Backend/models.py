@@ -271,6 +271,8 @@ class all_requests(models.Model):
     note = models.TextField(blank=True, null=True)
     status = models.ForeignKey(request_status, on_delete=models.CASCADE, null=True, blank=True)
     create_on = models.DateTimeField(default=timezone.now)
+    rating = models.JSONField(blank=True, null=True)
+    comment = models.TextField(blank=True, null=True)
     def __str__(self):
         return f'{self.request_by}_{self.request_id}'
     
