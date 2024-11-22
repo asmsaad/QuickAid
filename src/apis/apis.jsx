@@ -21,7 +21,13 @@ const apinames = {
     "get-assign-to-user-by-subDomain": BASE_URL + "get-assign-to-user/", //Checking Wheter the user are resgisterd at DB or not
 
 
-    "update-request-viewed-users/": BASE_URL + "update-request-viewed-users//", //This api store the name of the user if he viewed the ticket 
+    "update-request-viewed-users": BASE_URL + "update-request-viewed-users/", //This api store the name of the user if he viewed the ticket 
+    
+    
+    
+    "check-registered-user": BASE_URL + "check-user-email/", //This api store the name of the user if he viewed the ticket 
+    "get-registered-user-basic-info": BASE_URL + "get-user-info-by-email/", //This api store the name of the user if he viewed the ticket 
+    "update-user-avater": BASE_URL + "update-profile-url/", //This api store the name of the user if he viewed the ticket 
     
   
 
