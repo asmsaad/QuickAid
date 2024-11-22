@@ -125,35 +125,142 @@ def get_managers_by_empid(request):
     
 @api_view(["POST"])
 def create_new_request(request):
-    request_by = request.data.get('requested_by')
-    managers = request.data.get('managers', [])
-    acknowledge = request.data.get('acknowledge', [])
+    try:
+        request_by = request.data.get('requested_by')
+        managers = request.data.get('managers', [])
+        acknowledge = request.data.get('acknowledge', [])
+        domain = request.data.get('domain')
+        service = request.data.get('service')
+        urgency_id = request.data.get('urgency')
+        note = request.data.get('note')
+        
+        if not request_by:
+            return Response({'error':'request_by empid required'}, status=400)
+        if not managers:
+            return Response({'error':'managers empid required'}, status=400)
+        if not acknowledge:
+            return Response({'error':'acknowledge empid required'}, status=400)
+        if not domain:
+            return Response({'error':'domain is required'}, status=400)
+        if not service:
+            return Response({'error':'service is required'}, status=400)
+        if not urgency_id:
+            return Response({'error':'urgency is required'}, status=400)
+        
+        try:
+            request_by_obj = user_info.objects.get(empid = request_by)
+        except user_info.DoesNotExist:
+            return Response({'error':'user does not found'})
+        
+        managers_obj = user_info.objects.filter(empid__in = managers)
+        acknowledge_obj = user_info.objects.filter(empid__in = acknowledge)
+        
+        try:
+            domain_obj = domains.objects.get(domain_id = domain)
+        except domains.DoesNotExist:
+            return Response({'error':'domain does not found'})
+        
+        try:
+            service_obj = sub_domains.objects.get(sub_domain_id = service)
+        except sub_domains.DoesNotExist:
+            return Response({'error':'service does not found'})
+        
+        try:
+            urgency_obj = urgency.objects.get(urgency_id = urgency_id)
+        except urgency.DoesNotExist:
+            return Response({'error':'urgency does not found'})
+        
+        
+        new_request = all_requests.objects.create(
+            
+            request_by = request_by_obj,
+            domain = domain_obj,
+            sub_domain = service_obj,
+            urgency = urgency_obj,
+            note = note
+        )
+        
+        new_request.manager.set(managers_obj)
+        new_request.acknowledge.set(acknowledge_obj)
+        
+        return Response({'message': 'Request created successfully!', 'request_id': new_request.request_id}, status=200)
+    
+    except Exception as e:
+        return Response({'error':str(e)}, status=500)
+
+
+
+@api_view(["POST"])
+def get_all_employee_info(request):
+    
+    try:
+        all_user_obj = user_info.objects.all()
+        
+        data = {}
+        for user in all_user_obj:
+            departments_obj = user.department.all()
+            data[user.empid]={
+                'name' : user.name,
+                'department': {dept.dept_id : dept.department for dept in departments_obj},
+            } 
+        return Response(data, status=200)
+    
+    except Exception as e:
+        return Response({'error':str(e)}, status=500)
+    
+    
+@api_view(["POST"])
+def get_all_domain(request):
+    try:
+        all_domain_obj = domains.objects.all()
+        
+        data = {dom.domain_id : dom.domain for dom in all_domain_obj}
+
+        return Response(data, status=200)
+    
+    except Exception as e:
+        return Response({'error':str(e)}, status=500)
+    
+    
+@api_view(["POST"])
+def get_all_urgency(request):
+    try:
+        all_urgency_obj = urgency.objects.all()
+        
+        data = {var.urgency_id : var.urgency for var in all_urgency_obj}
+
+        return Response(data, status=200)
+    
+    except Exception as e:
+        return Response({'error':str(e)}, status=500)
+    
+@api_view(["POST"])
+def get_all_service(request):
     domain = request.data.get('domain')
-    service = request.data.get('service')
-    urgency = request.data.get('urgency')
-    note = request.data.get('note')
     
-    if not request_by:
-        return Response({'error':'request_by empid required'}, status=400)
-    if not managers:
-        return Response({'error':'managers empid required'}, status=400)
-    if not acknowledge:
-        return Response({'error':'acknowledge empid required'}, status=400)
-    if not domain:
-        return Response({'error':'domain is required'}, status=400)
-    if not service:
-        return Response({'error':'service is required'}, status=400)
-    if not urgency:
-        return Response({'error':'urgency is required'}, status=400)
-    
-    try:
-        request_by_obj = user_info.objects.get(empid = request_by)
-    except user_info.DoesNotExist:
-        return Response({'error':'user does not found'})
-    try:
-        managers_obj = user_info.objects.filter(user_info__in = managers)
-    except user_info.DoesNotExist:
-        return Response({'error':'user does not found'})
+    if domain: 
+        try:
+            try:
+                domain_obj = domains.objects.get(domain_id = domain)
+            except domains.DoesNotExist:
+                return Response({'error':'domain not exist'}, status=401)
+            
+            all_service_obj = sub_domains.objects.filter(domain = domain_obj)
+            
+            data = {var.sub_domain_id : var.sub_domain for var in all_service_obj}
 
+            return Response(data, status=200)
+        
+        except Exception as e:
+            return Response({'error':str(e)}, status=500)
+        
+    else:
+        try:
+            all_service_obj = sub_domains.objects.all()
+            
+            data = {var.sub_domain_id : var.sub_domain for var in all_service_obj}
 
-
+            return Response(data, status=200)
+        
+        except Exception as e:
+            return Response({'error':str(e)}, status=500)
