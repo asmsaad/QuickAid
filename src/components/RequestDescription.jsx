@@ -262,6 +262,9 @@ export const RequestDescription = () => {
         return axios.post(getAPI("update-request-viewed-users"), { empid: getLoginUserID(), ticket_id: ticketID }, { headers: { "Content-Type": "application/json", "X-CSRFToken": getCookie("csrftoken") } });
     };
 
+
+    
+
     //*Query Callback
     const {
         isLoading: isLoading_saveTicketViewedByUser,
