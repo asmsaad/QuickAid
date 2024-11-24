@@ -320,6 +320,59 @@ def get_all_service(request):
     
     except Exception as e:
         return Response({'error': str(e)}, status=500)
+    
+    
+@api_view(["POST"])
+def get_all_cities(request):
+    try:
+        all_cities_obj = cities.objects.all()
+        
+        data = {var.city_id : var.city for var in all_cities_obj}
+
+        return Response(data, status=200)
+    
+    except Exception as e:
+        return Response({'error':str(e)}, status=500)
+    
+@api_view(["POST"])
+def get_all_building(request):
+    try:
+        all_building_obj = buildings.objects.all()
+        
+        data = {}    
+        for building in all_building_obj:
+            data[building.building_id] = {
+
+                "building_name": building.building,
+                "city":{ building.city.city_id :building.city.city }
+            } 
+
+        return Response(data, status=200)
+    
+    except Exception as e:
+        return Response({'error':str(e)}, status=500)
+    
+@api_view(["POST"])
+def get_all_loactions(request):
+    try:
+        all_loactions_obj = locations.objects.all()
+        
+        data = {}    
+        for loacate in all_loactions_obj:
+            data[loacate.location_id] = {
+
+                "floor": loacate.floor,
+                "others": loacate.others,
+                "city":{ loacate.building.city.city_id :loacate.building.city.city },
+                "building": {loacate.building.building_id : loacate.building.building},
+                "department": { dept.dept_id: dept.department  for dept in loacate.department.all()},
+                
+            } 
+
+        return Response(data, status=200)
+    
+    except Exception as e:
+        return Response({'error':str(e)}, status=500)
         
 
 @api_view(["POST"])
@@ -557,7 +610,7 @@ def get_request_by_acknowledge(request):
             return Response({'error': 'User does not exist'}, status=404)
     
     
-        ack_request = all_requests.objects.filter(acknowledge = user).order_by('-create_on')
+        ack_request = all_requests.objects.filter(acknowledge = user, manager = user).order_by('-create_on')
     
         data = {}
         
@@ -578,6 +631,34 @@ def get_request_by_acknowledge(request):
             data[idx] = request_data
 
         return Response(data, status=200)
+    except Exception as e:
+        return Response({'error': str(e)}, status=500)
+    
+    
+@api_view(["POST"])
+def get_unviewed_acknowledge_request_count(request):
+    
+    try:
+        empid = request.data.get('empid')
+        
+        if not empid:
+            return Response({'error': 'empid is required'}, status=400)
+
+        try:
+            user = user_info.objects.get(empid=empid)
+        except user_info.DoesNotExist:
+            return Response({'error': 'User does not exist'}, status=404)
+    
+    
+        ack_request = all_requests.objects.filter(acknowledge = user, manager = user).order_by('-create_on')
+    
+        unviewed_requests_count = request_view_status.objects.filter(
+            request__in=ack_request
+        ).exclude(viewed_by=user).count()
+        
+
+
+        return Response({'unviewed_requests_count': unviewed_requests_count}, status=200)
     except Exception as e:
         return Response({'error': str(e)}, status=500)
     
@@ -665,6 +746,74 @@ def get_accessible_requests(request):
         # request_ids = matching_requests.values_list('request_id', flat=True)
 
         return Response(data, status=200)
+    
+    except Exception as e:
+        return Response({'error': str(e)}, status=500)
+    
+@api_view(["POST"])
+def get_unviewed_accessible_requests_count(request):
+
+    try:
+        empid = request.data.get('empid')
+        if not empid:
+            return Response({'error': 'empid is required'}, status=400)
+        
+        try:
+            user = user_info.objects.get(empid=empid)
+        except user_info.DoesNotExist:
+            return Response({'error': 'User does not exist'}, status=404)
+        
+        domain_min_access_levels = domain_minimum_access_level.objects.select_related('domain', 'access_level').all()
+        accessible_subdomains = set()
+
+        for domain_access in domain_min_access_levels:
+            min_level = domain_access.access_level.level
+            domain = domain_access.domain
+            
+            subdomains = sub_domains.objects.filter(domain=domain)
+            
+            for subdomain in subdomains:
+                user_access = admin_access_priority.objects.filter(
+                    user=user,
+                    sub_domain=subdomain
+                ).select_related('access_level').first()
+                
+                if user_access and user_access.access_level.level <= min_level:
+                    accessible_subdomains.add(subdomain)
+
+        admin_access_obj = admin_access.objects.filter(user=user)
+
+        accessible_services = services.objects.filter(
+            admin_access__in=admin_access_obj
+        )
+
+        accessible_departments = departments.objects.filter(
+            admin_access__in=admin_access_obj
+        )
+
+        accessible_locations = locations.objects.filter(
+            admin_access__in=admin_access_obj
+        )
+
+        accessible_domains = domains.objects.filter(
+            admin_access__in=admin_access_obj
+        )
+
+        matching_requests = all_requests.objects.filter(
+            sub_domain__in=accessible_subdomains,
+            service__in=accessible_services,
+            domain__in=accessible_domains,
+            location__in=accessible_locations,
+            requestor_department__in=accessible_departments
+        ).distinct()
+        
+        unviewed_requests_count = request_view_status.objects.filter(
+            request__in=matching_requests
+        ).exclude(viewed_by=user).count()
+        
+        
+
+        return Response({'unviewed_requests_count': unviewed_requests_count}, status=200)
     
     except Exception as e:
         return Response({'error': str(e)}, status=500)
@@ -886,7 +1035,279 @@ def submit_rating(request):
     except Exception as e:
         return Response({'error': str(e)}, status=500)
 
+
+
+@api_view(["POST"])
+def get_rating_by_ticketid(request):
     
+    try:
+        request_id = request.data.get('ticket_id')
+
+        
+        if not request_id:
+            return Response({'error': 'ticket_id is required'}, status=400)
+        
+        try:
+            request_obj = all_requests.objects.get(request_id=request_id)
+        except all_requests.DoesNotExist:
+            return Response({'error': 'Ticket does not exist'}, status=404)
+        
+        data = {
+            "rating": request_obj.rating,
+            "comment": request_obj.comment
+        }
+        
+        return Response(data, status=200)
+        
+    except Exception as e:
+        return Response({'error': str(e)}, status=500)
+
+@api_view(["POST"])
+def get_user_for_domain(request):
+    domain_ids = request.data.get('domain_ids')
+
+    try:
+        if domain_ids:
+            domains_obj = domains.objects.filter(domain_id__in=domain_ids)
+        else:
+            domains_obj = domains.objects.all()
+        
+        data = {}
+
+        for domain in domains_obj:
+            data[domain.domain_id] = {'domain_name': domain.domain, 'users': {}}
+
+            domain_user_objs = admin_access.objects.filter(domain=domain).select_related('user')
+
+            for access_obj in domain_user_objs:
+                user = access_obj.user 
+                data[domain.domain_id]['users'][user.empid] = {
+                    'name': user.name,
+                }
+        
+        return Response(data, status=200)
+    
+    except Exception as e:
+        return Response({'error': str(e)}, status=500)
+
+
+@api_view(["POST"])
+def get_subdomain_users_by_domain(request):
+    domain_ids = request.data.get('domain_ids', [])
+
+    try:
+        if domain_ids:
+            domains_obj = domains.objects.filter(domain_id__in=domain_ids)
+        else:
+            domains_obj = domains.objects.all()
+
+        data = {}
+
+        for domain in domains_obj:
+            data[domain.domain_id] = {
+                'domain_name': domain.domain,
+                'subdomains': {}
+            }
+
+            subdomains = sub_domains.objects.filter(domain=domain)
+
+            for subdomain in subdomains:
+                data[domain.domain_id]['subdomains'][subdomain.sub_domain_id] = {
+                    'subdomain_name': subdomain.sub_domain,
+                    'users': []
+                }
+                
+                user_accesses = admin_access_priority.objects.filter(sub_domain=subdomain)
+
+                for user_access in user_accesses:
+                    user = user_access.user
+                    data[domain.domain_id]['subdomains'][subdomain.sub_domain_id]['users'].append({
+                        'empid': user.empid,
+                        'name': user.name,
+                        'url': user.profile_url,
+                    })
+
+        return Response(data, status=200)
+
+    except Exception as e:
+        return Response({'error': str(e)}, status=500)
+
+
+
+@api_view(["POST"])
+def get_requests_summary(request):
+    domain_ids = request.data.get('domain_ids', [])
+
+    try:
+        if domain_ids:
+            domains_obj = domains.objects.filter(domain_id__in=domain_ids)
+        else:
+            domains_obj = domains.objects.all()
+
+        data = {}
+        for domain in domains_obj:
+            domain_data = {}
+            
+            subdomain_objs = sub_domains.objects.filter(domain=domain)
+            
+            for subdomain in subdomain_objs:
+                subdomain_data = {}
+                
+                service_objs = services.objects.filter(sub_domain=subdomain)
+                
+                for service in service_objs:
+                    requests = all_requests.objects.filter(service=service)
+                    
+                    total_requests = requests.count()
+                    closed_requests = requests.filter(status__status='closed').count()  
+                    
+                    subdomain_data[service.service] = {
+                        'total_requests': total_requests,
+                        'closed_requests': closed_requests
+                    }
+                
+                domain_data[subdomain.sub_domain] = subdomain_data
+            
+            data[domain.domain] = domain_data  
+        
+        return Response(data, status=200)
+    
+    except Exception as e:
+        return Response({'error': str(e)}, status=500)
+    
+    
+@api_view(["POST"])
+def edit_buiding_name(request):
+    try:
+        building_id = request.data.get('building_id')
+        new_name = request.data.get('new_name')
+        
+        if not building_id:
+            return Response({'error': 'building_id is required'}, status=400)
+        if not new_name:
+            return Response({'error': 'new_name is required'}, status=400)
+        
+        try:
+            building_obj = buildings.objects.get(building_id=building_id)
+        except buildings.DoesNotExist:
+            return Response({'error': 'Ticket does not exist'}, status=404)
+        
+        
+        building_obj.building = new_name
+        building_obj.save()
+        
+        return Response({'message': 'Building renamed successfully'}, status=201)
+
+    except Exception as e:
+        return Response({'error': str(e)}, status=500)
+    
+@api_view(["POST"])
+def edit_city(request):
+    try:
+        city_id = request.data.get('city_id')
+        new_name = request.data.get('new_name')
+        
+        if not city_id:
+            return Response({'error': 'city_id is required'}, status=400)
+        if not new_name:
+            return Response({'error': 'new_name is required'}, status=400)
+        
+        try:
+            city_obj = cities.objects.get(city_id=city_id)
+        except cities.DoesNotExist:
+            return Response({'error': 'City does not exist'}, status=404)
+        
+        
+        city_obj.city = new_name
+        city_obj.save()
+        
+        return Response({'message': 'City renamed successfully'}, status=200)
+
+    except Exception as e:
+        return Response({'error': str(e)}, status=500)
+    
+@api_view(["POST"])
+def create_city(request):
+    try:
+        city_name = request.data.get('city_name')
+        
+        if not city_name:
+            return Response({'error': 'city_name is required'}, status=400)
+        
+        
+        cities.objects.create(
+            city = city_name
+        )
+        
+        return Response({'message': 'City added successfully'}, status=200)
+
+    except Exception as e:
+        return Response({'error': str(e)}, status=500)
+    
+    
+@api_view(["POST"])
+def edit_location(request):
+    try:
+        location_id = request.data.get('location_id')
+        new_name = request.data.get('new_floor')
+        new_others = request.data.get('new_others')
+        
+        if not location_id:
+            return Response({'error': 'location_id is required'}, status=400)
+        if not new_name:
+            return Response({'error': 'new_name is required'}, status=400)
+        if not new_others:
+            return Response({'error': 'new_others is required'}, status=400)
+        
+        try:
+            location_obj = locations.objects.get(location_id=location_id)
+        except locations.DoesNotExist:
+            return Response({'error': 'Location does not exist'}, status=404)
+        
+        
+        location_obj.floor = new_name,
+        location_obj.others = new_others
+        location_obj.save()
+        
+        return Response({'message': 'Location changed successfully'}, status=200)
+
+    except Exception as e:
+        return Response({'error': str(e)}, status=500)
+    
+    
+@api_view(["POST"])
+def create_location(request):
+    try:
+        building_id = request.data.get('building_id')
+        floor = request.data.get('floor')
+        others = request.data.get('others', '')
+        department_ids = request.data.get('departments')  
+        
+        if not building_id:
+            return Response({'error': 'building_id is required'}, status=400)
+        if not floor:
+            return Response({'error': 'floor is required'}, status=400)
+
+        try:
+            building_obj = buildings.objects.get(building_id=building_id)
+        except buildings.DoesNotExist:
+            return Response({'error': 'Building does not exist'}, status=404)
+        
+        new_location = locations.objects.create(
+            building=building_obj,
+            floor=floor,
+            others=others
+        )
+        
+        if department_ids:
+            dept_obj = departments.objects.filter(dept_id__in=department_ids)
+            new_location.department.set(dept_obj)
+        
+        return Response({'message': 'Location added successfully'}, status=200)
+
+    except Exception as e:
+        return Response({'error': str(e)}, status=500)
+
 
 
 ################################################! Administrator Section ################################################
@@ -917,6 +1338,40 @@ def create_new_domain(request):
             admin_access_table.domain.add(new_domain_obj)  
 
         return Response({'message': 'Domain created successfully'}, status=201)
+
+    except Exception as e:
+        return Response({'error': str(e)}, status=500)
+    
+    
+@api_view(["POST"])
+def add_domain_user(request):
+    try:
+        domain_id = request.data.get('domain_id','')
+        empid_list = request.data.get('empid_list', [])
+
+        if not domain_id:
+            return Response({'error': 'Domain id is required'}, status=400)
+        
+        if not empid_list:
+            return Response({'error': 'Employee list is required'}, status=400)
+        
+        try:
+            domain_obj = domains.objects.get(domain_id=domain_id)
+        except domains.DoesNotExist:
+            return Response({'error': 'Domain does not exist'}, status=404)
+
+        emp_list_obj = user_info.objects.filter(empid__in=empid_list)
+        found_empids = set(emp.empid for emp in emp_list_obj)
+        missing_empids = set(empid_list) - found_empids
+
+        if missing_empids:
+            return Response({'error': f'Members {list(missing_empids)} not found.'}, status=404)
+
+        for emp in emp_list_obj:
+            admin_access_table, created = admin_access.objects.get_or_create(user=emp)
+            admin_access_table.domain.add(domain_obj)  
+
+        return Response({'message': 'Members added to Domain successfully'}, status=201)
 
     except Exception as e:
         return Response({'error': str(e)}, status=500)
@@ -965,35 +1420,23 @@ def create_new_sub_domain(request):
         return Response({'error': str(e)}, status=500)
     
     
+    
 @api_view(["POST"])
-def create_new_service(request):
+def add_sub_domain_user(request):
     try:
-        domain_id = request.data.get('domain_id', '')
-        sub_domain_id = request.data.get('sub_domain_id', '')
-        service_name = request.data.get('service_name', '').strip()
+        sub_domain_id = request.data.get('sub_domain_id','')
         empid_list = request.data.get('empid_list', [])
 
-        if not domain_id:
-            return Response({'error': 'Domain id is required'}, status=400)
-        
         if not sub_domain_id:
             return Response({'error': 'Sub Domain id is required'}, status=400)
-        
-        if not service_name:
-            return Response({'error': 'Service name is required'}, status=400)
         
         if not empid_list:
             return Response({'error': 'Employee list is required'}, status=400)
         
         try:
-            domain_obj = domains.objects.get(domain_id=domain_id)
-        except domains.DoesNotExist:
-            return Response({'error': 'Domain does not exist'}, status=404)
-        
-        try:
-            sub_domain_obj = sub_domains.objects.get(domain_id=domain_id)
+            sub_domain_obj = sub_domains.objects.get(sub_domain_id=sub_domain_id)
         except sub_domains.DoesNotExist:
-            return Response({'error': 'Sub Domain does not exist'}, status=404)
+            return Response({'error': 'Domain does not exist'}, status=404)
 
         emp_list_obj = user_info.objects.filter(empid__in=empid_list)
         found_empids = set(emp.empid for emp in emp_list_obj)
@@ -1002,15 +1445,53 @@ def create_new_service(request):
         if missing_empids:
             return Response({'error': f'Members {list(missing_empids)} not found.'}, status=404)
 
+        for emp in emp_list_obj:
+            admin_access_table, created = admin_access.objects.get_or_create(user=emp)
+            admin_access_table.sub_domain.add(sub_domain_obj)  
+
+        return Response({'message': 'Members added to Sub Domain successfully'}, status=201)
+
+    except Exception as e:
+        return Response({'error': str(e)}, status=500)
+    
+    
+@api_view(["POST"])
+def create_new_service(request):
+    try:
+        sub_domain_id = request.data.get('sub_domain_id', '')
+        service_name = request.data.get('service_name', '').strip()
+        empid_list = request.data.get('empid_list', [])
+
+        
+        if not sub_domain_id:
+            return Response({'error': 'Sub Domain id is required'}, status=400)
+        
+        if not service_name:
+            return Response({'error': 'Service name is required'}, status=400)
+        
+        
+        try:
+            sub_domain_obj = sub_domains.objects.get(sub_domain_id=sub_domain_id)
+        except sub_domains.DoesNotExist:
+            return Response({'error': 'Sub Domain does not exist'}, status=404)
+
+
         new_service_obj = services.objects.create(
-            domain=domain_obj,
             sub_domain = sub_domain_obj,
             service = service_name,
             )
+        
+        if empid_list:
+            emp_list_obj = user_info.objects.filter(empid__in=empid_list)
+            found_empids = set(emp.empid for emp in emp_list_obj)
+            missing_empids = set(empid_list) - found_empids
 
-        for emp in emp_list_obj:
-            admin_access_table, created = admin_access.objects.get_or_create(user=emp)
-            admin_access_table.service.add(new_service_obj)  
+            if missing_empids:
+                return Response({'error': f'Members {list(missing_empids)} not found.'}, status=404)
+
+            for emp in emp_list_obj:
+                admin_access_table, created = admin_access.objects.get_or_create(user=emp)
+                admin_access_table.service.add(new_service_obj)  
 
         return Response({'message': 'Service created successfully'}, status=201)
 
@@ -1019,7 +1500,75 @@ def create_new_service(request):
     
     
 
-    
+@api_view(["POST"])
+def rename_service_name(request):
+    try:
+        service_id = request.data.get('service_id', '')
+        new_service_name = request.data.get('new_service_name', '').strip()
+
+
+        
+        if not service_id:
+            return Response({'error': 'Service id is required'}, status=400)
+        
+        if not new_service_name:
+            return Response({'error': 'New Serviceservice_id name is required'}, status=400)
+        
+        
+        try:
+            service_obj = services.objects.get(service_id=service_id)
+        except services.DoesNotExist:
+            return Response({'error': 'Services does not exist'}, status=404)   
+        
+             
+        service_obj.service = new_service_name
+        service_obj.save()
+        
+        return Response({'message': 'Service name updated successfully'}, status=201)
+
+    except Exception as e:
+        return Response({'error': str(e)}, status=500)
+        
+
+
+@api_view(["POST"])
+def get_hierarchy_by_domain(request):
+    try:
+        domain_id = request.data.get('domain_id', '')
+
+        
+        if not domain_id:
+            return Response({'error': 'Sub Domain id is required'}, status=400)
+        
+        try:
+            domain_obj = domains.objects.get(domain_id=domain_id)
+        except domains.DoesNotExist:
+            return Response({'error': 'Domain does not exist'}, status=404)
+        
+        
+        subdomains = sub_domains.objects.filter(domain=domain_obj)
+
+        result = {}
+        for subdomain in subdomains:
+            access_priorities = admin_access_priority.objects.filter(sub_domain=subdomain)
+
+            subdomain_data = {}
+            for access in access_priorities:
+                users = user_info.objects.filter(admin_access_priority__access_level=access.access_level,
+                                                admin_access_priority__sub_domain=subdomain).distinct()
+                
+                # Prepare user data
+                user_list = [{"empid": user.empid, "name": user.name, "email": user.email} for user in users]
+                
+                subdomain_data[str(access.access_level.level)] = user_list
+            
+            result[subdomain.sub_domain_id] = {'name':subdomain.sub_domain, 'hierarchy':subdomain_data}
+
+
+        return Response(result, status=201)
+
+    except Exception as e:
+        return Response({'error': str(e)}, status=500)
     
 
 ###################################### Log in Authentication ######################################
@@ -1107,3 +1656,29 @@ def update_profile_url(request):
         
         
 
+@api_view(["POST"])
+def create_buiding(request):
+    try:
+        city_id = request.data.get('city_id')
+        building_name = request.data.get('building_name')
+        
+        if not city_id:
+            return Response({'error': 'city_id is required'}, status=400)
+        if not building_name:
+            return Response({'error': 'building_name is required'}, status=400)
+        
+        try:
+            city_obj = cities.objects.get(city_id=city_id)
+        except cities.DoesNotExist:
+            return Response({'error': 'City does not exist'}, status=404)
+        
+        
+        buildings.objects.create(
+            city = city_obj,
+            building = building_name
+        )
+        
+        return Response({'message': 'Building created successfully'}, status=200)
+
+    except Exception as e:
+        return Response({'error': str(e)}, status=500)
