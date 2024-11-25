@@ -533,10 +533,12 @@ def request_status_flow_by_id(request):
                 },
                 "note": request_status.note,
                 "assign_to": {
-                    "name": request_status.assign_to.name if request_status.assign_to else ""
+                    "name": request_status.assign_to.name if request_status.assign_to else "",
+                    "empid": request_status.assign_to.empid if request_status.assign_to else ""
                 },
                 "updated_by": {
-                    "name": request_status.updated_by.name if request_status.updated_by else ""
+                    "name": request_status.updated_by.name if request_status.updated_by else "",
+                    "empid": request_status.updated_by.empid if request_status.updated_by else ""
                 },
                 "update_on": request_status.update_on,
             }
