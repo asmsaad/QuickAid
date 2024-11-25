@@ -46,6 +46,7 @@ urlpatterns = [
     path('get-accessible-requests/', get_accessible_requests, name='get-all-request-by-empid'),
     path('get-request-access/', get_request_access, name='get-all-request-by-empid'),
     path('get-hierarchy-by-domain/', get_hierarchy_by_domain, name='get-all-request-by-empid'),
+    path('get-user-access-by-subdomain/', get_user_access_by_subdomain, name=''),
 
     
     
@@ -79,5 +80,6 @@ urlpatterns = [
     
     path('create-location/', create_location, name=''),
     path('edit-location/', edit_location, name=''),
+
     
 ]
