@@ -46,6 +46,9 @@ import { Typography } from "antd";
  *
  */
 
+
+
+
 const userCredentialData = {};
 
 const AppStructure = (props) => {
@@ -130,6 +133,7 @@ const AppStructure = (props) => {
     ////
     ////
     ////
+    const my = 'a'
 
     //Todo[QUEARY] Grab the user's data.
     //*API Setup

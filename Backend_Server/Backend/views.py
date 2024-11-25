@@ -9,6 +9,7 @@ from rest_framework.decorators import api_view
 from rest_framework import status
 from .models import designation
 from django.db import IntegrityError
+from django.views.decorators.csrf import csrf_exempt
 
 
 # def home(request):
@@ -531,21 +532,13 @@ def request_status_flow_by_id(request):
                     "color": request_status.status.color
                 },
                 "note": request_status.note,
-                # "assign_to": {
-                #     "name": request_status.assign_to.name if request_status.assign_to else "",
-                #     "empid":"",
-                # },
-                # "updated_by": {
-                #     "name": request_status.updated_by.name if request_status.updated_by else "",
-                #     "empid":"",
-                # },
                 "assign_to": {
                     "name": request_status.assign_to.name if request_status.assign_to else "",
-                     "empid": request_status.assign_to.empid if request_status.assign_to else "",
+                    "empid": request_status.assign_to.empid if request_status.assign_to else ""
                 },
                 "updated_by": {
                     "name": request_status.updated_by.name if request_status.updated_by else "",
-                     "empid": request_status.updated_by.empid if request_status.updated_by else "",
+                    "empid": request_status.updated_by.empid if request_status.updated_by else ""
                 },
                 "update_on": request_status.update_on,
             }
@@ -1579,6 +1572,59 @@ def get_hierarchy_by_domain(request):
 
     except Exception as e:
         return Response({'error': str(e)}, status=500)
+    
+
+
+@csrf_exempt
+@api_view(["POST"])
+def get_user_access_by_subdomain(request):
+    try:
+        subdomain_ids = request.GET.getlist('subdomain_ids') 
+
+        if not subdomain_ids:
+            subdomains = sub_domains.objects.all()
+        else:
+            subdomains = sub_domains.objects.filter(sub_domain_id__in=subdomain_ids)
+        
+        result = {}
+
+        for subdomain_obj in subdomains:
+            subdomain_key = subdomain_obj.sub_domain
+            locations_with_access = {}
+
+            all_locations = locations.objects.all()
+
+            for loc in all_locations:
+                users_with_access = user_info.objects.filter(
+                    admin_access__sub_domain=subdomain_obj,
+                    location=loc
+                ).distinct()
+                
+                location_info = {"floor": loc.floor,
+                                 "others": loc.others,
+                                 "building": loc.building.building,
+                                 "city": loc.building.city.city,
+                                 "departments":  {dept.dept_id:dept.department for dept in loc.department.all()}}
+
+                if users_with_access.exists():
+                    user_data = {user.empid: {
+                        "name": user.name,
+                        "empid": user.empid,
+                        "url": user.profile_url
+                    } for user in users_with_access}
+
+                    locations_with_access[loc.location_id] ={"location": location_info, "users": user_data} 
+                else:
+                    locations_with_access[loc.location_id] = {"location": location_info, "users": {}} 
+
+            result[subdomain_key] = locations_with_access
+
+        return Response(result, status=200)
+
+    except Exception as e:
+        return Response({"error": str(e)}, status=500)
+
+
     
 
 ###################################### Log in Authentication ######################################
