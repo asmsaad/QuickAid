@@ -478,11 +478,21 @@ def request_status_flow_by_id(request):
                     "color": request_status.status.color
                 },
                 "note": request_status.note,
+                # "assign_to": {
+                #     "name": request_status.assign_to.name if request_status.assign_to else "",
+                #     "empid":"",
+                # },
+                # "updated_by": {
+                #     "name": request_status.updated_by.name if request_status.updated_by else "",
+                #     "empid":"",
+                # },
                 "assign_to": {
-                    "name": request_status.assign_to.name if request_status.assign_to else ""
+                    "name": request_status.assign_to.name if request_status.assign_to else "",
+                     "empid": request_status.assign_to.empid if request_status.assign_to else "",
                 },
                 "updated_by": {
-                    "name": request_status.updated_by.name if request_status.updated_by else ""
+                    "name": request_status.updated_by.name if request_status.updated_by else "",
+                     "empid": request_status.updated_by.empid if request_status.updated_by else "",
                 },
                 "update_on": request_status.update_on,
             }
@@ -1107,3 +1117,156 @@ def update_profile_url(request):
         
         
 
+@api_view(["POST"])
+def get_rating_by_ticketid(request):
+    
+    try:
+        request_id = request.data.get('ticket_id')
+
+        
+        if not request_id:
+            return Response({'error': 'ticket_id is required'}, status=400)
+        
+        try:
+            request_obj = all_requests.objects.get(request_id=request_id)
+        except all_requests.DoesNotExist:
+            return Response({'error': 'Ticket does not exist'}, status=404)
+        
+        data = {
+            "rating": request_obj.rating,
+            "comment": request_obj.comment
+        }
+        
+        return Response(data, status=200)
+        
+    except Exception as e:
+        return Response({'error': str(e)}, status=500)
+    
+
+
+
+@api_view(["POST"])
+def get_unviewed_acknowledge_request_count(request):
+    
+    try:
+        empid = request.data.get('empid')
+        
+        if not empid:
+            return Response({'error': 'empid is required'}, status=400)
+
+        try:
+            user = user_info.objects.get(empid=empid)
+        except user_info.DoesNotExist:
+            return Response({'error': 'User does not exist'}, status=404)
+    
+    
+        ack_request = all_requests.objects.filter(acknowledge = user, manager = user).order_by('-create_on')
+    
+        unviewed_requests_count = request_view_status.objects.filter(
+            request__in=ack_request
+        ).exclude(viewed_by=user).count()
+        
+
+
+        return Response({'unviewed_requests_count': unviewed_requests_count}, status=200)
+    except Exception as e:
+        return Response({'error': str(e)}, status=500)
+    
+
+@api_view(["POST"])
+def get_unviewed_accessible_requests_count(request):
+
+    try:
+        empid = request.data.get('empid')
+        if not empid:
+            return Response({'error': 'empid is required'}, status=400)
+        
+        try:
+            user = user_info.objects.get(empid=empid)
+        except user_info.DoesNotExist:
+            return Response({'error': 'User does not exist'}, status=404)
+        
+        domain_min_access_levels = domain_minimum_access_level.objects.select_related('domain', 'access_level').all()
+        accessible_subdomains = set()
+
+        for domain_access in domain_min_access_levels:
+            min_level = domain_access.access_level.level
+            domain = domain_access.domain
+            
+            subdomains = sub_domains.objects.filter(domain=domain)
+            
+            for subdomain in subdomains:
+                user_access = admin_access_priority.objects.filter(
+                    user=user,
+                    sub_domain=subdomain
+                ).select_related('access_level').first()
+                
+                if user_access and user_access.access_level.level <= min_level:
+                    accessible_subdomains.add(subdomain)
+
+        admin_access_obj = admin_access.objects.filter(user=user)
+
+        accessible_services = services.objects.filter(
+            admin_access__in=admin_access_obj
+        )
+
+        accessible_departments = departments.objects.filter(
+            admin_access__in=admin_access_obj
+        )
+
+        accessible_locations = locations.objects.filter(
+            admin_access__in=admin_access_obj
+        )
+
+        accessible_domains = domains.objects.filter(
+            admin_access__in=admin_access_obj
+        )
+
+        matching_requests = all_requests.objects.filter(
+            sub_domain__in=accessible_subdomains,
+            service__in=accessible_services,
+            domain__in=accessible_domains,
+            location__in=accessible_locations,
+            requestor_department__in=accessible_departments
+        ).distinct()
+        
+        unviewed_requests_count = request_view_status.objects.filter(
+            request__in=matching_requests
+        ).exclude(viewed_by=user).count()
+        
+        
+
+        return Response({'unviewed_requests_count': unviewed_requests_count}, status=200)
+    
+    except Exception as e:
+        return Response({'error': str(e)}, status=500)
+    
+
+
+@api_view(["POST"])
+def get_user_for_domain(request):
+    domain_ids = request.data.get('domain_ids')
+
+    try:
+        if domain_ids:
+            domains_obj = domains.objects.filter(domain_id__in=domain_ids)
+        else:
+            domains_obj = domains.objects.all()
+        
+        data = {}
+
+        for domain in domains_obj:
+            data[domain.domain_id] = {'domain_name': domain.domain, 'users': {}}
+
+            domain_user_objs = admin_access.objects.filter(domain=domain).select_related('user')
+
+            for access_obj in domain_user_objs:
+                user = access_obj.user 
+                data[domain.domain_id]['users'][user.empid] = {
+                    'name': user.name,
+                }
+        
+        return Response(data, status=200)
+    
+    except Exception as e:
+        return Response({'error': str(e)}, status=500)

@@ -25,14 +25,20 @@ SECRET_KEY = 'django-insecure-1e@)og9cxr&&2@2!a+mvf6cg85#hb!bgt=&o^v!3hpa^byivz2
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['192.168.5.187','http://localhost:3000', '192.168.5.146']
+ALLOWED_HOSTS = ['192.168.5.187','http://localhost:3000', '192.168.5.146', '192.168.0.101',  '192.168.5.146']
+# python manage.py runserver 192.168.5.146:8000
 
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:3000",
     "https://localhost:3000",
     "http://192.168.5.187:8080",
     'http://192.168.5.146:3000',
-    'https://192.168.5.146:3000'
+    'https://192.168.5.146:3000',
+
+    "http://192.168.0.101:8080",
+    'http://192.168.0.101:3000',
+
+    'http://192.168.5.146:3000',
 ]
 
 
@@ -92,7 +98,7 @@ WSGI_APPLICATION = 'Backend_Server.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'quick_aid',
+        'NAME': 'quickaiddb',
         'USER' : 'ammarkhan',
         'PASSWORD': 'ammarkhan',
         'HOST': 'localhost',
@@ -101,17 +107,8 @@ DATABASES = {
             'init_command': "SET sql_mode='STRICT_TRANS_TABLES'",
         },
         
-    },
-        'ammar': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'quick_aid',
-        'USER' : 'ammarkhan',
-        'PASSWORD': 'ammarkhan',
-        'HOST': 'localhost',
-        'PORT': '3306',
-        'OPTIONS': {
-            'init_command': "SET sql_mode='STRICT_TRANS_TABLES'",
-        },
+ 
+
         
     }
 }

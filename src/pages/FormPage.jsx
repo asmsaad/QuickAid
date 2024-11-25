@@ -44,7 +44,7 @@ const FormPage = () => {
 
     return (
 
-        <Box sx={{width:'100%',height:'100%', display:'flex', alignItems:{xs:'flex-start', md:'center'}, justifyContent:'center'}}>
+        <Box sx={{width:'100%',height:'100%', display:'flex', justifyContent:'center'}}>
 
             <IssueForm />
 
@@ -76,17 +76,7 @@ const IssueForm = ()=>{
     const [sucessfullMessage,setSucessfullMessage] = useState(undefined)
 
 
-    // const a = {    
-    //     requested_by: selectedData.requested_by,
-    //     location: selectedData.location,
-    //     desk_number: selectedData.desk_number,
-    //     managers : selectedData.manager,
-    //     acknowledge: selectedData.acknowledged_person,
-    //     sub_domain: selectedData.issue_category,
-    //     service: selectedData.issue_subCategory,
-    //     urgency: selectedData.urgency,
-    //     note: selectedData.note,
-    // }
+
 
 
 
@@ -145,7 +135,7 @@ const IssueForm = ()=>{
         isFetching: isFetching_managersByEmpID,
         refetch: refetch_managersByEmpID,
     } = useQuery("get-managers-by-empid-UNIQUE-1", fetchManagersByUser, {
-        enabled: true,
+        enabled: data_getUserData ? true : false,
     });
 
     //*Query Response Actions
@@ -186,7 +176,7 @@ const IssueForm = ()=>{
         isFetching: isFetching_getAllEmployee,
         refetch: refetch_getAllEmployee,
     } = useQuery("get-all-employee-info-UNIQUE-1", fetchAllEmployee, {
-        enabled: true,
+        enabled: data_getUserData ? data_managersByEmpID ? true : false : false,
     });
 
     //*Query Response Actions
@@ -400,58 +390,51 @@ const IssueForm = ()=>{
              
     },[data_getUserData, data_managersByEmpID])
 
-
+    const Title = () => {
+        return <Box sx={{ width: "100%", displa: "flex", justifyContent: "center", alignItems: "center"}}>Report your issue</Box>;
+    };
     return(
-        <Box sx={{ width: `calc(100% - 10px)`, maxWidth:'420px', marginTop:{xs:'20px', md:'0'}}}>
+        <Box sx={{ width: `calc(100% - 10px)`, maxWidth:'420px', display:"flex", flexDirection:"column"}} >
+            {/*//* ALART MESSAGE */}
+            <Box style={{margin:"25px 0 0px 0", width:"100%"}} >
+                {sucessfullMessage &&                        
+                    <Alert  showIcon message="Issue submitted successfully." description="Your submitted issue can be tracked from history." type="success"  />
+                }
+            </Box>
 
-        {sucessfullMessage &&
-        
-         <Alert
-            message="Issue submitted successfully."
-            description="Your submitted issue can be tracked from history."
-            type="success"
-            showIcon
-            style={{margin:"10px 0 15px 0"}}
-            />
-        
-        }
-       
-
-        <Card title="Submit Your Request !" bordered={true} type="inner" style={{ width: '100%', margin:"20px 0" }} >
-            <TooltipPopover title="Submit for"  top_margin={"-5px"}/>
-            <ProfileCardXL empid={getLoginUserID()}/>
-
-            <TooltipPopover title="Manager" />
-            {isLoading_managersByEmpID ? <Skeleton.Input block={true} active={true} size={"default"} /> : <Select mode="multiple" placeholder="Domain" showSearch allowClear size="medium" style={{ width: "100%" }} optionFilterProp="label" filterSort={(optionA, optionB) => (optionA?.label ?? "").toLowerCase().localeCompare((optionB?.label ?? "").toLowerCase())} onChange={(value, selectedObject) => { setSelectedData({...selectedData, manager: value ? value : [] })} } value={Object.keys(data_managersByEmpID?.data || {}).map((empid) => empid)} options={Object.keys(data_managersByEmpID?.data || {}).map((empid) => { return {value:empid, label:data_managersByEmpID?.data[empid]+ ` (${empid})`} })} disabled/> }
-      
+            {/*//* ENTRY FORM */}
+            <Box sx={{ width: "100%"}}>         
+                <Card title={Title()} bordered={true} type="inner" style={{ width: '100%', margin:"20px 0" }} >
+                    {/* LOGIN USER  CARD */}
+                    <TooltipPopover title="Submit for"  top_margin={"-5px"}/>
+                    <ProfileCardXL empid={getLoginUserID()}/>
+                    
+                    {/* MANAGER NAMES */}
+                    <TooltipPopover title="Manager" />
+                    {isLoading_managersByEmpID ? <Skeleton.Input block={true} active={true} size={"default"} /> : <Select mode="multiple" placeholder="Domain" showSearch allowClear size="medium" style={{ width: "100%" }} optionFilterProp="label" filterSort={(optionA, optionB) => (optionA?.label ?? "").toLowerCase().localeCompare((optionB?.label ?? "").toLowerCase())} onChange={(value, selectedObject) => { setSelectedData({...selectedData, manager: value ? value : [] })} } value={Object.keys(data_managersByEmpID?.data || {}).map((empid) => empid)} options={Object.keys(data_managersByEmpID?.data || {}).map((empid) => { return {value:empid, label:data_managersByEmpID?.data[empid]+ ` (${empid})`} })} disabled/> }
             
-           
-            
-            
-            
-            <TooltipPopover title="Acknowledged person" display_info={tooltips.acknowledged_person} />
-            {isLoading_getAllEmployee ? <Skeleton.Input block={true} active={true} size={"default"} /> : <Select mode="multiple" placeholder="Acknowledged person" showSearch allowClear size="medium" style={{ width: "100%" }} optionFilterProp="label" filterSort={(optionA, optionB) => (optionA?.label ?? "").toLowerCase().localeCompare((optionB?.label ?? "").toLowerCase())} value={selectedData.acknowledged_person || []} onChange={(value, selectedObject) => { setSelectedData({...selectedData, acknowledged_person: value ? value : [] })} } options={Object.keys(data_getAllEmployee?.data || {}).map((empid) => { return {value:empid, label:data_getAllEmployee?.data[empid]["name"]+ ` (${empid})`} })} disabled={loadings[0] ? true : false}/> }
-            
-            <TooltipPopover title="Issue Category" display_info={tooltips.issue_category} />
-            {isLoading_getAllSubDomain ? <Skeleton.Input block={true} active={true} size={"default"} /> : <Select  placeholder="Issue Category" showSearch allowClear size="medium" style={{ width: "100%" }} optionFilterProp="label" filterSort={(optionA, optionB) => (optionA?.label ?? "").toLowerCase().localeCompare((optionB?.label ?? "").toLowerCase())} value={selectedData.issue_category} onChange={(value, selectedObject) => { setSelectedData({...selectedData, issue_category: value ? value : undefined })} } options={Object.keys(data_getAllSubDomain?.data || {}).map((sub_domain_idx) => { return {value:sub_domain_idx, label:data_getAllSubDomain?.data[sub_domain_idx]} })} disabled={loadings[0] ? true : false} /> }
+                    
+                    {/* ACKNOWLEDGED PERDSON */}
+                    <TooltipPopover title="Acknowledged person" display_info={tooltips.acknowledged_person} />
+                    {isLoading_getAllEmployee ? <Skeleton.Input block={true} active={true} size={"default"} /> : <Select mode="multiple" placeholder="Acknowledged person" showSearch allowClear size="medium" style={{ width: "100%" }} optionFilterProp="label" filterSort={(optionA, optionB) => (optionA?.label ?? "").toLowerCase().localeCompare((optionB?.label ?? "").toLowerCase())} value={selectedData.acknowledged_person || []} onChange={(value, selectedObject) => { setSelectedData({...selectedData, acknowledged_person: value ? value : [] })} } options={Object.keys(data_getAllEmployee?.data || {}).filter(item => !Object.keys(data_managersByEmpID?.data || {}).concat([getLoginUserID()]).includes(item)).map(empid => ({ value: empid, label: `${data_getAllEmployee?.data[empid]["name"]} (${empid})` }))} disabled={loadings[0] ? true : false}/> }
+                    {/* ISSUE CATEGORY */}
+                    <TooltipPopover title="Issue Category" display_info={tooltips.issue_category} />
+                    {isLoading_getAllSubDomain ? <Skeleton.Input block={true} active={true} size={"default"} /> : <Select  placeholder="Issue Category" showSearch allowClear size="medium" style={{ width: "100%" }} optionFilterProp="label" filterSort={(optionA, optionB) => (optionA?.label ?? "").toLowerCase().localeCompare((optionB?.label ?? "").toLowerCase())} value={selectedData.issue_category} onChange={(value, selectedObject) => { setSelectedData({...selectedData, issue_category: value ? value : undefined })} } options={Object.keys(data_getAllSubDomain?.data || {}).map((sub_domain_idx) => { return {value:sub_domain_idx, label:data_getAllSubDomain?.data[sub_domain_idx]} })} disabled={loadings[0] ? true : false} /> }
+                    {/* ISSUE SUB-CATEGORY */}
+                    <TooltipPopover title="Issue Subcategory" display_info={tooltips.issue_subCategory} />
+                    {isLoading_getAllIssueUnderSelectedSubDomain ? <Skeleton.Input block={true} active={true} size={"default"} /> : <Select  placeholder="Issue Subcategory" showSearch allowClear size="medium" style={{ width: "100%" }} optionFilterProp="label" filterSort={(optionA, optionB) => (optionA?.label ?? "").toLowerCase().localeCompare((optionB?.label ?? "").toLowerCase())} value={selectedData.issue_subCategory} onChange={(value, selectedObject) => { setSelectedData({...selectedData, issue_subCategory: value ? value : undefined })} } options={Object.keys(data_getAllIssueUnderSelectedSubDomain?.data || {}).map((issue_name_idx) => { return {value:issue_name_idx, label:data_getAllIssueUnderSelectedSubDomain?.data[issue_name_idx]} })}  disabled={selectedData.issue_category ? loadings[0] ? true : false : true} /> }
+                    {/* URGENCY */}
+                    <TooltipPopover title="Urgency" display_info={tooltips.urgency} />
+                    {isLoading_getAllUrgencyName ? <Skeleton.Input block={true} active={true} size={"default"} /> : <Select  placeholder="Urgency" showSearch allowClear size="medium" style={{ width: "100%" }} optionFilterProp="label" filterSort={(optionA, optionB) => (optionA?.label ?? "").toLowerCase().localeCompare((optionB?.label ?? "").toLowerCase())} value={selectedData.urgency} onChange={(value, selectedObject) => { setSelectedData({...selectedData, urgency: value ? value : undefined })} } options={Object.keys(data_getAllUrgencyName?.data || {}).map((urgency_idx) => { return {value:urgency_idx, label:data_getAllUrgencyName?.data[urgency_idx]} })} disabled={loadings[0] ? true : false}/> }
+                    {/* NOTE */}
+                    <TooltipPopover title="Note" display_info={tooltips.note} />
+                    <TextArea size="medium" showCount maxLength={1024} rows={3} value={selectedData.note} onChange={(e) => setSelectedData({ ...selectedData, note: e.target.value })} disabled={selectedData.issue_subCategory ? loadings[0] ? true : false : true} />
 
-            <TooltipPopover title="Issue Subcategory" display_info={tooltips.issue_subCategory} />
-            {isLoading_getAllIssueUnderSelectedSubDomain ? <Skeleton.Input block={true} active={true} size={"default"} /> : <Select  placeholder="Issue Subcategory" showSearch allowClear size="medium" style={{ width: "100%" }} optionFilterProp="label" filterSort={(optionA, optionB) => (optionA?.label ?? "").toLowerCase().localeCompare((optionB?.label ?? "").toLowerCase())} value={selectedData.issue_subCategory} onChange={(value, selectedObject) => { setSelectedData({...selectedData, issue_subCategory: value ? value : undefined })} } options={Object.keys(data_getAllIssueUnderSelectedSubDomain?.data || {}).map((issue_name_idx) => { return {value:issue_name_idx, label:data_getAllIssueUnderSelectedSubDomain?.data[issue_name_idx]} })}  disabled={selectedData.issue_category ? loadings[0] ? true : false : true} /> }
-
-            <TooltipPopover title="Urgency" display_info={tooltips.urgency} />
-            {isLoading_getAllUrgencyName ? <Skeleton.Input block={true} active={true} size={"default"} /> : <Select  placeholder="Urgency" showSearch allowClear size="medium" style={{ width: "100%" }} optionFilterProp="label" filterSort={(optionA, optionB) => (optionA?.label ?? "").toLowerCase().localeCompare((optionB?.label ?? "").toLowerCase())} value={selectedData.urgency} onChange={(value, selectedObject) => { setSelectedData({...selectedData, urgency: value ? value : undefined })} } options={Object.keys(data_getAllUrgencyName?.data || {}).map((urgency_idx) => { return {value:urgency_idx, label:data_getAllUrgencyName?.data[urgency_idx]} })} disabled={loadings[0] ? true : false}/> }
-            
-            <TooltipPopover title="Note" display_info={tooltips.note} />
-            <TextArea size="medium" showCount maxLength={1024} rows={3} value={selectedData.note} onChange={(e) => setSelectedData({ ...selectedData, note: e.target.value })} disabled={selectedData.issue_subCategory ? loadings[0] ? true : false : true} />
-
-           
-            <Box sx={{display:'flex', justifyContent:'center'}}><Button style={{ marginTop: '15px' }} type="primary"  loading={loadings[0]} onClick={() => {setLoadings([true]); refetch_createNewRequest(); }} disabled={loadings[0] ? true : false} >Submit</Button></Box>
-
-
-        </Card>
-
-        
-    </Box> 
+                    {/* SUBMIT ISSUE BTN */}
+                    <Box sx={{display:'flex', justifyContent:'center'}}><Button style={{ marginTop: '15px' }} type="primary"  loading={loadings[0]} onClick={() => {setLoadings([true]); refetch_createNewRequest(); }} disabled={loadings[0] ? true : false} >Submit</Button></Box>
+                </Card>
+            </Box> 
+        </Box>
     )
 }
 

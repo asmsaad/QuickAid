@@ -50,17 +50,20 @@ export const ProfileCardXL = (props) => {
     return (
         <Box sx={{ width: "calc(100% - 20px)", height: "fit-content", bgcolor: "#fbfbfb", borderRadius: "10px", padding: "10px" }}>
             <Box sx={{ display: "flex", width: "100%" }}>
+                {/* AVATER */}
                 <Box sx={{ heigh: "100%", display: "flex", alignItems: "center", width: "96px", marginRight: "10px" }}>
                     <Avatar size={96} name={data_getUserData?.data?.name} image={{ src: data_getUserData?.data?.profile_url }} />
-                    {/* <Avatar size={96} name={data_getUserData?.data?.name} image={{ src: "https://fabricweb.azureedge.net/fabric-website/assets/images/avatar/KatriAthokas.jpg" }} /> */}
                 </Box>
 
                 <Box sx={{ display: "flex", flexDirection: "column", width: `calc(100% - 96px)` }}>
+                    {/* NAME */}
                     <Box sx={{ display: "flex", alignItems: "center", width: "100%", fontSize: "18px" }}>
                         <Text style={{ fontSize: "18px", lineHeight: "1", padding: "0", margin: "0", maxWidth: "100%" }} ellipsis>
                             {data_getUserData?.data?.name}
                         </Text>
                     </Box>
+
+                    {/* DEPARTMENT AND DESIGNATION */}
                     <Box sx={{ display: "flex", lineHeight: "1.5", marginBottom: "5px" }}>
                         <Box sx={{ display: "flex", alignItems: "center", width: "100%" }}>
                             <Text style={{ lineHeight: "1.5" }} type="secondary" ellipsis>
@@ -68,29 +71,36 @@ export const ProfileCardXL = (props) => {
                                 {Object.keys(data_getUserData?.data?.department || {}).map((department_idx) => {
                                     return data_getUserData?.data?.department[department_idx];
                                 })}
-                            </Text>{" "}
+                            </Text>
                         </Box>
                     </Box>
+
+                    {/* EMAIL */}
                     <Box sx={{ display: "flex", lineHeight: "1.5" }}>
                         <Box sx={{ display: "flex", alignItems: "center", width: "100%" }}>
-                            <MailRegular style={{ color: "#939393" ,  marginTop:'5px' }} />
+                            <MailRegular style={{ color: "#939393", marginTop: "5px" }} />
                             <Text type="secondary" style={{ marginLeft: "5px", lineHeight: "1.5" }} ellipsis>
                                 {data_getUserData?.data?.email}
                             </Text>
                         </Box>
                     </Box>
+
+                    {/* PHONE NUMBER */}
                     <Box sx={{ display: "flex", justifyContent: "space-between", lineHeight: "1.5" }}>
                         <Box sx={{ display: "flex", alignItems: "center", width: "100%" }}>
-                            <CallFilled style={{ color: "#939393",  marginTop:'5px'  }} />
+                            <CallFilled style={{ color: "#939393", marginTop: "5px" }} />
                             <Text type="secondary" style={{ lineHeight: "1.5" }} ellipsis>
-                                {" "}{data_getUserData?.data?.phone}
+                                {" "}
+                                {data_getUserData?.data?.phone}
                             </Text>
                         </Box>
                     </Box>
+
+                    {/* LOCATION */}
                     <Box sx={{ display: "flex", lineHeight: "1.5", alignItems: "center", width: "100%" }}>
                         <Box sx={{ display: "flex" }}>
-                            <BuildingFilled style={{ color: "#939393", width:"32px", marginTop:'5px' }} />
-                            <Text type="secondary" style={{ lineHeight: "1.5" }} >
+                            <BuildingFilled style={{ color: "#939393", marginTop: "5px" }} />
+                            <Text type="secondary" style={{ lineHeight: "1.5" }}>
                                 {data_getUserData?.data?.location?.desk_number && <span>{data_getUserData?.data?.location?.desk_number} </span>}
                                 {data_getUserData?.data?.location?.building && <span>{data_getUserData?.data?.location?.building} </span>}
                                 {data_getUserData?.data?.location?.floor && <span>{data_getUserData?.data?.location?.floor} </span>}

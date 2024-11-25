@@ -48,5 +48,16 @@ urlpatterns = [
     path('create-new-request/', create_new_request, name='create-new-request'),
     path('create-new-domain/', create_new_domain, name='create-new-domain'),
     path('create-new-sub-domain/', create_new_sub_domain, name='create-new-domain'),
-    path('submit-rating/', submit_rating, name='submit-rating'),
+    
+    
+    #Rating
+    path('submit-ticket-exprience-rating/', submit_rating, name='submit-ticket-exprience-rating'),
+    path('get-rating-by-ticketid/', get_rating_by_ticketid, name='get-rating-info'),
+
+
+    path('get-unviewed-acknowledge-request-count/', get_unviewed_acknowledge_request_count, name='update-ticket-status'),
+    path('get-unviewed-accessible-requests-count/', get_unviewed_accessible_requests_count, name='update-ticket-status'),
+
+     path('get-user-for-domain/', get_user_for_domain, name='update-ticket-status'),
+
 ]

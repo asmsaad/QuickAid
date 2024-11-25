@@ -1,4 +1,8 @@
-const BASE_URL = "http://192.168.5.187:8000/"; //Must be a slash at at end
+// const BASE_URL = "http://192.168.5.187:8000/"; //Must be a slash at at end
+// const BASE_URL = "http://192.168.5.146:8000/"; //Must be a slash at at end
+// const BASE_URL = "http://192.168.0.101:8000/"; //Must be a slash at at end
+// const BASE_URL = "http://192.168.5.146:8000/"; //Must be a slash at at end
+const BASE_URL = "https://www.ulka.autos/quickaid/api/"; //Must be a slash at at end
 const apinames = {
     "get-managers-by-empid": BASE_URL + "get-managers-by-empid/", //Checking Wheter the user are resgisterd at DB or not
     "get-all-employee-info": BASE_URL + "get-all-employee-info/", //Checking Wheter the user are resgisterd at DB or not
@@ -22,12 +26,27 @@ const apinames = {
 
 
     "update-request-viewed-users": BASE_URL + "update-request-viewed-users/", //This api store the name of the user if he viewed the ticket 
+    "get_viewer_by_request": BASE_URL + "get_viewer_by_request/", //This api store the name of the user if he viewed the ticket 
     
     
     
     "check-registered-user": BASE_URL + "check-user-email/", //This api store the name of the user if he viewed the ticket 
     "get-registered-user-basic-info": BASE_URL + "get-user-info-by-email/", //This api store the name of the user if he viewed the ticket 
     "update-user-avater": BASE_URL + "update-profile-url/", //This api store the name of the user if he viewed the ticket 
+
+
+    "submit-ticket-exprience-rating": BASE_URL + "submit-ticket-exprience-rating/", //This api store the name of the user if he viewed the ticket 
+    "get-rating-by-ticketid": BASE_URL + "get-rating-by-ticketid/", //This api store the name of the user if he viewed the ticket 
+
+    "get-unviewed-mentioned-ticket-number": BASE_URL + "get-unviewed-acknowledge-request-count/", //This api store the name of the user if he viewed the ticket 
+    "get-unviewed-request-ticket-number": BASE_URL + "get-unviewed-accessible-requests-count/", //This api store the name of the user if he viewed the ticket 
+    
+    
+    "get-user-for-domain": BASE_URL + "get-user-for-domain/", //This api store the name of the user if he viewed the ticket 
+
+
+    
+    
     
   
 

@@ -12,6 +12,7 @@ import { logPrint } from "../authentication/logPrint";
 import { getCookie } from "../utility";
 
 import automation_team_logo from "./../media/automationTeam.png";
+import { Badge } from "antd";
 
 const MoreHorizontal = bundleIcon(MoreHorizontalFilled, MoreHorizontalRegular);
 
@@ -28,7 +29,7 @@ const IconProjects = bundleIcon(DataPieFilled, DataPieRegular);
 const IconSubordinates = bundleIcon(PeopleCommunityFilled, PeopleCommunityRegular);
 const IconSuperuser = bundleIcon(PersonStarburstFilled, PersonStarburstRegular);
 const IconAdministrator = bundleIcon(OrganizationFilled, OrganizationRegular);
-const IconMention = bundleIcon(MentionFilled , MentionRegular );
+const IconMention = bundleIcon(MentionFilled, MentionRegular);
 
 const useStyles = makeStyles({
     root: {
@@ -71,43 +72,14 @@ export const ShortLeftNavBar = (props) => {
     //     }
     // }, [isLoading_accessTags, data_accessTags, isError_accessTags, error_accessTags]);
 
-    // //Todo🔍   All Subordinate Contributors for supervisor tab eligibility
-    // //*API Setup
-    // const fetchAllSubordinatesNameData = () => {
-    //     return axios.post(getAPI("user-subordinates"), { empid: getLoginUserID() }, { headers: { "Content-Type": "application/json", "X-CSRFToken": getCookie("csrftoken") } });
-    // };
-
-    // //*Query Callback
-    // const {
-    //     isLoading: isLoading_subordinateData,
-    //     data: data_subordinateData,
-    //     isError: isError_subordinateData,
-    //     error: error_subordinateData,
-    //     isFetching: isFetching_subordinateData,
-    //     refetch: refetch_subordinateData,
-    // } = useQuery("user-subordinates-UNIQUE-4", fetchAllSubordinatesNameData, {
-    //     enabled: true,
-    // });
-
-    // //*Query Response Actions
-    // useEffect(() => {
-    //     if (isLoading_subordinateData) {
-    //         logPrint("🔍   allSubordinateUnderLoginUser-3  ➤  🔄");
-    //     } else if (data_subordinateData?.data) {
-    //         logPrint("🔍   allSubordinateUnderLoginUser-3  ➤  🟢", data_subordinateData?.data);
-    //     } else if (isError_subordinateData) {
-    //         logPrint("🔍   allSubordinateUnderLoginUser-3  ➤  ⚠️", [error_subordinateData?.message, error_subordinateData?.response.data]);
-    //     }
-    // }, [isLoading_subordinateData, data_subordinateData, isError_subordinateData, error_subordinateData]);
-
     const tabs = [
         { id: "/quickaid", name: "Home", icon: <IconHome /> },
-        { id: "/form", name: "Form", icon: <IconForm /> },        
+        { id: "/form", name: "Form", icon: <IconForm /> },
         { id: "/history", name: "History", icon: <IconHistory /> },
         { id: "/mentioned", name: "Mentioned", icon: <IconMention /> },
         { id: "/requests", name: "Requests", icon: <IconRequest /> },
         { id: "/admin", name: "Admin", icon: <IconAdministrator /> },
-        
+
         // { id: "/administrator ", name: "Administrator ", icon: <IconAdministrator /> },
         // { id: "/subordinates", name: "Subordinates", icon: <IconSubordinates /> },
         // { id: "/administrator", name: "Administrator", icon: <IconAdministrator /> },
@@ -115,20 +87,90 @@ export const ShortLeftNavBar = (props) => {
         // { id: "/report", name: "Report Bug", icon: <IconBug /> },
     ];
 
-    const allowed_tabs = {
-        "/quickaid": true,
-        "/form": true,
-        "/requests": true,
-        "/history": true,
-        "/admin": true,
-        "/mentioned": true,
-        // "/subordinates": Object.keys(data_subordinateData?.data || {}).length > 0 ? true : false,
-        // "/administrator": Object.keys(data_accessTags?.data?.["Administrator"] || {}).length > 0 ? true : false, //! Need to add loader sot that  after loading it can show
-        // "/superuser": Object.keys(data_accessTags?.data?.["Superuser"] || {}).length > 0 ? true : false,
-        // "/report": true,
+    const [tabProperty, setTabProperty] = useState({
+        "/quickaid": { display: true, bubbleValue: null },
+        "/form": { display: true, bubbleValue: null },
+        "/requests": { display: true, bubbleValue: null },
+        "/history": { display: true, bubbleValue: null },
+        "/admin": { display: true, bubbleValue: null },
+        "/mentioned": { display: true, bubbleValue: 10 },
+    });
+
+    //Todo🔍   Get unviewed mentioned ticket number
+    //*API Setup
+    const fetchUnreadMentionedTicketNumber = () => {
+        return axios.post(getAPI("get-unviewed-mentioned-ticket-number"), { empid: getLoginUserID() }, { headers: { "Content-Type": "application/json", "X-CSRFToken": getCookie("csrftoken") } });
     };
 
-    // console.log(data_accessTags?.data?.["Superuser"],'==========!@@')
+    //*Query Callback
+    const {
+        isLoading: isLoading_getUnreadMentionedTicketNumber,
+        data: data_getUnreadMentionedTicketNumber,
+        isError: isError_getUnreadMentionedTicketNumber,
+        error: error_getUnreadMentionedTicketNumber,
+        isFetching: isFetching_getUnreadMentionedTicketNumber,
+        refetch: refetch_getUnreadMentionedTicketNumber,
+    } = useQuery("get-unviewed-mentioned-ticket-number-UNIQUE-1", fetchUnreadMentionedTicketNumber, {
+        enabled: false,
+    });
+
+    //*Query Response Actions
+    useEffect(() => {
+        if (isLoading_getUnreadMentionedTicketNumber) {
+            logPrint("🔍   getUnreadMentionedTicketNumber  ➤  🔄");
+        } else if (data_getUnreadMentionedTicketNumber?.data) {
+            logPrint("🔍   getUnreadMentionedTicketNumber  ➤  🟢", data_getUnreadMentionedTicketNumber?.data);
+            setTabProperty({
+                ...tabProperty,
+                "/mentioned": {
+                    ...tabProperty["/mentioned"],
+                    bubbleValue: data_getUnreadMentionedTicketNumber?.data?.unviewed_requests_count || null,
+                },
+            });
+        } else if (isError_getUnreadMentionedTicketNumber) {
+            logPrint("🔍   getUnreadMentionedTicketNumber  ➤  ⚠️", [error_getUnreadMentionedTicketNumber?.message, error_getUnreadMentionedTicketNumber?.response.data]);
+        }
+    }, [isLoading_getUnreadMentionedTicketNumber, data_getUnreadMentionedTicketNumber, isError_getUnreadMentionedTicketNumber, error_getUnreadMentionedTicketNumber]);
+
+
+    //Todo🔍   Get unviewed Request ticket number
+    //*API Setup
+    const fetchUnreadRequestedTicketNumber = () => {
+        return axios.post(getAPI("get-unviewed-request-ticket-number"), { empid: getLoginUserID() }, { headers: { "Content-Type": "application/json", "X-CSRFToken": getCookie("csrftoken") } });
+    };
+
+    //*Query Callback
+    const {
+        isLoading: isLoading_getUnreadRequestedTicketNumber,
+        data: data_getUnreadRequestedTicketNumber,
+        isError: isError_getUnreadRequestedTicketNumber,
+        error: error_getUnreadRequestedTicketNumber,
+        isFetching: isFetching_getUnreadRequestedTicketNumber,
+        refetch: refetch_getUnreadRequestedTicketNumber,
+    } = useQuery("get-unviewed-request-ticket-number-UNIQUE-1", fetchUnreadRequestedTicketNumber, {
+        enabled: false,
+    });
+
+    //*Query Response Actions
+    useEffect(() => {
+        if (isLoading_getUnreadRequestedTicketNumber) {
+            logPrint("🔍   getUnreadRequestedTicketNumber  ➤  🔄");
+        } else if (data_getUnreadRequestedTicketNumber?.data) {
+            logPrint("🔍   getUnreadRequestedTicketNumber  ➤  🟢", data_getUnreadRequestedTicketNumber?.data);
+            setTabProperty({
+                ...tabProperty,
+                "/requests": {
+                    ...tabProperty["/requests"],
+                    bubbleValue: data_getUnreadRequestedTicketNumber?.data?.unviewed_requests_count || null,
+                },
+            });
+        } else if (isError_getUnreadRequestedTicketNumber) {
+            logPrint("🔍   getUnreadRequestedTicketNumber  ➤  ⚠️", [error_getUnreadRequestedTicketNumber?.message, error_getUnreadRequestedTicketNumber?.response.data]);
+        }
+    }, [isLoading_getUnreadRequestedTicketNumber, data_getUnreadRequestedTicketNumber, isError_getUnreadRequestedTicketNumber, error_getUnreadRequestedTicketNumber]);
+
+
+
 
     const styles = useStyles();
     const location = useLocation();
@@ -151,19 +193,40 @@ export const ShortLeftNavBar = (props) => {
 
     const IconPosition = ({ tabicon }) => <div style={iconStyle}>{tabicon}</div>;
 
+
+
+
+    //* AUTO REFRESH UNREAD BUBBLE NUMBER---------------------------------------------------------------------------+
+    useEffect(() => { //                                                                                            |
+        refetch_getUnreadMentionedTicketNumber(); // Initial fetch                                                  |
+        const interval = setInterval(refetch_getUnreadMentionedTicketNumber, 5000); // Fetch every 5 seconds        |
+        //                                                                                                          |
+        // Cleanup on unmount                                                                                       |
+        return () => clearInterval(interval); //                                                                    |
+    }, []); // Empty dependency array to run once                                                                   |
+    //                                                                                                              |
+    //* AUTO REFRESH UNREAD BUBBLE NUMBER---------------------------------------------------------------------------+
+    useEffect(() => { //                                                                                            |
+        refetch_getUnreadRequestedTicketNumber(); // Initial fetch                                                  |
+        const interval = setInterval(refetch_getUnreadRequestedTicketNumber, 5000); // Fetch every 5 seconds        |
+        //                                                                                                          |
+        // Cleanup on unmount                                                                                       |
+        return () => clearInterval(interval); //                                                                    |
+    }, []); // Empty dependency array to run once                                                                   |
+    // -------------------------------------------------------------------------------------------------------------+
     return (
-        <Box 
+        <Box
             // sx={{height:{xs: "fit-content", sm: "fit-content", md: "calc(100vh - 64px)", lg: "calc(100vh -64px)"} , bgcolor:"red"}}
             // sx={{heigth:"50%", bgcolor:"red"}}
 
-            sx={{display:"flex", justifyContent:"center"}}
+            sx={{ display: "flex", justifyContent: "center" }}
         >
             {vertical ? (
                 <Box
                     sx={{
                         padding: "15px 10px",
                         // display: "flex",
-                        display: { xs: "none", sm: "none", md: "none", lg: "flex" },
+                        display: { xs: "none", sm: "flex", md: "flex", lg: "flex", xl: "flex" },
                         flexDirection: "column",
                         justifyContent: "space-between",
                         background: "linear-gradient(90deg, rgba(231,231,231,1) 0%, rgba(242,242,242,1) 35%, rgba(251,251,251,1) 75%)",
@@ -185,11 +248,13 @@ export const ShortLeftNavBar = (props) => {
                     >
                         {tabs.map(
                             (tab, index) =>
-                                allowed_tabs[tab.id] && (
+                                tabProperty[tab.id]["display"] && (
                                     <Link key={tab.id} to={`/quickaid${tab.id === "/quickaid" ? "" : tab.id}`}>
-                                        <Tab style={tabRootStyle} icon={<IconPosition tabicon={tab.icon} />} value={tab.id}>
-                                            <div style={tabNameStyle}>{tab.name}</div>
-                                        </Tab>
+                                        <Badge size="small" count={tabProperty[tab.id]["bubbleValue"]} overflowCount={99} offset={[-20, 0]}>
+                                            <Tab style={tabRootStyle} icon={<IconPosition tabicon={tab.icon} />} value={tab.id}>
+                                                <div style={tabNameStyle}>{tab.name}</div>
+                                            </Tab>
+                                        </Badge>
                                     </Link>
                                 )
                         )}
@@ -204,7 +269,7 @@ export const ShortLeftNavBar = (props) => {
                     sx={{
                         padding: "15px 10px 5px 10px",
                         // display: "flex",
-                        display: { xs: "flex", sm: "none", md: "none", lg: "none" },
+                        display: { xs: "flex", sm: "none", md: "none", lg: "none", xl: "none" },
                         // flexDirection: "column",
                         justifyContent: "center",
                         background: "linear-gradient(90deg, rgba(231,231,231,1) 0%, rgba(242,242,242,1) 35%, rgba(251,251,251,1) 75%)",
@@ -231,11 +296,13 @@ export const ShortLeftNavBar = (props) => {
                     >
                         {tabs.map(
                             (tab, index) =>
-                                allowed_tabs[tab.id] && (
+                                tabProperty[tab.id]["display"] && (
                                     <Link key={tab.id} to={`/quickaid${tab.id === "/quickaid" ? "" : tab.id}`}>
-                                        <Tab style={{...tabRootStyle, width:"80px"}} icon={<IconPosition tabicon={tab.icon} />} value={tab.id}>
-                                            <div style={{...tabNameStyle , width:"80px", fontSize:"11px"}}>{tab.name}</div>
-                                        </Tab>
+                                        <Badge size="small" count={tabProperty[tab.id]["bubbleValue"]} overflowCount={99} offset={[-20, 0]}>
+                                            <Tab style={{ ...tabRootStyle, width: "80px" }} icon={<IconPosition tabicon={tab.icon} />} value={tab.id}>
+                                                <div style={{ ...tabNameStyle, width: "80px", fontSize: "11px" }}>{tab.name}</div>
+                                            </Tab>
+                                        </Badge>
                                     </Link>
                                 )
                         )}

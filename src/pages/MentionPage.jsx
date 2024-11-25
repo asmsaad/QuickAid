@@ -58,7 +58,7 @@ const MentionPage = () => {
 
     return (
         <Box sx={{ width: "100%", height: "100%", display: "flex" }}>
-            <TicketViewerPageStructure isLoading_getAllTicketsByEmpID={isLoading_getAllMentionedTicketsByEmpID} data_getAllTicketsByEmpID={data_getAllMentionedTicketsByEmpID} isError_getAllTicketsByEmpID={isError_getAllMentionedTicketsByEmpID} error_getAllTicketsByEmpID={error_getAllMentionedTicketsByEmpID} />
+            <TicketViewerPageStructure isLoading_getAllTicketsByEmpID={isLoading_getAllMentionedTicketsByEmpID} data_getAllTicketsByEmpID={data_getAllMentionedTicketsByEmpID?.data} isError_getAllTicketsByEmpID={isError_getAllMentionedTicketsByEmpID} error_getAllTicketsByEmpID={error_getAllMentionedTicketsByEmpID} />
         </Box>
     );
 };

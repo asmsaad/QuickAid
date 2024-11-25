@@ -30,6 +30,11 @@ import { ShortLeftNavBar } from "../segments/NewNavBar";
 // import { DeveloperBoard } from "@mui/icons-material";
 import HomePage from "./HomePage";
 
+import "./../style/AppStructurte.css";
+import app_logo_img from "./../media/quickaidLogo.png";
+import { BackgroundImage } from "@mantine/core";
+import { Typography } from "antd";
+
 /**
  * Defines the segmentation of the HR bulletin page.
  *
@@ -51,6 +56,7 @@ const AppStructure = (props) => {
     //! For original
     const [isLogin, setLogin] = useState(getDataFromLocalStorage("user-scredential") === null ? false : true); // USER LOGGING STATE.
     const [isNewLogin, setNewLogin] = useState(false);
+    const [pageLoader, setPageLoader] = useState(true);
 
     //* ON LOGGING WITH GOOGLE SOCIAL MEDIA BUTTON, THIS FUNCTION IS TRIGGERED.
     const onLoginSuccess = (credentialResponse) => {
@@ -72,9 +78,15 @@ const AppStructure = (props) => {
         const userCredential = getDataFromLocalStorage("user-credential");
         logPrint("userCredential => fromLocalStorage", userCredential);
         if (userCredential) {
-            setLogin(true);
+            setTimeout(() => {
+                setPageLoader(false);
+                setLogin(true);
+            }, 3000); //!fixed for developer mood 3000
         } else {
-            setLogin(false);
+            setTimeout(() => {
+                setPageLoader(false);
+                setLogin(false);
+            }, 3000); //!fixed for developer mood 3000
         }
     }, [isLogin]);
     ////
@@ -173,24 +185,46 @@ const AppStructure = (props) => {
     const location = useLocation();
     // // console.log("location :", location);
     logPrint("Location", location);
+    /* background-image:  url('../media/login_bg1.jpg'); */
 
     return (
-        <Box>
+        <Box style={{ height: "100dvh", width: "100vw" }}>
             {!isLogin ? (
-                <Box className="full-display">
-                    <Box className="poster">
-                        <div className="Title-Text" style={{ fontSize: "32px", fontWeight: "bolder", marginTop: "0px" }}>
-                            Welcome to ProSync Lite
-                        </div>
-                        <div className="title-context">Manage your project and task at one click</div>
-                        {!isNewLogin ? (
-                            <Box style={{ marginTop: "30px" }}>
-                                <LoginPage onLoginSuccess={onLoginSuccess} /> {/* //todo LOG  IN PAGE */}
+                <Box style={{ height: "100dvh", width: "100%", display: "flex", justifyContent: "center", alignItems: "center" }}>
+                    {/* <Box className="full-display" style={{ height: "100dvh", width: "100%", display: "flex", justifyContent: "center", alignItems: "center", bgcolor: "red", BackgroundImage: pageLoader ? "None" : bgImage }}> */}
+                    {pageLoader ? (
+                        <Box style={{ height: "100dvh", width: "100%", display: "flex", justifyContent: "center", alignItems: "center" }}>
+                            <Box className="mywrapper" style={{ width: "100%", height: "fit-content", margin: "10%" }}>
+                                <svg className="mysvg">
+                                    <text x="50%" y="50%" dy=".35em" textAnchor="middle">
+                                        QUICK AID
+                                    </text>
+                                </svg>
                             </Box>
-                        ) : (
-                            <NewUserForm setLogin={setLogin} userCredentialData={userCredentialData} />
-                        )}
-                    </Box>
+                        </Box>
+                    ) : (
+                        <Box className="full-display" style={{ height: "100dvh", width: "100%", display: "flex", justifyContent: "center", alignItems: "center" }}>
+                            <Box className="poster" sx={{ display: "flex", justifyContent: "center", flexDirection: "column" }}>
+                                <Box sx={{ display: "flex", justifyContent: "center",alignItems:"center" ,flexDirection: "column" }}>
+                                    <Box style={{ width: "170px", display: "flex", justifyContent: "center", alignItems: "center" }}>
+                                        <img src={app_logo_img} alt="Descriptive Alt Text" style={{ maxWidth: "170px", height: "auto", userSelect: "none", pointerEvents: "none" }} draggable="false" />
+                                    </Box>
+                                    <Box sx={{ display: "flex", justifyContent: "center", margin: "0px 0 30px 0" }}>
+                                        <Typography style={{ fontSize: "35px", fontWeight: 800 }}>Quick Aid</Typography>
+                                    </Box>
+                                </Box>
+
+                                <Box>Log in with the organization's email</Box>
+                                {!isNewLogin ? (
+                                    <Box style={{ marginTop: "10px" }}>
+                                        <LoginPage onLoginSuccess={onLoginSuccess} /> {/* //todo LOG  IN PAGE */}
+                                    </Box>
+                                ) : (
+                                    <NewUserForm setLogin={setLogin} userCredentialData={userCredentialData} />
+                                )}
+                            </Box>
+                        </Box>
+                    )}
                 </Box>
             ) : (
                 <Box display="flex" flexDirection="column" height="100dvh" width="100vw" overflow="hidden">

@@ -58,7 +58,7 @@ const HistoryPage = () => {
 
     return (
         <Box sx={{ width: "100%", height: "100%", display: "flex" }}>
-            <TicketViewerPageStructure isLoading_getAllTicketsByEmpID={isLoading_getAllTicketsByEmpID} data_getAllTicketsByEmpID={data_getAllTicketsByEmpID} isError_getAllTicketsByEmpID={isError_getAllTicketsByEmpID} error_getAllTicketsByEmpID={error_getAllTicketsByEmpID} />
+            <TicketViewerPageStructure isLoading_getAllTicketsByEmpID={isLoading_getAllTicketsByEmpID} data_getAllTicketsByEmpID={data_getAllTicketsByEmpID?.data} isError_getAllTicketsByEmpID={isError_getAllTicketsByEmpID} error_getAllTicketsByEmpID={error_getAllTicketsByEmpID} />
         </Box>
     );
 };
