@@ -135,7 +135,7 @@ const DataViewTable = (props) => {
 
     return (
         <Box>
-            <Table style={{ width: "100%" }} size="default" title={() => TableHeader()} bordered pagination={false} columns={columns_structure} dataSource={tableData} />;
+            <Table style={{ width: "100%" }} size="default" title={() => TableHeader()} bordered pagination={false} columns={columns_structure} dataSource={tableData} />
         </Box>
     );
 };

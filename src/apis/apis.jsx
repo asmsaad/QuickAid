@@ -1,8 +1,8 @@
 // const BASE_URL = "http://192.168.5.187:8000/"; //Must be a slash at at end
-// const BASE_URL = "http://192.168.5.146:8000/"; //Must be a slash at at end
-// const BASE_URL = "http://192.168.0.101:8000/"; //Must be a slash at at end
-// const BASE_URL = "http://192.168.5.146:8000/"; //Must be a slash at at end
-const BASE_URL = "https://www.ulka.autos/quickaid/api/"; //Must be a slash at at end
+// const BASE_URL = "http://192.168.5.146:8000/"; //Must be a slash at at end [[officd dask]]
+// const BASE_URL = "http://192.168.0.101:8000/"; //Must be a slash at at end [[home]]
+// const BASE_URL = "http://192.168.10.165:8000/"; //Must be a slash at at end
+const BASE_URL = "https://www.ulka.autos/quickaid/apis/"; //Must be a slash at at end
 const apinames = {
     "get-managers-by-empid": BASE_URL + "get-managers-by-empid/", //Checking Wheter the user are resgisterd at DB or not
     "get-all-employee-info": BASE_URL + "get-all-employee-info/", //Checking Wheter the user are resgisterd at DB or not

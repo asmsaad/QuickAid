@@ -84,12 +84,12 @@ const AppStructure = (props) => {
             setTimeout(() => {
                 setPageLoader(false);
                 setLogin(true);
-            }, 3000); //!fixed for developer mood 3000
+            }, 3); //!fixed for developer mood 1
         } else {
             setTimeout(() => {
                 setPageLoader(false);
                 setLogin(false);
-            }, 3000); //!fixed for developer mood 3000
+            }, 3); //!fixed for developer mood 3000
         }
     }, [isLogin]);
     ////

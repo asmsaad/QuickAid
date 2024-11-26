@@ -678,7 +678,7 @@ export const RequestDescription = () => {
 
                         <Box sx={{ width: "calc(492px - 20px)", borderRadius: "10px", bgcolor: "#fbfbfb", padding: "10px" }}>
                             <Box sx={{ marginBottom: "10px" }}>
-                                <Text style={{ fontSize: "15px" }}>Timelien</Text>
+                                <Text style={{ fontSize: "15px" }}>Timeline</Text>
                             </Box>
 
                             <RequestTimeline timeline_data={data_getTicketStatusTimeline?.data} />

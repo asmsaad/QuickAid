@@ -107,7 +107,7 @@ const Navbar = () => {
                     <Box sx={{ width: "260px", paddingBottom: "20px" }}>
                         <Box sx={{ width: "100%", textAlign: "center", fontSize: "20px", margin: "15px 0" }}>Profile</Box>
 
-                        <Box sx={{ width: "100%", display: "flex", justifyContent: "center", margin: "15px 0" }}>
+                        <Box sx={{ width: "100%", display: "flex", justifyContent: "center", alignItems: "center", margin: "15px 0" }}>
                             <div className="avatar-wrapper">
                                 <div className="avatar-border"></div>
                                 <div className="avatar" style={{ overflow: "hidden" }}>
