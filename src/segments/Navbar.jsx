@@ -107,11 +107,13 @@ const Navbar = () => {
                     <Box sx={{ width: "260px", paddingBottom: "20px" }}>
                         <Box sx={{ width: "100%", textAlign: "center", fontSize: "20px", margin: "15px 0" }}>Profile</Box>
 
-                        <Box sx={{ width: "100%", display: "flex", justifyContent: "center", margin: "15px 0" }}>
+                        <Box sx={{ width: "100%", display: "flex", justifyContent: "center", margin: "15px 0",  }}>
                             <div className="avatar-wrapper">
                                 <div className="avatar-border"></div>
                                 <div className="avatar" style={{ overflow: "hidden" }}>
-                                    <img src={userCredential.picture} alt="Italian Trulli" width="100px" height="100px" />
+                                    {/* <img src={userCredential.picture} alt="Italian Trulli" width="100px" height="100px" /> */}
+
+                                    <img src='https://lh3.googleusercontent.com/a/ACg8ocIF7K75_0tD0da98-h0ytL7ej-Q34B_XEya5EHWjrsNn18A4TaI=s288-c-no' alt="Italian Trulli" width="100px" height="100px" />
                                 </div>
                             </div>
                         </Box>

@@ -5,108 +5,361 @@ from .models import *
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework.decorators import api_view
+from django.utils import timezone
 
-from rest_framework import status
-from .models import designation
-from django.db import IntegrityError
 from django.views.decorators.csrf import csrf_exempt
+from django.db.models import Q
 
 
 # def home(request):
 #     return HttpResponse("Yoooooooooo I am working Fine!")
 
-# class PopulateDesignationsView(APIView):
-#     def post(self, request, *args, **kwargs):
-#         # List of designations to add
-#         designations = [
-#                         "Assistant Engineer",
-#                         "Assistant Engineering Program Manager",
-#                         "Assistant Program Manager",
-#                         "Assistant Technical Manager",
-#                         "Director",
-#                         "Engineer",
-#                         "Executive",
-#                         "Junior Executive",
-#                         "Manager",
-#                         "Member Of Business Team",
-#                         "Member of Technical Staff",
-#                         "Officer",
-#                         "Program Manager",
-#                         "Senior Director",
-#                         "Senior Engineer",
-#                         "Senior Executive",
-#                         "Senior Manager",
-#                         "Senior Officer",
-#                         "Senior Program Manager",
-#                         "Senior Technical Manager",
-#                         "Store Coordinator",
-#                         "Technical Manager",
-#                         "Trainee Engineer",
-#                         "VP",
-#                         "Well-being Counselor"
-#                     ]
+class PopulateDesignationsView(APIView):
+    def post(self, request, *args, **kwargs):
+        # List of designations to add
+        designations = [
+                        "Assistant Engineer",
+                        "Assistant Engineering Program Manager",
+                        "Assistant Program Manager",
+                        "Assistant Technical Manager",
+                        "Director",
+                        "Engineer",
+                        "Executive",
+                        "Junior Executive",
+                        "Manager",
+                        "Member Of Business Team",
+                        "Member of Technical Staff",
+                        "Officer",
+                        "Program Manager",
+                        "Senior Director",
+                        "Senior Engineer",
+                        "Senior Executive",
+                        "Senior Manager",
+                        "Senior Officer",
+                        "Senior Program Manager",
+                        "Senior Technical Manager",
+                        "Store Coordinator",
+                        "Technical Manager",
+                        "Trainee Engineer",
+                        "VP",
+                        "Well-being Counselor"
+                    ]
 
-#         # Add designations to the database
-#         added_designations = []
-#         for des in designations:
-#             obj, created = designation.objects.get_or_create(designation=des)
-#             if created:
-#                 added_designations.append(des)
+        # Add designations to the database
+        added_designations = []
+        for des in designations:
+            obj, created = designation.objects.get_or_create(designation=des)
+            if created:
+                added_designations.append(des)
 
-#         return Response(
-#             {"message": "Designations added successfully!", "added": added_designations},
-#             status=200,
-#         )
+        return Response(
+            {"message": "Designations added successfully!", "added": added_designations},
+            status=200,
+        )
  
+
+class PopulateUserInfoView(APIView):
+    def post(self, request, *args, **kwargs):
+        user_data_list = request.data.get('data', [])
         
-# from rest_framework.response import Response
-# from rest_framework.views import APIView
-# from django.utils import timezone
-# from .models import user_info, genders
+        # Iterate over each user's data
+        for user_data in user_data_list:
+            try:
+                # Try to get the existing user by empid
+                user_info_obj, created = user_info.objects.get_or_create(empid=user_data['empid'])
 
-# class PopulateUserInfoView(APIView):
-#     def post(self, request, *args, **kwargs):
-#         user_data_list = request.data.get('data', [])
+                # Only update the user if it was newly created
+                if created:
+                    gender = self.get_gender(user_data['gender'])  # Get gender instance safely
+
+                    # Update user info with provided data
+                    user_info_obj.name = user_data['name']
+                    user_info_obj.email = user_data['email']
+                    user_info_obj.gender = gender
+                    user_info_obj.phone_number = user_data.get('phone', '')
+
+                    user_info_obj.joining_date = user_data['doj']
+
+                    user_info_obj.create_on = timezone.now()
+                    user_info_obj.save()
+
+            except Exception as e:
+                # You can log the error here instead of returning immediately.
+                # logging.exception(f"Error processing empid {user_data['empid']}: {str(e)}")
+                return Response({'error': str(e)}, status=400)
+
+        return Response({'Success': 'Succeeded'}, status=200)
+
+    def get_gender(self, gender_name):
+        """Retrieve or create gender if not found."""
+        try:
+            gender = genders.objects.get(gender=gender_name)
+        except genders.DoesNotExist:
+            # Handle the case where gender doesn't exist, possibly create it or return a default
+            gender = None  # Or handle it as needed, e.g., create a default gender
+        return gender
+
+@api_view(["POST"])
+def assign_designation(request):
+    try:
+        getlist = request.data.get('data')
+        positions_dict = {
+        "Assistant Engineer": "Assistant Engineer",
+        "Assistant Engineering Program Manager": "Assistant Engineering Program Manager",
+        "Assistant Engineering Program Manager (AEPM)": "Assistant Engineering Program Manager",
+        "Assistant Manager": "Assistant Engineering Program Manager",
+        "Assistant Manager-Finance & Accounts": "Assistant Engineering Program Manager",
+        "Assistant Program Manager": "Assistant Program Manager",
+        "Assistant Technical Manager": "Assistant Technical Manager",
+        "Director": "Director",
+        "Engineer": "Engineer",
+        "Executive-Branding & PR": "Executive",
+        "Junior Executive-Facility Management": "Junior Executive",
+        "Junior Executive-Maintenance": "Junior Executive",
+        "Junior Executive-Procurement & Inventory": "Junior Executive",
+        "Manager-Branding & PR": "Manager",
+        "Manager-Finance & Accounts": "Manager",
+        "Member Of Business Team-I, HR": "Member Of Business Team",
+        "Member of Technical Staff (MTS)": "Member of Technical Staff",
+        "Procurement & Administration Officer": "Officer",
+        "Program Manager": "Program Manager",
+        "Senior Director": "Senior Director",
+        "Senior Director-IC Design, EDA & IT": "Senior Director",
+        "Senior Engineer": "Senior Engineer",
+        "Senior Executive": "Senior Executive",
+        "Senior Executive-HR": "Senior Executive",
+        "Senior Executive-HR & QMS": "Senior Executive",
+        "Senior IT Specialist": "Senior Executive",
+        "Senior Manager-HR": "Senior Manager",
+        "Senior Officer-Facility Management": "Senior Officer",
+        "Senior Program Manager & Critical Services": "Senior Program Manager",
+        "Senior Technical Manager": "Senior Technical Manager",
+        "Store Coordinator-Facility Management": "Store Coordinator",
+        "Technical Manager": "Technical Manager",
+        "Trainee Engineer": "Trainee Engineer",
+        "VP": "VP",
+        "Well-being Counselor": "Well-being Counselor"
+        }
         
-#         # Iterate over each user's data
-#         for user_data in user_data_list:
-#             try:
-#                 # Try to get the existing user by empid
-#                 user_info_obj, created = user_info.objects.get_or_create(empid=user_data['empid'])
-
-#                 # Only update the user if it was newly created
-#                 if created:
-#                     gender = self.get_gender(user_data['gender'])  # Get gender instance safely
-
-#                     # Update user info with provided data
-#                     user_info_obj.name = user_data['name']
-#                     user_info_obj.email = user_data['email']
-#                     user_info_obj.gender = gender
-#                     user_info_obj.phone_number = user_data.get('phone', '')
-
-#                     user_info_obj.joining_date = user_data['doj']
-
-#                     user_info_obj.create_on = timezone.now()
-#                     user_info_obj.save()
-
-#             except Exception as e:
-#                 # You can log the error here instead of returning immediately.
-#                 # logging.exception(f"Error processing empid {user_data['empid']}: {str(e)}")
-#                 return Response({'error': str(e)}, status=400)
-
-#         return Response({'Success': 'Succeeded'}, status=200)
-
-#     def get_gender(self, gender_name):
-#         """Retrieve or create gender if not found."""
-#         try:
-#             gender = genders.objects.get(gender=gender_name)
-#         except genders.DoesNotExist:
-#             # Handle the case where gender doesn't exist, possibly create it or return a default
-#             gender = None  # Or handle it as needed, e.g., create a default gender
-#         return gender
+        if not getlist:
+            return Response({'error': 'getlist is required'}, status=400)
+        
+        error = []
+        
+        for dataset in getlist:
+            try:
+                user_obj = user_info.objects.get(empid=dataset['empid'])
+                designation_obj = designation.objects.get(designation=positions_dict[dataset['designation']])
+                
+                user_obj.designation = designation_obj
+                user_obj.save()
+            except user_info.DoesNotExist:
+                error.append({'empid': dataset['empid'], 'error': 'User not found'})
+            except designation.DoesNotExist:
+                error.append({'empid': dataset['empid'], 'error': 'Designation not found'})
+            except KeyError as e:
+                error.append({'empid': dataset.get('empid', 'Unknown'), 'error': f'Missing key: {str(e)}'})
+            except Exception as e:
+                error.append({'empid': dataset.get('empid', 'Unknown'), 'error': str(e)})
+        
+        if error:
+            return Response({'errors': error}, status=207)  # 207: Multi-Status (indicates partial success)
+        else:
+            return Response({'message': 'All designations assigned successfully'}, status=200)
+    
+    except Exception as e:
+        return Response({'error': str(e)}, status=500)
 
 
+@api_view(["POST"])
+def set_employee_supervisors(request):
+    try:
+        data = request.data.get('data')  # Assuming data is a list of dictionaries
 
+        if not data:
+            return Response({'error': 'Data is required'}, status=400)
+
+        errors = []
+
+        for record in data:
+            try:
+                empid = record.get('empid')
+                sup_id = record.get('sup_id')
+
+                # Validate empid
+                if not empid:
+                    errors.append({'error': 'Missing empid in record', 'record': record})
+                    continue
+                
+                # Fetch the employee object
+                employee = user_info.objects.get(empid=empid)
+                
+                # Fetch or create the employee_supervisors entry
+                supervisor_entry, created = employee_supervisors.objects.get_or_create(employee=employee)
+                
+                # Add supervisor if sup_id is provided
+                if sup_id:
+                    try:
+                        supervisor = user_info.objects.get(empid=sup_id)
+                        supervisor_entry.supervisors.add(supervisor)
+                    except user_info.DoesNotExist:
+                        errors.append({'empid': empid, 'error': f'Supervisor with empid {sup_id} not found'})
+                
+                # Save the supervisor relationship
+                supervisor_entry.save()
+            
+            except user_info.DoesNotExist:
+                errors.append({'error': f'Employee with empid {empid} not found'})
+            except Exception as e:
+                errors.append({'empid': empid, 'error': str(e)})
+
+        if errors:
+            return Response({'message': 'Some updates encountered errors', 'errors': errors}, status=207)
+        
+        return Response({'message': 'All employee-supervisor relationships set successfully'}, status=200)
+
+    except Exception as e:
+        return Response({'error': str(e)}, status=500)
+    
+    
+@api_view(["POST"])
+def assign_location(request):
+    try:
+        getlist = request.data.get('data')
+        positions_dict = {
+        "2nd floor": "28321363",
+        "3rd floor": "67699844",
+        "4th floor": "71329332",
+        "5th floor": "71430965",
+
+        }
+        
+        if not getlist:
+            return Response({'error': 'getlist is required'}, status=400)
+        
+        error = []
+        
+        for dataset in getlist:
+            try:
+                user_obj = user_info.objects.get(email=dataset['email'].strip())
+                location_obj = locations.objects.get(location_id=positions_dict[dataset['location']])
+                
+                user_obj.location = location_obj
+                user_obj.save()
+            except user_info.DoesNotExist:
+                error.append({'email': dataset['email'], 'error': 'User not found'})
+            except locations.DoesNotExist:
+                error.append({'email': dataset['email'], 'error': 'Location not found'})
+            except KeyError as e:
+                error.append({'email': dataset.get('email', 'Unknown'), 'error': f'Missing key: {str(e)}'})
+            except Exception as e:
+                error.append({'email': dataset.get('email', 'Unknown'), 'error': str(e)})
+        
+        if error:
+            return Response({'errors': error}, status=207)  # 207: Multi-Status (indicates partial success)
+        else:
+            return Response({'message': 'All Location assigned successfully'}, status=200)
+    
+    except Exception as e:
+        return Response({'error': str(e)}, status=500)
+    
+    
+@api_view(["POST"])
+def assign_department(request):
+    try:
+        getlist = request.data.get('data')
+        positions_dict = {
+        "BOARD OF DIRECTORS": "Board of Directors",
+        "BRANDING & PR": "Branding & PR", 
+        "CHIP TESTING": "Chip Testing",
+        "CIRCUIT & SYSTEM DESIGN": "Circuit & System Design",
+        "CIRCUIT & SYSTEM DESIGN (QA)": "Circuit & System Design",
+        "FACILITY MANAGEMENT": "Facility Management",
+        "FINANCE & ACCOUNTS": "Finance & Accounts",
+        "HUMAN RESOURCES": "Human Resources",
+        "IC DESIGN": "IC Mask Design", 
+        "IC DESIGN, EDA & IT": "IC Mask Design", 
+        "IC MASK DESIGN": "IC Mask Design", 
+        "IC PHYSICAL DESIGN": "IC Physical Design", 
+        "IT & SECURITY": "IT Security EDA & CAD", 
+        "OFFICE OF COO": "Office of COO", 
+        "POST SILICON TESTING": "Chip Testing",
+        "SILICON ENGINEERING": "Silicon Engineering"
+        }
+        
+        if not getlist:
+            return Response({'error': 'getlist is required'}, status=400)
+        
+        error = []
+        
+        for dataset in getlist:
+            try:
+                user_obj = user_info.objects.get(email=dataset['email'].strip())
+                department_obj = departments.objects.get(department=positions_dict[dataset['department']])
+                
+                user_obj.department.add(department_obj) 
+                user_obj.save()
+            except user_info.DoesNotExist:
+                error.append({'email': dataset['email'], 'error': 'User not found'})
+            except departments.DoesNotExist:
+                error.append({'email': dataset['email'], 'error': f"department {positions_dict[dataset['department']]} not found"})
+            except KeyError as e:
+                error.append({'email': dataset.get('email', 'Unknown'), 'error': f'Missing key: {str(e)}'})
+            except Exception as e:
+                error.append({'email': dataset.get('email', 'Unknown'), 'error': str(e)})
+        
+        if error:
+            return Response({'errors': error}, status=207)  # 207: Multi-Status (indicates partial success)
+        else:
+            return Response({'message': 'All designations assigned successfully'}, status=200)
+    
+    except Exception as e:
+        return Response({'error': str(e)}, status=500)
+
+
+
+
+class MissingFieldsAPIView(APIView):
+    def post(self, request):
+        missing_fields_data = {}
+        
+        # Iterate through each user in the user_info table
+        for user in user_info.objects.all():
+            missing_fields = {}
+            
+            # Check for missing fields in user_info
+            if not user.email:
+                missing_fields['email'] = 'missing'
+            if not user.gender:
+                missing_fields['gender'] = 'missing'
+            if not user.department.exists():  # ManyToManyField check
+                missing_fields['department'] = 'missing'
+            if not user.designation:
+                missing_fields['designation'] = 'missing'
+            if not user.phone_number:
+                missing_fields['phone_number'] = 'missing'
+            if not user.joining_date:
+                missing_fields['joining_date'] = 'missing'
+            if not user.location:
+                missing_fields['location'] = 'missing'
+            
+            try:
+                supervisor_record = employee_supervisors.objects.get(employee=user)
+                if not supervisor_record.supervisors.exists():
+                    missing_fields['supervisors'] = 'missing'
+            except employee_supervisors.DoesNotExist:
+                missing_fields['supervisors'] = 'missing'
+            
+            if missing_fields:
+                missing_fields_data[user.empid] = missing_fields
+                missing_fields_data[user.empid]['Employee Name'] = user.name
+                missing_fields_data[user.empid]['Employee Email'] = user.email
+        
+        return Response(missing_fields_data, status=200)
+
+
+
+#############################################################################################################################################
 
 
 @api_view(["POST"])
@@ -534,11 +787,15 @@ def request_status_flow_by_id(request):
                 "note": request_status.note,
                 "assign_to": {
                     "name": request_status.assign_to.name if request_status.assign_to else "",
-                    "empid": request_status.assign_to.empid if request_status.assign_to else ""
+                    "empid": request_status.assign_to.empid if request_status.assign_to else "",
+                    "designation": request_status.assign_to.designation.designation if request_status.assign_to else "",
+                    "url": request_status.assign_to.profile_url if request_status.assign_to else ""
                 },
                 "updated_by": {
                     "name": request_status.updated_by.name if request_status.updated_by else "",
-                    "empid": request_status.updated_by.empid if request_status.updated_by else ""
+                    "empid": request_status.updated_by.empid if request_status.updated_by else "",
+                    "designation": request_status.updated_by.designation.designation if request_status.updated_by else "",
+                    "url": request_status.updated_by.profile_url if request_status.updated_by else ""
                 },
                 "update_on": request_status.update_on,
             }
@@ -577,6 +834,27 @@ def get_request_header_info(request):
         
         current_status_obj = all_request_status_flow.objects.filter(request = request_obj).order_by("-update_on").first()
         all_readers = request_view_status.objects.get(request=request_obj)
+        
+        acknowledge_person_obj = request_obj.acknowledge.all()
+        manager_obj = request_obj.manager.all()
+        
+        ack = {}
+        for person in acknowledge_person_obj:
+            ack[person.empid]={
+                "name":person.name,
+                "url":person.profile_url,
+                "designation":person.designation.designation,
+            }
+            
+        man={}
+        
+        for person in manager_obj:
+            man[person.empid]={
+                "name":person.name,
+                "url":person.profile_url,
+                "designation":person.designation.designation,
+            }
+            
         data = {
             
                 "ticket_id": request_obj.request_id,
@@ -584,6 +862,8 @@ def get_request_header_info(request):
                 "time": request_obj.create_on,
                 "domain": {"name": request_obj.domain.domain, "id":request_obj.domain.domain_id},
                 "issue_catagory": {"name": request_obj.sub_domain.sub_domain, "id": request_obj.sub_domain.sub_domain_id},
+                "acknowledge": ack,
+                "manager":man,
                 "issue_sub_category": {"name" :request_obj.service.service, "id":request_obj.service.service_id},
                 "note":request_obj.note,
                 "current_status": {"name":current_status_obj.status.status, "color":current_status_obj.status.color},
@@ -613,7 +893,7 @@ def get_request_by_acknowledge(request):
             return Response({'error': 'User does not exist'}, status=404)
     
     
-        ack_request = all_requests.objects.filter(acknowledge = user, manager = user).order_by('-create_on')
+        ack_request = all_requests.objects.filter(Q(acknowledge=user) | Q(manager=user)).order_by('-create_on')
     
         data = {}
         

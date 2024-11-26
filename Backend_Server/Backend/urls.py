@@ -5,8 +5,13 @@ from .views import *
 
 urlpatterns = [
     # path('', views.home, name= 'Home'),
-    # path('populate-designations/', PopulateDesignationsView.as_view(), name='populate-designations'),
-    # path('populate-user/', PopulateUserInfoView.as_view(), name='populate-designations'),
+    path('populate-designations/', PopulateDesignationsView.as_view(), name='populate-designations'),
+    path('populate-user/', PopulateUserInfoView.as_view(), name='populate-designations'),
+    path('assign_designation/', assign_designation, name='populate-designations'),
+    path('set_employee_supervisors/', set_employee_supervisors, name='populate-designations'),
+    path('assign_location/', assign_location, name='populate-designations'),
+    path('assign_department/', assign_department, name='populate-designations'),
+    path('missing-fields/', MissingFieldsAPIView.as_view(), name='missing-fields-api'),
     
     
     
