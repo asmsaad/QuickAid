@@ -724,7 +724,7 @@ const SubDomainTable = () => {
                 ...modalBodyConfig,
                 subdomain: {
                     ...modalBodyConfig["subdomain"],
-                    suggestionsList:
+                    suggestionsList: "abc"
                         //--------------------------
                         // Object.keys(data_getAvailableDomainsWithMembers?.data).map((domain_Idx) => {
                         //     return {
