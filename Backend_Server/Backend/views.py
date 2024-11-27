@@ -1019,7 +1019,6 @@ def get_accessible_requests(request):
         data = {}
         
         for idx, request in enumerate(final_requests):
-        for idx, request in enumerate(final_requests):
             current_status_obj = all_request_status_flow.objects.filter(request = request).order_by("-update_on").first()
             all_readers = request_view_status.objects.get(request=request)
             request_data ={
