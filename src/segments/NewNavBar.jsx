@@ -250,7 +250,7 @@ export const ShortLeftNavBar = (props) => {
                             (tab, index) =>
                                 tabProperty[tab.id]["display"] && (
                                     <Link key={tab.id} to={`/quickaid${tab.id === "/quickaid" ? "" : tab.id}`}>
-                                        <Badge size="small" count={tabProperty[tab.id]["bubbleValue"]} overflowCount={99} offset={[-20, 0]}>
+                                        <Badge size="small" count={tabProperty[tab.id]["bubbleValue"]  ? tabProperty[tab.id]["bubbleValue"] : null} overflowCount={99} offset={[-20, 0]}>
                                             <Tab style={tabRootStyle} icon={<IconPosition tabicon={tab.icon} />} value={tab.id}>
                                                 <div style={tabNameStyle}>{tab.name}</div>
                                             </Tab>
@@ -298,7 +298,7 @@ export const ShortLeftNavBar = (props) => {
                             (tab, index) =>
                                 tabProperty[tab.id]["display"] && (
                                     <Link key={tab.id} to={`/quickaid${tab.id === "/quickaid" ? "" : tab.id}`}>
-                                        <Badge size="small" count={tabProperty[tab.id]["bubbleValue"]} overflowCount={99} offset={[-20, 0]}>
+                                        <Badge size="small" count={tabProperty[tab.id]["bubbleValue"] ? tabProperty[tab.id]["bubbleValue"] : null} overflowCount={99} offset={[-20, 0]}>
                                             <Tab style={{ ...tabRootStyle, width: "80px" }} icon={<IconPosition tabicon={tab.icon} />} value={tab.id}>
                                                 <div style={{ ...tabNameStyle, width: "80px", fontSize: "11px" }}>{tab.name}</div>
                                             </Tab>
