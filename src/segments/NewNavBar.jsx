@@ -230,7 +230,7 @@ export const ShortLeftNavBar = (props) => {
                         flexDirection: "column",
                         justifyContent: "space-between",
                         background: "linear-gradient(90deg, rgba(231,231,231,1) 0%, rgba(242,242,242,1) 35%, rgba(251,251,251,1) 75%)",
-                        height: "calc(100vh - 64px - 30px)",
+                        height: "calc(100vh - 64px )",
                     }}
                 >
                     <TabList
