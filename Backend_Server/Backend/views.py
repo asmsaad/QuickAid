@@ -933,7 +933,7 @@ def get_unviewed_acknowledge_request_count(request):
             return Response({'error': 'User does not exist'}, status=404)
     
     
-        ack_request = all_requests.objects.filter(acknowledge = user, manager = user).order_by('-create_on')
+        ack_request = all_requests.objects.filter(Q(acknowledge=user) | Q(manager=user)).order_by('-create_on')
     
         unviewed_requests_count = request_view_status.objects.filter(
             request__in=ack_request
@@ -1007,9 +1007,17 @@ def get_accessible_requests(request):
             requestor_department__in=accessible_departments
         ).distinct()
         
+        assigned_requests = all_requests.objects.filter(
+            requestor__assign_to=user 
+        )
+
+        final_requests = matching_requests.union(assigned_requests)
+        
+        # request_ids = assigned_requests.values_list('request_id', flat=True)
+        
         data = {}
         
-        for idx, request in enumerate(matching_requests):
+        for idx, request in enumerate(final_requests):
             current_status_obj = all_request_status_flow.objects.filter(request = request).order_by("-update_on").first()
             all_readers = request_view_status.objects.get(request=request)
             request_data ={
@@ -1090,8 +1098,14 @@ def get_unviewed_accessible_requests_count(request):
             requestor_department__in=accessible_departments
         ).distinct()
         
+        assigned_requests = all_requests.objects.filter(
+            requestor__assign_to=user 
+        )
+
+        final_requests = matching_requests.union(assigned_requests)
+        
         unviewed_requests_count = request_view_status.objects.filter(
-            request__in=matching_requests
+            request__in=final_requests
         ).exclude(viewed_by=user).count()
         
         
@@ -2018,3 +2032,34 @@ def create_buiding(request):
 
     except Exception as e:
         return Response({'error': str(e)}, status=500)
+    
+    
+    
+    
+    
+    
+################################### Statistics API's ###################################
+
+@api_view(["POST"])
+def banner_statistics(request):
+    try:
+        all_request_count = all_requests.objects.all().count()
+        solved_request_count = all_requests.objects.filter(status=request_status.objects.get(status='closed')).count()
+        
+        data = {
+            "all_request_count" : all_request_count,
+            "solved_request_count" : solved_request_count,
+            "overall_rating": 75.66
+        }
+        
+        return Response(data, status=200)
+
+    except Exception as e:
+        return Response({'error': str(e)}, status=500)
+    
+    
+
+    
+
+
+

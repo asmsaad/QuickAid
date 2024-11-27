@@ -25,6 +25,7 @@ urlpatterns = [
     path('get-all-cities/', get_all_cities, name='get-all-employee-info'),
     path('get-all-building/', get_all_building, name='get-all-employee-info'),
     path('get-all-loactions/', get_all_loactions, name='get-all-employee-info'),
+         
                
         
     # Dependent API's
@@ -60,6 +61,7 @@ urlpatterns = [
     path('get-user-info-by-email/', get_user_info_by_email, name='get-user-info-by-email'),  
     path('update-profile-url/', update_profile_url, name='update-profile-url'),  
       
+      
     
     # Create Entry API's
     path('create-new-request/', create_new_request, name='create-new-request'),
@@ -86,5 +88,9 @@ urlpatterns = [
     path('create-location/', create_location, name=''),
     path('edit-location/', edit_location, name=''),
 
+    
+    
+    # Statistics API's
+    path('banner-statistics/', banner_statistics, name=''),
     
 ]
