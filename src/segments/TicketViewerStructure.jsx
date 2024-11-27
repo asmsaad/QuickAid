@@ -79,7 +79,7 @@ export const TicketViewerPageStructure = (props) => {
             {/* ///// */}
             {/* AVAILABLE TICKET LIST */}
 
-            <Box sx={{ width: { xs: "100%", md: "400px" }, height: `calc(100% - 20px)`, display: { xs: original_loc.split("/").length > 3 ? "none" : "flex", md: "flex" }, flexDirection: "column", gap: "5px", overflowY: "hidden", alignItems: "center", padding: "10px 0 0 0" }}>
+            <Box sx={{ width: { xs: "100%", md: "400px" }, height: "100%", display: { xs: original_loc.split("/").length > 3 ? "none" : "flex", md: "flex" }, flexDirection: "column", gap: "5px", overflowY: "hidden", alignItems: "center", padding: "10px 0 0 0" }}>
                 {/* <Box sx={{ width: "100%", display:"flex", flexDirection:"column", gap:"5px" }}>
                     
                 </Box> */}
@@ -126,13 +126,13 @@ export const TicketViewerPageStructure = (props) => {
                     </Box>
                 </Box>
 
-                <Box className="custom-scrollbar" sx={{ width: "100%", flex: 1, flexDirection: "column", gap: "5px", overflowY: "scroll", alignItems: "center", padding: "10px 0" }}>
+                <Box className="custom-scrollbar" sx={{ width: "100%",display:'flex', flex: 1, flexDirection: "column", gap: "0", overflowY: "scroll", padding: "10px 0"}}>
                     {Object.keys(data_getAllTicketsByEmpID || {}).map((index, index_) => {
                         const ticket_id = data_getAllTicketsByEmpID[index]["ticket_id"];
                         // console.log(`ticket-${ticket_id}`, "<<< FFG");
                         return (
                             <Box key={ticket_id}>
-                                {index_ !== 0 && <Divider style={{ width: "50%", margin: "0", padding: "0" }} />}
+                                {index_ !== 0 && <Box sx={{width:'100%', height:'1px', margin: "0px 0", display:'flex', justifyContent:'' }}> <Box sx={{width: `calc(100% - 7px)`, marginLeft:'2px'}}> <Divider style={{padding: "0", margin:'0' }} />  </Box> </Box> }
                                 <Link id={`ticket-${ticket_id}`} key={ticket_id} to={`${ticket_id}`} style={{ ...reactLinkStyleRemove, width: "100%" }}>
                                     <RequestCard ticket_info={data_getAllTicketsByEmpID[index]} ticket_id={ticket_id} selectedTicket={selectedTicket} />
                                 </Link>
@@ -144,7 +144,7 @@ export const TicketViewerPageStructure = (props) => {
 
             {/* ///// */}
             {/* TICKET DETAILS */}
-            <Box className="custom-scrollbar" sx={{ flex: "1", height: `calc(100% - 20px)`, display: { xs: original_loc.split("/").length > 3 ? "flex" : "none", md: "flex" }, overflowY: "scroll", padding: "10px" }}>
+            <Box className="custom-scrollbar" sx={{ flex: "1", height: "100%", display: { xs: original_loc.split("/").length > 3 ? "flex" : "none", md: "flex" }, overflowY: "scroll", padding: "10px 5px" }}>
                 {original_loc.split("/").length > 3 ? <Outlet /> : <NoTicketSelected status={false} subTitle={"No ticket has been selected; please choose one to view its details."} />}
             </Box>
         </Box>
@@ -164,7 +164,8 @@ const RequestCard = (props) => {
     const { ticket_info, ticket_id, selectedTicket } = props;
 
     return (
-        <Box sx={{ width: `calc(100% - 30px)`, maxWidth: { xs: "calc(100% - 30px)", xl: "400px" }, height: "fit-content", borderRadius: "10px", border: "0.5px solid #fdfdfd", "&:hover": { border: "1px dashed grey", cursor: "pointer" }, padding: "5px 10px", bgcolor: selectedTicket == ticket_id ? "#f6f6f6" : null }}>
+        <Box sx={{ width: `calc(100% - 3px)`, maxWidth: { xs: "calc(100% - 3px)", xl: "400px" }, height: "fit-content", borderRadius: "3px", border: "0px solid #fdfdfd", "&:hover": { bgcolor: "#f8f8f8", cursor: "pointer" }, padding: "5px 10px", bgcolor: selectedTicket == ticket_id ? "#f6f6f6" : null }}>
+        {/* <Box sx={{ width: `calc(100% - 3px)`, maxWidth: { xs: "calc(100% - 3px)", xl: "400px" }, height: "fit-content", borderRadius: "10px", border: "0.5px solid #fdfdfd", "&:hover": { border: "1px dashed grey", cursor: "pointer" }, padding: "5px 10px", bgcolor: selectedTicket == ticket_id ? "#f6f6f6" : null }}> */}
             {/* ///// */}
             {/* HEADER */}
             <Box sx={{ minWidth: "100%", display: "flex", justifyContent: "space-between" }}>

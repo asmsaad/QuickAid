@@ -193,7 +193,7 @@ const AppStructure = (props) => {
     /* background-image:  url('../media/login_bg1.jpg'); */
 
     return (
-        <Box style={{ height: "100dvh", width: "100vw" }}>
+        <Box style={{ height: "100dvh", width: "100vw",}}>
             {!isLogin ? (
                 <Box style={{ height: "100dvh", width: "100%", display: "flex", justifyContent: "center", alignItems: "center" }}>
                     {/* <Box className="full-display" style={{ height: "100dvh", width: "100%", display: "flex", justifyContent: "center", alignItems: "center", bgcolor: "red", BackgroundImage: pageLoader ? "None" : bgImage }}> */}
@@ -236,7 +236,7 @@ const AppStructure = (props) => {
                     <Navbar />
                     <Stack direction="row" flex="1" overflow="hidden">
                         <ShortLeftNavBar vertical={true} />
-                        <Box sx={{ width: "100%", display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center", height: `calc(100vh -65px)`, overflow: "auto" }}>{location.pathname === "/quickaid" || location.pathname === "/quickaid/" ? <HomePage /> : <Outlet />}</Box>
+                        <Box sx={{ width: "100%", display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center", height: `calc(100vh - 65px)`, overflow: "auto",}}>{location.pathname === "/quickaid" || location.pathname === "/quickaid/" ? <HomePage /> : <Outlet />}</Box>
                     </Stack>
                     <ShortLeftNavBar vertical={false} />
                 </Box>

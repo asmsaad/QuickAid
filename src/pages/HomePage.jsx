@@ -4,6 +4,7 @@ import BasicDoc from "../components/hierarchy";
 import { CardOverCard } from "../components/CardOverCard";
 import { Box } from "@mui/material";
 import { MonthlyStatisticsCard } from "../components/statistics/MonthlyStatisticsCard";
+import "../All_Styles/Scrollbar.css"
 
 import { createTheme, MantineProvider } from "@mantine/core";
 import "@mantine/core/styles.css";
@@ -24,34 +25,40 @@ const HomePage = () => {
         //     <BasicDoc />
         // </>
 
-        <Box sx={{ width: "100%", height: "calc(100%)", display: "flex", justifyContent: "flex-start", alignItems: "center", flexDirection: "column" }}>
-            <MantineProvider theme={theme}>
-                <Box sx={{ width: "100%", display: "flex", justifyContent: "center", margin: "20px" }}>
-                    <MonthlyStatisticsCard  />
-                </Box>
-                <Box sx={{ width: "100%", display: "flex", justifyContent: "center", margin: "20px" }}>
-                    <DomainStatisticsCard  />
-                </Box>
-                <Box sx={{ width: "100%", display: "flex", justifyContent: "center", margin: "20px" }}>
-                    <RingProgressCard  />
-                </Box>
-                <Box sx={{ width: "100%", display: "flex", justifyContent: "center", margin: "20px" }}>
-                    <SegmentStatisticsCard  />
-                </Box>
-                <Box sx={{ width: "100%", display: "flex", justifyContent: "center", margin: "20px" }}>
-                    <PerformanceStatisticsCard  />
-                </Box>
-                <Box sx={{ width: "100%", display: "flex", justifyContent: "center", margin: "20px" }}>
-                    <ControllStatisticsCard  />
-                </Box>
-                <Box sx={{ width: "100%", display: "flex", justifyContent: "center", margin: "20px" }}>
-                    <ProgressCard  />
-                    {/* <ProgressCard  />
-                    <ProgressCard  /> */}
-                </Box>
-            </MantineProvider>
+        <Box sx={{ width: "100%", height: "100%", display: "flex", justifyContent: "flex-start", alignItems: "center", flexDirection: "column" }}>
+
+            <Box className="custom-scrollbar" sx={{width:'100%', height:'100%', overflowY:'scroll', padding:'10px 0'}}>
+                <MantineProvider theme={theme}>
+                    <Box sx={{ width: "100%", display: "flex", justifyContent: "center" }}>
+                        <MonthlyStatisticsCard  />
+                    </Box>
+                    <Box sx={{ width: "100%", display: "flex", justifyContent: "center" }}>
+                        <DomainStatisticsCard  />
+                    </Box>
+                    <Box sx={{ width: "100%", display: "flex", justifyContent: "center" }}>
+                        <RingProgressCard  />
+                    </Box>
+                    <Box sx={{ width: "100%", display: "flex", justifyContent: "center" }}>
+                        <SegmentStatisticsCard  />
+                    </Box>
+                    <Box sx={{ width: "100%", display: "flex", justifyContent: "center" }}>
+                        <PerformanceStatisticsCard  />
+                    </Box>
+                    <Box sx={{ width: "100%", display: "flex", justifyContent: "center" }}>
+                        <ControllStatisticsCard  />
+                    </Box>
+                    <Box sx={{ width: "100%", display: "flex", justifyContent: "center" }}>
+                        <ProgressCard  />
+
+                    </Box>
+                </MantineProvider>
+                
+            </Box>
+
         </Box>
     );
 };
 
 export default HomePage;
+                    {/* <ProgressCard  />
+                    <ProgressCard  /> */}
