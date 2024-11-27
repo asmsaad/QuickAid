@@ -177,16 +177,13 @@ style={{ margin: "10px 0 5px 0" }}
 //         </Box>
 //     );
 // };
+const CustomInputSuggetion = (props) => {
+    const { newEntryInputData, setNewEntryInputData, title, fieldType, placeholderText, ignoreSuggestions, suggestionsList, isFieldDisabled, disableDataVar, disableCheckDataField, dataVariable, dataStoragePath, getModalData, setModalData, disableOkayButtonIfEmpty } = props;
 
-const CustomSelectMultiple = (props) => {
-    const { title, field, placeholder, field_suggetions_ignore, field_suggetions, stored_data_var, stored_data_at, get_modal_form_data, set_modal_form_data, okay_button_disable_at_empty } = props;
-    // const { placeholder, title, field_suggetions, field_suggetions_ignore, data_update_at, data_update_var } = props;
-    // const { newEntryInputData, setNewEntryInputData } = data_update_at; //* Main State to store data
+    const new_suggestionsList = suggestionsList.map((item) => ({ value: item.label, label: item.label }));
 
-    const [choosedValue, setChoosedValue] = useState(stored_data_at);
-    // console.log(field_suggetions, "=======================================");
-
-    //* this is only for input
+    const [choosedValue, setChoosedValue] = useState("");
+    const [searchAbleValue, setsearchAbleValue] = useState(new_suggestionsList);
     const [errorStatus, setErrorStatus] = useState("");
 
     return (
@@ -201,28 +198,193 @@ const CustomSelectMultiple = (props) => {
 
             {/* FIELD */}
             <Box sx={{ width: "100%" }}>
-                {/* <Select
-                    showSearch
-                    allowClear
-                    mode="multiple"
-                    placeholder={placeholder}
-                    // size="medium"
+                <AutoComplete
                     style={{ width: "100%" }}
-                    optionFilterProp="label"
-                    filterSort={(optionA, optionB) => (optionA?.label ?? "").toLowerCase().localeCompare((optionB?.label ?? "").toLowerCase())}
-                    // value={newEntryInputData[[data_update_var]]}
-                    // options={existingTagOptions}
-                    options={field_suggetions}
-                    onChange={(value, selectedObject) => {
-                        console.log(value, "-----selectedval---------MAX");
-                        setNewEntryInputData({ ...newEntryInputData, [data_update_var]: value });
-                    }}
+                    placeholder={placeholderText ? placeholderText : null}
+                    status={errorStatus}
+                    value={choosedValue}
+                    options={searchAbleValue}
+                    // onSearch={(text) => {
+                    onChange={(value) => {
+                        const trimmedSearchVar = value.trim(); // Remove leading and trailing whitespace
+                        setChoosedValue(trimmedSearchVar);
 
-                    // disabled={loadings[0] ? true : false}
+                        setsearchAbleValue(new_suggestionsList.filter((item) => item.label.toLowerCase().includes(trimmedSearchVar.toLowerCase())));
+
+                        new_suggestionsList.some((item) => item.label.toLowerCase() === trimmedSearchVar.toLowerCase()) && ignoreSuggestions
+                            ? (() => {
+                                  setErrorStatus("error");
+                                  setNewEntryInputData({ ...newEntryInputData, [dataVariable]: "" });
+                              })()
+                            : (() => {
+                                  setErrorStatus("");
+                                  setNewEntryInputData({ ...newEntryInputData, [dataVariable]: trimmedSearchVar });
+                              })();
+                    }}
+                    disabled={
+                        isFieldDisabled
+                            ? //
+                              ["Select", "SelectMultiple"].includes(disableCheckDataField) && Array.isArray(newEntryInputData[disableDataVar]) && newEntryInputData[disableDataVar].length === 0
+                                ? //
+                                  true
+                                : //
+                                //
+                                ["Input", "InputSuggetion", "SelectSingle"].includes(disableCheckDataField) && newEntryInputData[disableDataVar] === ""
+                                ? //
+                                  true
+                                : //
+                                  //
+                                  false
+                            : //
+                              //
+                              false
+                    }
+                />
+
+                {/* <Input
+                    style={{ width: "100%" }}
+                    allowClear
+                    placeholder={placeholderText ? placeholderText : null}
+                    //  status={errorStatus}
+                    value={choosedValue}
+                    options={suggestionsList}
+                    onChange={(e) => {
+                        setChoosedValue(e.target.value);
+                        setNewEntryInputData({ ...newEntryInputData, [dataVariable]: e.target.value });
+                    }}
+                    disabled={
+                        isFieldDisabled
+                            ? //
+                              ["Select", "SelectMultiple"].includes(disableCheckDataField) && Array.isArray(newEntryInputData[disableDataVar]) && newEntryInputData[disableDataVar].length === 0
+                                ? //
+                                  true
+                                : //
+                                //
+                                ["Input", "InputSuggetion", "SelectSingle"].includes(disableCheckDataField) && newEntryInputData[disableDataVar] === ""
+                                ? //
+                                  true
+                                : //
+                                  //
+                                  false
+                            : //
+                              //
+                              false
+                    }
                 /> */}
+                {console.log("disableDataVar---->", ["Input", "InputSuggetion", "SelectSingle"].includes(disableCheckDataField), disableCheckDataField, newEntryInputData[disableDataVar], "-------MODAL DATA STORAGE << UPDATE")}
+                {/* {console.log(["Input", "InputSuggetion", "SelectSingle"].includes(disableCheckDataField), disableCheckDataField, "-------MODAL DATA STORAGE << UPDATE")} */}
+            </Box>
+        </Box>
+    );
+};
+
+////
+////
+////
+////
+////
+////
+
+////
+////
+////
+////
+////
+////
+const CustomInput = (props) => {
+    const { newEntryInputData, setNewEntryInputData, title, fieldType, placeholderText, ignoreSuggestions, suggestionsList, isFieldDisabled, disableDataVar, disableCheckDataField, dataVariable, dataStoragePath, getModalData, setModalData, disableOkayButtonIfEmpty } = props;
+    const [choosedValue, setChoosedValue] = useState(dataStoragePath);
+
+    return (
+        <Box sx={{ width: "100%" }}>
+            {/* ///// */}
+            {/* FIELD TITLE */}
+            {title && (
+                <Box sx={{ width: "100%", marginBottom: "2px" }}>
+                    <InfoLabel>{title}</InfoLabel>
+                </Box>
+            )}
+
+            {/* FIELD */}
+            <Box sx={{ width: "100%" }}>
+                <Input
+                    style={{ width: "100%" }}
+                    allowClear
+                    placeholder={placeholderText ? placeholderText : null}
+                    //  status={errorStatus}
+                    value={choosedValue}
+                    options={suggestionsList}
+                    onChange={(e) => {
+                        setChoosedValue(e.target.value);
+                        setNewEntryInputData({ ...newEntryInputData, [dataVariable]: e.target.value });
+                    }}
+                    onClear={() => {
+                        console.log("MODAL DATA STORAGE << UPDATE", "--------------------------------------------->");
+                    }}
+                    disabled={
+                        isFieldDisabled
+                            ? //
+                              ["Select", "SelectMultiple"].includes(disableCheckDataField) && Array.isArray(newEntryInputData[disableDataVar]) && newEntryInputData[disableDataVar].length === 0
+                                ? //
+                                  true
+                                : //
+                                //
+                                ["Input", "InputSuggetion", "SelectSingle"].includes(disableCheckDataField) && newEntryInputData[disableDataVar] === ""
+                                ? //
+                                  true
+                                : //
+                                  //
+                                  false
+                            : //
+                              //
+                              false
+                    }
+                />
+                {console.log("disableDataVar---->", ["Input", "InputSuggetion", "SelectSingle"].includes(disableCheckDataField), disableCheckDataField, newEntryInputData[disableDataVar], "-------MODAL DATA STORAGE << UPDATE")}
+                {/* {console.log(["Input", "InputSuggetion", "SelectSingle"].includes(disableCheckDataField), disableCheckDataField, "-------MODAL DATA STORAGE << UPDATE")} */}
+            </Box>
+        </Box>
+    );
+};
+
+////
+////
+////
+////
+////
+////
+
+const CustomSelectMultiple = (props) => {
+    return <CustomSelect {...props} mode={"multiple"} />;
+};
+const CustomSelectSingle = (props) => {
+    return <CustomSelect {...props} mode={false} />;
+};
+
+const CustomSelect = (props) => {
+    const { mode } = props;
+    const { newEntryInputData, setNewEntryInputData, title, fieldType, placeholderText, ignoreSuggestions, suggestionsList, isFieldDisabled, disableDataVar, disableCheckDataField, dataVariable, dataStoragePath, getModalData, setModalData, disableOkayButtonIfEmpty } = props;
+    const [choosedValue, setChoosedValue] = useState(dataStoragePath);
+
+    // //* this is only for input
+    // const [errorStatus, setErrorStatus] = useState("");
+
+    return (
+        <Box sx={{ width: "100%" }}>
+            {/* ///// */}
+            {/* FIELD TITLE */}
+            {title && (
+                <Box sx={{ width: "100%", marginBottom: "2px" }}>
+                    <InfoLabel>{title}</InfoLabel>
+                </Box>
+            )}
+
+            {/* FIELD */}
+            <Box sx={{ width: "100%" }}>
                 <Select
-                    mode="multiple"
-                    placeholder={placeholder ? placeholder : null}
+                    {...(mode ? { mode: "multiple" } : {})}
+                    // mode="multiple"
+                    placeholder={placeholderText ? placeholderText : null}
                     showSearch
                     allowClear
                     size="medium"
@@ -230,56 +392,84 @@ const CustomSelectMultiple = (props) => {
                     optionFilterProp="label"
                     filterSort={(optionA, optionB) => (optionA?.label ?? "").toLowerCase().localeCompare((optionB?.label ?? "").toLowerCase())}
                     value={choosedValue}
-                    options={field_suggetions}
+                    options={suggestionsList}
                     onChange={(value, selectedObject) => {
                         setChoosedValue(value);
-                        set_modal_form_data({ ...get_modal_form_data, [stored_data_var]: value });
+                        setNewEntryInputData({ ...newEntryInputData, [dataVariable]: value });
                     }}
-                    // disabled={loadings[0] ? true : false}
+                    onClear={() => {
+                        console.log("--------------------------------**MODAL DATA 1STORAGE << UPDATE");
+                        if (!mode) {
+                            console.log("++++++=+++++++++++++++++++++++++++++**MODAL DATA 1STORAGE << UPDATE");
+                            setTimeout(() => {
+                                setChoosedValue("");
+                                setNewEntryInputData({ ...newEntryInputData, [dataVariable]: "" });
+                            }, 500);
+                        }
+                    }}
+                    disabled={
+                        isFieldDisabled
+                            ? //
+                              ["Select", "SelectMultiple"].includes(disableCheckDataField) && Array.isArray(newEntryInputData[disableDataVar]) && newEntryInputData[disableDataVar].length === 0
+                                ? //
+                                  true
+                                : //
+                                //
+                                ["Input", "InputSuggetion", "SelectSingle"].includes(disableCheckDataField) && newEntryInputData[disableDataVar] === ""
+                                ? //
+                                  true
+                                : //
+                                  //
+                                  false
+                            : //
+                              //
+                              false
+                    }
                 />
+                {/* {console.log("disableDataVar---->", ["Input", "InputSuggetion", "SelectSingle"].includes(disableCheckDataField), disableCheckDataField, newEntryInputData[disableDataVar], "-------MODAL DATA STORAGE << UPDATE")} */}
             </Box>
         </Box>
     );
 };
 
-const fieldType = {
-    // Input: CustomInput,
-    // InputSuggetion: CustomInputSuggetion,
+const SelectedComponent = {
+    Input: CustomInput,
+    InputSuggetion: CustomInputSuggetion,
     // Select: CustomSelect,
     SelectMultiple: CustomSelectMultiple,
+    SelectSingle: CustomSelectSingle,
 };
 
 export const CustomModal = (props) => {
-    const { okayBtnLoading, modalBodyConfig, title, isModalOpen, handleOk, handleCancel } = props;
+    const { newEntryInputData, setNewEntryInputData, okayBtnLoading, modalBodyConfig, title, isModalOpen, handleOk, handleCancel } = props;
     const { onOkayLoading, setOnOkayLoading } = okayBtnLoading;
+    // const { fieldType, placeholderText, ignoreSuggestions, suggestionsList, isFieldDisabled, disableDataVar, dataVariable, dataStoragePath, getModalData, setModalData, disableOkayButtonIfEmpty } = modalBodyConfig;
     // const { newEntryInputData, setNewEntryInputData } = modalBodyConfig.data_update_at;
 
     // console.log(JSON.stringify(modalBodyConfig), "\n------------------------------------------------------------|");
 
-    // const disabled_condition = Object.values(modalBodyConfig)
-    //     .map((individualInput) => {
-    //         console.log("MAXPRO----[START]----->", individualInput.field, individualInput.value_update_var);
-    //         if (["Select", "SelectMultiple"].includes(individualInput.field) && Array.isArray(individualInput.value_update_var) && individualInput.value_update_var.length === 0) {
-    //             return true; // Empty list condition
-    //             console.log("MAXPRO----[COND1]----->");
-    //         }
-    //         if (["Input", "InputSuggetion"].includes(individualInput.field) && individualInput.value_update_var === "") {
-    //             return true; // Empty string condition
-    //             console.log("MAXPRO----[COND2]----->");
-    //         }
-    //         console.log("MAXPRO----[END]----->", individualInput.field, individualInput.value_update_var);
-    //         return false;
-    //     })
-    //     .includes(true); // If any `true` exists, return true
+    const disabled_condition = Object.keys(modalBodyConfig)
+        .map((each_field) => {
+            // console.log("MAXPRO----------", each_field, modalBodyConfig[each_field]["fieldType"], newEntryInputData[modalBodyConfig[each_field]["dataVariable"]]);
+            if (["Select", "SelectMultiple"].includes(modalBodyConfig[each_field]["fieldType"]) && Array.isArray(newEntryInputData[modalBodyConfig[each_field]["dataVariable"]]) && newEntryInputData[modalBodyConfig[each_field]["dataVariable"]].length === 0) {
+                return true; // Empty list condition
+            }
+            if (["Input", "InputSuggetion", "SelectSingle"].includes(modalBodyConfig[each_field]["fieldType"]) && newEntryInputData[modalBodyConfig[each_field]["dataVariable"]] === "") {
+                return true; // Empty string condition
+            }
+
+            return false;
+        })
+        .includes(true); // If any `true` exists, return true
 
     return (
         <Modal title={title} open={isModalOpen} onOk={handleOk} onCancel={handleCancel} footer={null} maskClosable={false}>
             <Box style={{ width: "100%", display: "flex", flexDirection: "column", gpa: "10px" }}>
                 {Object.keys(modalBodyConfig).map((key_name, index) => {
-                    const CustomInputField = fieldType[modalBodyConfig[key_name]["field"]];
+                    const CustomInputField = SelectedComponent[modalBodyConfig[key_name]["fieldType"]];
                     return (
                         <Box key={index} style={{ width: "100%", marginTop: index === 0 ? "" : "5px" }}>
-                            <CustomInputField key={index} {...modalBodyConfig[key_name]} />
+                            <CustomInputField key={index} {...modalBodyConfig[key_name]} newEntryInputData={newEntryInputData} setNewEntryInputData={setNewEntryInputData} />
                         </Box>
                     );
                 })}
@@ -293,7 +483,7 @@ export const CustomModal = (props) => {
                             setOnOkayLoading([1]);
                             handleOk();
                         }}
-                        // disabled={disabled_condition}
+                        disabled={disabled_condition}
                     >
                         Add
                     </Button>

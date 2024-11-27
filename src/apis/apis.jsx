@@ -43,6 +43,9 @@ const apinames = {
     
     
     "get-user-for-domain": BASE_URL + "get-user-for-domain/", //This api store the name of the user if he viewed the ticket 
+    "create-new-domain": BASE_URL + "create-new-domain/", //This api store the name of the user if he viewed the ticket 
+
+    "get-subdomain-users-by-domain": BASE_URL + "get-subdomain-users-by-domain/", //This api store the name of the user if he viewed the ticket 
 
 
     

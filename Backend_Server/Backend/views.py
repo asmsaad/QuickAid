@@ -638,6 +638,7 @@ def get_request_by_acknowledge(request):
         return Response({'error': str(e)}, status=500)
     
     
+
 @api_view(["POST"])
 def get_unviewed_acknowledge_request_count(request):
     
@@ -653,7 +654,7 @@ def get_unviewed_acknowledge_request_count(request):
             return Response({'error': 'User does not exist'}, status=404)
     
     
-        ack_request = all_requests.objects.filter(acknowledge = user, manager = user).order_by('-create_on')
+        ack_request = all_requests.objects.filter(Q(acknowledge=user) | Q(manager=user)).order_by('-create_on')
     
         unviewed_requests_count = request_view_status.objects.filter(
             request__in=ack_request
@@ -727,9 +728,15 @@ def get_accessible_requests(request):
             requestor_department__in=accessible_departments
         ).distinct()
         
+        assigned_requests = all_requests.objects.filter(
+            requestor__assign_to=user 
+        )
+
+        final_requests = matching_requests.union(assigned_requests)
+
         data = {}
         
-        for idx, request in enumerate(matching_requests):
+        for idx, request in enumerate(final_requests):
             current_status_obj = all_request_status_flow.objects.filter(request = request).order_by("-update_on").first()
             all_readers = request_view_status.objects.get(request=request)
             request_data ={

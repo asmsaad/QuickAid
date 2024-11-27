@@ -16,9 +16,15 @@ import { Tag } from "antd";
 //*---------------------------------------------------------------------
 
 const IssueTab = () => {
-    // const domainName___ = ["Cat", "Camel", "Bad", "Bat"].map((name) => {
-    //     return { value: name, label: name };
-    // });
+    return (
+        <Box sx={{ width: "100%", height: "100%", display: "flex", flexDirection: "column", gap: "20px" }}>
+            <DoaminTable />
+            <SubDomainTable />
+        </Box>
+    );
+};
+
+const DoaminTable = () => {
     ////
     ////
     ////
@@ -58,54 +64,36 @@ const IssueTab = () => {
     //*                              MODAL BODAY ENTRY CONFIGURATION                             |
     //*------------------------------------------------------------------------------------------+
     //                                                                                            |
-    // const modalBodyConfig__ = {
-    //     domain: {
-    //         title: "Domain",
-    //         field: "InputSuggetion",
-    //         placeholder: "",
-    //         field_suggetions: [],
-    //         field_suggetions_ignore: true,
-    //         data_update_at: { newEntryInputData, setNewEntryInputData },
-    //         data_update_var: "domain",
-    //         value_update_var: newEntryInputData.domain,
-    //         okay_button_disable_at_empty: true,
-    //     },
-    //     members: {
-    //         title: "Members",
-    //         field: "SelectMultiple",
-    //         placeholder: "",
-    //         field_suggetions: [],
-    //         field_suggetions_ignore: false,
-    //         data_update_at: { newEntryInputData, setNewEntryInputData },
-    //         data_update_var: "members",
-    //         value_update_var: newEntryInputData.members,
-    //         okay_button_disable_at_empty: true,
-    //     },
-    // };
-
-    // const [modalBodyConfig, setModalBodyConfig] = useState(modalBodyConfig__);
-
     const [modalBodyConfig, setModalBodyConfig] = useState({
-        // domain: {
-        //     title: "Domain",
-        //     field: "InputSuggetion",
-        //     placeholder: "",
-        //     field_suggetions: [],
-        //     field_suggetions_ignore: true,
-        //     data_update_at: { newEntryInputData, setNewEntryInputData },
-        //     data_update_var: "domain",
-        //     value_update_var: newEntryInputData.domain,
-        //     okay_button_disable_at_empty: true,
-        // },
+        domain: {
+            title: "Domain", // Field title text
+            fieldType: "InputSuggetion", // Field type
+            placeholderText: "Place your domain name ..", // Placeholder text for the entry field
+
+            ignoreSuggestions: true, // If true, ignore suggestions
+            suggestionsList: [], // List of suggestions/values
+            isFieldDisabled: false, // If true, disables the field based on provided data
+            disableDataVar: [], // Data used to determine if the field is disabled
+            disableCheckDataField: null, // Data used to determine if the field is disabled
+
+            dataVariable: "domain", // Variable to store data
+            dataStoragePath: newEntryInputData.domain, // Path to store the data
+
+            getModalData: newEntryInputData, // Function or object to get modal data
+            setModalData: setNewEntryInputData, // Function to set modal data
+
+            disableOkayButtonIfEmpty: true, // Disables the Okay button if no value is provided
+        },
         members: {
             title: "Members", // Field title text
             fieldType: "SelectMultiple", // Field type
-            placeholderText: "", // Placeholder text for the entry field
+            placeholderText: null, // Placeholder text for the entry field
 
             ignoreSuggestions: false, // If true, ignore suggestions
             suggestionsList: [], // List of suggestions/values
             isFieldDisabled: true, // If true, disables the field based on provided data
-            disableData: [], // Data used to determine if the field is disabled
+            disableDataVar: "domain", // Data used to determine if the field is disabled
+            disableCheckDataField: "InputSuggetion", // Data used to determine if the field is disabled
 
             dataVariable: "members", // Variable to store data
             dataStoragePath: newEntryInputData.members, // Path to store the data
@@ -128,7 +116,7 @@ const IssueTab = () => {
     //*------------------------------------------------------------------------------------------+
     //                                                                                           |
     const [onOkayLoading, setOnOkayLoading] = useState([0]); // For modal okay button loading    |
-    const [isModalOpen, setIsModalOpen] = useState(true); // Controll modal open/close          |
+    const [isModalOpen, setIsModalOpen] = useState(false); // Controll modal open/close          |
     //                                                                                           |
     //------------------------------------- Show Modal ------------------------------------------+
     //                                                                                           |
@@ -141,9 +129,10 @@ const IssueTab = () => {
     const handleOk = () => {
         refetch_getAddNewDomainWithMembers(); //*Trigred add domain with members query
         console.log("press on okay");
-        setTimeout(() => {
-            setIsModalOpen(false);
-        }, 1500);
+        //!Copy below code to the query error and sucess block
+        // setTimeout(() => {
+        //     setIsModalOpen(false);
+        // }, 1500);
     };
     //                                                                                           |
     //------------------------------------ Handel Candel ----------------------------------------+
@@ -190,22 +179,18 @@ const IssueTab = () => {
         } else if (data_getAvailableDomainsWithMembers?.data) {
             logPrint("🔍   getAvailableDomainsWithMembers  ➤  🟢", data_getAvailableDomainsWithMembers?.data);
 
-            // const domainName = ["Rose", "Romesis", "Nice", "Bad"].map((name) => {
-            //     return { value: name, label: name };
-            // });
-
-            // setModalBodyConfig({
-            //     ...modalBodyConfig,
-            //     domain: {
-            //         ...modalBodyConfig["domain"],
-            //         field_suggetions: Object.keys(data_getAvailableDomainsWithMembers?.data).map((domain_Idx) => {
-            //             return {
-            //                 value: domain_Idx,
-            //                 label: data_getAvailableDomainsWithMembers?.data[domain_Idx]["domain_name"],
-            //             };
-            //         }),
-            //     },
-            // });
+            setModalBodyConfig({
+                ...modalBodyConfig,
+                domain: {
+                    ...modalBodyConfig["domain"],
+                    suggestionsList: Object.keys(data_getAvailableDomainsWithMembers?.data).map((domain_Idx) => {
+                        return {
+                            value: domain_Idx,
+                            label: data_getAvailableDomainsWithMembers?.data[domain_Idx]["domain_name"],
+                        };
+                    }),
+                },
+            });
             setTableData(
                 Object.keys(data_getAvailableDomainsWithMembers?.data).map((domain_Idx, index) => {
                     const individual_data = data_getAvailableDomainsWithMembers?.data[domain_Idx];
@@ -214,9 +199,8 @@ const IssueTab = () => {
                         domain: individual_data["domain_name"],
                         members: (
                             <Box>
-                                {/* <Tag>a</Tag> <Tag>b</Tag> */}
                                 {Object.keys(individual_data["users"] || {}).map((empid, index) => (
-                                    <Tag key={index}>{`${individual_data["users"][empid]["name"]} (${empid})`}</Tag>
+                                    <Tag key={index} style={{ margin: "2px" }}>{`${individual_data["users"][empid]["name"]} (${empid})`}</Tag>
                                 ))}
                             </Box>
                         ),
@@ -260,7 +244,7 @@ const IssueTab = () => {
                 ...modalBodyConfig,
                 members: {
                     ...modalBodyConfig["members"],
-                    field_suggetions: Object.keys(data_getAllEmployee?.data).map((empid) => {
+                    suggestionsList: Object.keys(data_getAllEmployee?.data).map((empid) => {
                         return {
                             value: empid,
                             label: `${data_getAllEmployee?.data[empid]["name"]} (${empid})`,
@@ -280,7 +264,7 @@ const IssueTab = () => {
     //Todo[QUEARY] ADD NEW ENTRY
     //*API Setup
     const fetchAddNewDomainWithMembers = () => {
-        return axios.post(getAPI("get-request-by-mention"), { empid: getLoginUserID() }, { headers: { "Content-Type": "application/json", "X-CSRFToken": getCookie("csrftoken") } });
+        return axios.post(getAPI("create-new-domain"), { empid: getLoginUserID(), domain_name: newEntryInputData.domain, empid_list: newEntryInputData.members }, { headers: { "Content-Type": "application/json", "X-CSRFToken": getCookie("csrftoken") } });
     };
 
     //*Query Callback
@@ -291,7 +275,7 @@ const IssueTab = () => {
         error: error_getAddNewDomainWithMembers,
         isFetching: isFetching_getAddNewDomainWithMembers,
         refetch: refetch_getAddNewDomainWithMembers,
-    } = useQuery("get-request-by-mention-UNIQUE-1", fetchAddNewDomainWithMembers, {
+    } = useQuery("create-new-domain-UNIQUE-1", fetchAddNewDomainWithMembers, {
         enabled: false,
     });
 
@@ -302,8 +286,14 @@ const IssueTab = () => {
         } else if (data_getAddNewDomainWithMembers?.data) {
             logPrint("🔍   getAddNewDomainWithMembers  ➤  🟢", data_getAddNewDomainWithMembers?.data);
             refetch_getAvailableDomainsWithMembers(); //!Refatch data afte creating new
+            setTimeout(() => {
+                setIsModalOpen(false);
+            }, 1500);
         } else if (isError_getAddNewDomainWithMembers) {
             logPrint("🔍   getAddNewDomainWithMembers  ➤  ⚠️", [error_getAddNewDomainWithMembers?.message, error_getAddNewDomainWithMembers?.response.data]);
+            setTimeout(() => {
+                setIsModalOpen(false);
+            }, 1500);
         }
     }, [isLoading_getAddNewDomainWithMembers, data_getAddNewDomainWithMembers, isError_getAddNewDomainWithMembers, error_getAddNewDomainWithMembers]);
 
@@ -345,11 +335,474 @@ const IssueTab = () => {
     ////
     ////
     return (
-        <Box sx={{ width: "calc(100% - 10px)", margin: "0 0 10px 10px", display: "flex", bgcolor: "white" }}>
-            <Box sx={{ display: "flex", justifyContent: "center", flexDirection: "column" }}>
-                <CustomModal okayBtnLoading={{ onOkayLoading, setOnOkayLoading }} modalBodyConfig={modalBodyConfig} title={"Add new Doamin"} isModalOpen={isModalOpen} handleOk={handleOk} handleCancel={handleCancel} />
-                <DataViewTable table_title="Doamin Table" showModalOnAddBtnClick={showModal} columns={columns} tableData={tableData} />
-            </Box>
+        <Box sx={{ width: "100%", display: "flex", flexDirection: "column" }}>
+            <CustomModal newEntryInputData={newEntryInputData} setNewEntryInputData={setNewEntryInputData} okayBtnLoading={{ onOkayLoading, setOnOkayLoading }} modalBodyConfig={modalBodyConfig} title={"Add new Doamin"} isModalOpen={isModalOpen} handleOk={handleOk} handleCancel={handleCancel} />
+            <DataViewTable table_title="Doamin Table" showModalOnAddBtnClick={showModal} columns={columns} tableData={tableData} />
+        </Box>
+    );
+};
+
+////
+////
+////
+////
+////
+////
+////
+////
+////
+////
+////
+////
+////
+////
+////
+////
+////
+////
+////
+////
+////
+////
+////
+////
+
+const SubDomainTable = () => {
+    //*------------------------------------------------------------------------------------------+
+    //*                                  TABLE CONFIGURATION                                     |
+    //*------------------------------------------------------------------------------------------+
+    //                                                                                           |
+    const columns = {
+        1: { title: "Domain", width: "250px" },
+        2: { title: "Sub Domain", width: "250px" },
+        3: { title: "Members", width: "" },
+    };
+    //                                                                                           |
+    //-------------------------------------------------------------------------------------------+
+
+    ////
+    ////
+    ////
+
+    //*------------------------------------------------------------------------------------------+
+    //*                                 MODAL FORM DATA STORAGE                                  |
+    //*------------------------------------------------------------------------------------------+
+    //--------------------------------Inital From Entries values --------------------------------+
+    const initial_entryInputData = {
+        domain: "", //                                                                           |
+        subdomain: "", //                                                                           |
+        members: [], //                                                                          |
+    }; //                                                                                        |
+    //*------------------------------------ Entries values --------------------------------------+
+    const [newEntryInputData, setNewEntryInputData] = useState(initial_entryInputData); //       |
+    //-------------------------------------------------------------------------------------------+
+
+    ////
+    ////
+    ////
+
+    //*------------------------------------------------------------------------------------------+
+    //*                              MODAL BODAY ENTRY CONFIGURATION                             |
+    //*------------------------------------------------------------------------------------------+
+    //                                                                                            |
+    const [modalBodyConfig, setModalBodyConfig] = useState({
+        domain: {
+            title: "Domain", // Field title text
+            fieldType: "SelectSingle", // Field type
+            placeholderText: "Place your domain name ..", // Placeholder text for the entry field
+
+            ignoreSuggestions: false, // If true, ignore suggestions
+            suggestionsList: [], // List of suggestions/values
+
+            isFieldDisabled: false, // If true, disables the field based on provided data
+            disableDataVar: [], // Data used to determine if the field is disabled
+            disableCheckDataField: null, // Data used to determine if the field is disabled
+
+            dataVariable: "domain", // Variable to store data
+            dataStoragePath: newEntryInputData.domain, // Path to store the data
+
+            getModalData: newEntryInputData, // Function or object to get modal data
+            setModalData: setNewEntryInputData, // Function to set modal data
+
+            disableOkayButtonIfEmpty: true, // Disables the Okay button if no value is provided
+        },
+        subdomain: {
+            title: "Sub-Domain", // Field title text
+            fieldType: "Input", // Field type
+            placeholderText: "Place your subdomain name ..", // Placeholder text for the entry field
+
+            ignoreSuggestions: false, // If true, ignore suggestions
+            suggestionsList: [], // List of suggestions/values
+
+            isFieldDisabled: true, // If true, disables the field based on provided data
+            disableDataVar: "domain", // Data used to determine if the field is disabled
+            disableCheckDataField: "SelectSingle", // Data used to determine if the field is disabled
+
+            dataVariable: "domain", // Variable to store data
+            dataStoragePath: newEntryInputData.domain, // Path to store the data
+
+            getModalData: newEntryInputData, // Function or object to get modal data
+            setModalData: setNewEntryInputData, // Function to set modal data
+
+            disableOkayButtonIfEmpty: true, // Disables the Okay button if no value is provided
+        },
+        members: {
+            title: "Members", // Field title text
+            fieldType: "SelectMultiple", // Field type
+            placeholderText: null, // Placeholder text for the entry field
+
+            ignoreSuggestions: false, // If true, ignore suggestions
+            suggestionsList: [], // List of suggestions/values
+
+            isFieldDisabled: true, // If true, disables the field based on provided data
+            disableDataVar: "domain", // Data used to determine if the field is disabled
+            disableCheckDataField: "InputSuggetion", // Data used to determine if the field is disabled
+
+            dataVariable: "members", // Variable to store data
+            dataStoragePath: newEntryInputData.members, // Path to store the data
+
+            getModalData: newEntryInputData, // Function or object to get modal data
+            setModalData: setNewEntryInputData, // Function to set modal data
+
+            disableOkayButtonIfEmpty: true, // Disables the Okay button if no value is provided
+        },
+    });
+    //                                                                                            |
+    //--------------------------------------------------------------------------------------------+
+
+    ////
+    ////
+    ////
+
+    //*------------------------------------------------------------------------------------------+
+    //*                      CREATE FORM @ MODAL SETUP AND FUNCTIONALITY                         |
+    //*------------------------------------------------------------------------------------------+
+    //                                                                                           |
+    const [onOkayLoading, setOnOkayLoading] = useState([0]); // For modal okay button loading    |
+    const [isModalOpen, setIsModalOpen] = useState(false); // Controll modal open/close          |
+    //                                                                                           |
+    //------------------------------------- Show Modal ------------------------------------------+
+    //                                                                                           |
+    const showModal = () => {
+        setIsModalOpen(true);
+    };
+    //                                                                                           |
+    //------------------------------------ Handel Okay ------------------------------------------+
+    //                                                                                           |
+    const handleOk = () => {
+        refetch_getAddNewDomainWithMembers(); //*Trigred add domain with members query
+        console.log("press on okay");
+        //!Copy below code to the query error and sucess block
+        // setTimeout(() => {
+        //     setIsModalOpen(false);
+        // }, 1500);
+    };
+    //                                                                                           |
+    //------------------------------------ Handel Candel ----------------------------------------+
+    //                                                                                           |                                                                                    |
+    const handleCancel = () => {
+        setIsModalOpen(false);
+    };
+    //                                                                                           |
+    //-------------------------------------------------------------------------------------------+
+
+    ////
+    ////
+    ////
+
+    //
+    //*--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+    //*                                     START QUERY
+    //*--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+    //
+    const [tableData, setTableData] = useState([]);
+
+    //Todo[QUEARY] SYNC ALL AVAIABLE DATA
+    //*API Setup
+    const fetchAvailableSubDomainsUnderDomainsWithMembers = () => {
+        return axios.post(getAPI("get-subdomain-users-by-domain"), { empid: getLoginUserID(), domain_ids: newEntryInputData.domain }, { headers: { "Content-Type": "application/json", "X-CSRFToken": getCookie("csrftoken") } });
+    };
+
+    //*Query Callback
+    const {
+        isLoading: isLoading_getAvailableSubDomainsUnderDomainsWithMembers,
+        data: data_getAvailableSubDomainsUnderDomainsWithMembers,
+        isError: isError_getAvailableSubDomainsUnderDomainsWithMembers,
+        error: error_getAvailableSubDomainsUnderDomainsWithMembers,
+        isFetching: isFetching_getAvailableSubDomainsUnderDomainsWithMembers,
+        refetch: refetch_getAvailableSubDomainsUnderDomainsWithMembers,
+    } = useQuery("get-subdomain-users-by-domain-UNIQUE-1", fetchAvailableSubDomainsUnderDomainsWithMembers, {
+        enabled: true,
+    });
+
+    //*Query Response Actions
+    useEffect(() => {
+        if (isLoading_getAvailableSubDomainsUnderDomainsWithMembers) {
+            logPrint("🔍   getAvailableSubDomainsUnderDomainsWithMembers  ➤  🔄");
+        } else if (data_getAvailableSubDomainsUnderDomainsWithMembers?.data) {
+            logPrint("🔍   getAvailableSubDomainsUnderDomainsWithMembers  ➤  🟢", data_getAvailableSubDomainsUnderDomainsWithMembers?.data);
+
+            // setModalBodyConfig({
+            //     ...modalBodyConfig,
+            //     members: {
+            //         ...modalBodyConfig["members"],
+            //         suggestionsList: Object.keys(data_getAllEmployee?.data).map((empid) => {
+            //             return {
+            //                 value: empid,
+            //                 label: `${data_getAllEmployee?.data[empid]["name"]} (${empid})`,
+            //             };
+            //         }),
+            //     },
+            // });
+
+            setModalBodyConfig({
+                ...modalBodyConfig,
+                domain: {
+                    ...modalBodyConfig["domain"],
+                    suggestionsList: Object.keys(data_getAvailableSubDomainsUnderDomainsWithMembers?.data).map((domain_Idx) => {
+                        console.log(data_getAvailableSubDomainsUnderDomainsWithMembers?.data[domain_Idx]["domain_name"], "GHGHG");
+                        return {
+                            value: domain_Idx,
+                            label: data_getAvailableSubDomainsUnderDomainsWithMembers?.data[domain_Idx]["domain_name"],
+                        };
+                    }),
+                },
+            });
+            const arranged_data = Object.keys(data_getAvailableSubDomainsUnderDomainsWithMembers?.data || {})
+                .map((domain_Idx) => {
+                    const domain_name = data_getAvailableSubDomainsUnderDomainsWithMembers?.data[domain_Idx]["domain_name"];
+                    const all_subdomain_data = data_getAvailableSubDomainsUnderDomainsWithMembers?.data[domain_Idx]["subdomains"];
+
+                    return Object.keys(all_subdomain_data || {}).map((subdomain_idx) => {
+                        const individuals_subdomain_data = all_subdomain_data[subdomain_idx];
+                        const subdomain_name = individuals_subdomain_data["subdomain_name"];
+
+                        // Debugging individual user data
+                        (individuals_subdomain_data["users"] || []).forEach((individuals_data) => {
+                            console.log(individuals_data, "GGHHJJKKLL");
+                        });
+
+                        // Returning structured data
+                        return {
+                            key: subdomain_idx,
+                            domain: domain_name,
+                            sub_domain: subdomain_name,
+                            members: (
+                                <Box>
+                                    {(individuals_subdomain_data["users"] || []).map((individuals_data, index) => {
+                                        return <Tag key={index} style={{ margin: "2px" }}>{`${individuals_data["name"]} (${individuals_data["empid"]})`}</Tag>;
+                                    })}
+                                </Box>
+                            ),
+                        };
+                    });
+                })
+                .flat();
+
+            setTableData(arranged_data);
+
+            console.log(
+                Object.keys(data_getAvailableSubDomainsUnderDomainsWithMembers?.data || {}).map((domain_Idx) => {
+                    const domain_name = data_getAvailableSubDomainsUnderDomainsWithMembers?.data[domain_Idx]["domain_name"];
+                    const all_subdomain_data = data_getAvailableSubDomainsUnderDomainsWithMembers?.data[domain_Idx]["subdomains"];
+
+                    return Object.keys(all_subdomain_data || {}).map((subdomain_idx) => {
+                        const individuals_subdomain_data = all_subdomain_data[subdomain_idx];
+                        const subdomain_name = individuals_subdomain_data["subdomain_name"];
+
+                        // Debugging individual user data
+                        (individuals_subdomain_data["users"] || []).forEach((individuals_data) => {
+                            console.log(individuals_data, "GGHHJJKKLL");
+                        });
+
+                        // Returning structured data
+                        return {
+                            key: subdomain_idx,
+                            domain: domain_name,
+                            sub_domain: subdomain_name,
+                            members: (
+                                <Box>
+                                    {(individuals_subdomain_data["users"] || []).map((individuals_data) => {
+                                        return individuals_data["empid"];
+                                    })}
+                                </Box>
+                            ),
+                        };
+                    });
+                }),
+                "CCCCCCCCCCCCCCCCCCCC"
+            );
+
+            // return {
+            //     key: index + 1,
+            //     domain: individual_data["domain_name"],
+            //     members: (
+            //         <Box>
+            //             {Object.keys(individual_data["users"] || {}).map((empid, index) => (
+            //                 <Tag key={index} style={{ margin: "2px" }}>{`${individual_data["users"][empid]["name"]} (${empid})`}</Tag>
+            //             ))}
+            //         </Box>
+            //     ),
+            // };
+
+            // setTableData(
+            //     Object.keys(data_getAvailableSubDomainsUnderDomainsWithMembers?.data).map((domain_Idx, index) => {
+            //         const individual_data = data_getAvailableSubDomainsUnderDomainsWithMembers?.data[domain_Idx];
+            //         return {
+            //             key: index + 1,
+            //             domain: individual_data["domain_name"],
+            //             members: (
+            //                 <Box>
+            //                     {Object.keys(individual_data["users"] || {}).map((empid, index) => (
+            //                         <Tag key={index} style={{ margin: "2px" }}>{`${individual_data["users"][empid]["name"]} (${empid})`}</Tag>
+            //                     ))}
+            //                 </Box>
+            //             ),
+            //         };
+            //     })
+            // );
+        } else if (isError_getAvailableSubDomainsUnderDomainsWithMembers) {
+            logPrint("🔍   getAvailableSubDomainsUnderDomainsWithMembers  ➤  ⚠️", [error_getAvailableSubDomainsUnderDomainsWithMembers?.message, error_getAvailableSubDomainsUnderDomainsWithMembers?.response.data]);
+        }
+    }, [isLoading_getAvailableSubDomainsUnderDomainsWithMembers, data_getAvailableSubDomainsUnderDomainsWithMembers, isError_getAvailableSubDomainsUnderDomainsWithMembers, error_getAvailableSubDomainsUnderDomainsWithMembers]);
+
+    //
+    //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+    //
+
+    //Todo[QUEARY] Get all Employee for suggest to add on domain member
+    //*API Setup
+    const fetchAllEmployee = () => {
+        return axios.post(getAPI("get-all-employee-info"), { empid: getLoginUserID() }, { headers: { "Content-Type": "application/json", "X-CSRFToken": getCookie("csrftoken") } });
+    };
+
+    //*Query Callback
+    const {
+        isLoading: isLoading_getAllEmployee,
+        data: data_getAllEmployee,
+        isError: isError_getAllEmployee,
+        error: error_getAllEmployee,
+        isFetching: isFetching_getAllEmployee,
+        refetch: refetch_getAllEmployee,
+    } = useQuery("get-all-employee-info-UNIQUE-2", fetchAllEmployee, {
+        enabled: true,
+    });
+
+    //*Query Response Actions
+    useEffect(() => {
+        if (isLoading_getAllEmployee) {
+            logPrint("🔍   getAllEmployee  ➤  🔄");
+        } else if (data_getAllEmployee?.data) {
+            logPrint("🔍   getAllEmployee  ➤  🟢", data_getAllEmployee?.data);
+            setModalBodyConfig({
+                ...modalBodyConfig,
+                members: {
+                    ...modalBodyConfig["members"],
+                    suggestionsList: Object.keys(data_getAllEmployee?.data).map((empid) => {
+                        return {
+                            value: empid,
+                            label: `${data_getAllEmployee?.data[empid]["name"]} (${empid})`,
+                        };
+                    }),
+                },
+            });
+        } else if (isError_getAllEmployee) {
+            logPrint("🔍   getAllEmployee  ➤  ⚠️", [error_getAllEmployee?.message, error_getAllEmployee?.response.data]);
+        }
+    }, [isLoading_getAllEmployee, data_getAllEmployee, isError_getAllEmployee, error_getAllEmployee]);
+
+    //
+    //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+    //
+
+    //Todo[QUEARY] ADD NEW ENTRY
+    //*API Setup
+    const fetchAddNewDomainWithMembers = () => {
+        return axios.post(getAPI("create-new-domain"), { empid: getLoginUserID(), domain_name: newEntryInputData.domain, empid_list: newEntryInputData.members }, { headers: { "Content-Type": "application/json", "X-CSRFToken": getCookie("csrftoken") } });
+    };
+
+    //*Query Callback
+    const {
+        isLoading: isLoading_getAddNewDomainWithMembers,
+        data: data_getAddNewDomainWithMembers,
+        isError: isError_getAddNewDomainWithMembers,
+        error: error_getAddNewDomainWithMembers,
+        isFetching: isFetching_getAddNewDomainWithMembers,
+        refetch: refetch_getAddNewDomainWithMembers,
+    } = useQuery("create-new-domain-UNIQUE-1", fetchAddNewDomainWithMembers, {
+        enabled: false,
+    });
+
+    //*Query Response Actions
+    useEffect(() => {
+        if (isLoading_getAddNewDomainWithMembers) {
+            logPrint("🔍   getAddNewDomainWithMembers  ➤  🔄");
+        } else if (data_getAddNewDomainWithMembers?.data) {
+            logPrint("🔍   getAddNewDomainWithMembers  ➤  🟢", data_getAddNewDomainWithMembers?.data);
+            // refetch_getAvailableDomainsWithMembers(); //!Refatch data afte creating new
+            setTimeout(() => {
+                setIsModalOpen(false);
+            }, 1500);
+        } else if (isError_getAddNewDomainWithMembers) {
+            logPrint("🔍   getAddNewDomainWithMembers  ➤  ⚠️", [error_getAddNewDomainWithMembers?.message, error_getAddNewDomainWithMembers?.response.data]);
+            setTimeout(() => {
+                setIsModalOpen(false);
+            }, 1500);
+        }
+    }, [isLoading_getAddNewDomainWithMembers, data_getAddNewDomainWithMembers, isError_getAddNewDomainWithMembers, error_getAddNewDomainWithMembers]);
+
+    //
+    //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+    //                                     END QUERY
+    //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+    //
+
+    ////
+    ////
+    ////
+    ////
+    ////
+    ////
+    ////
+    ////
+
+    // Check Entries data -----------------------------------------------------------------------+
+    useEffect(() => {
+        if (newEntryInputData) {
+            console.log(JSON.stringify(newEntryInputData), "MODAL DATA 1STORAGE << UPDATE"); //                       |
+        } //                                                                                     |
+    }, [newEntryInputData]); //                                                                  |
+    //-------------------------------------------------------------------------------------------+
+    ////
+    ////
+    ////
+    ////
+    // Check Modal data structure ---------------------------------------------------------------+
+    useEffect(() => {
+        if (modalBodyConfig) {
+            console.log(modalBodyConfig, "MODAL CONFIG << UPDATE"); //                                      |
+        } //                                                                                     |
+    }, [modalBodyConfig]); //                                                                    |
+    //-------------------------------------------------------------------------------------------+
+    ////
+    ////
+    ////
+    ////
+    // Check Modal data structure ---------------------------------------------------------------+
+    useEffect(() => {
+        if (tableData) {
+            console.log(tableData, "Table data -- getAvailableSubDomainsUnderDomainsWithMembers"); //                                      |
+        } //                                                                                     |
+    }, [tableData]); //                                                                    |
+    //-------------------------------------------------------------------------------------------+
+    ////
+    ////
+    ////
+    ////
+    return (
+        <Box sx={{ width: "100%", display: "flex", flexDirection: "column" }}>
+            <CustomModal newEntryInputData={newEntryInputData} setNewEntryInputData={setNewEntryInputData} okayBtnLoading={{ onOkayLoading, setOnOkayLoading }} modalBodyConfig={modalBodyConfig} title={"Add new Doamin"} isModalOpen={isModalOpen} handleOk={handleOk} handleCancel={handleCancel} />
+            <DataViewTable table_title="Sub-Domain Table" showModalOnAddBtnClick={showModal} columns={columns} tableData={tableData} />
         </Box>
     );
 };

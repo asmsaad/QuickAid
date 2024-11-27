@@ -53,39 +53,39 @@ const { Text } = Typography;
 //     },
 // ];
 
-const tableData = [
-    {
-        key: "1",
-        domain: "John Brown",
-        age: 32,
-        members: "New York No. 1 Lake Park",
-        phone: "+8801 778518304",
-        // tags: ["nice", "developer"],
-    },
-    {
-        key: "2",
-        domain: "Jim Green",
-        age: 42,
-        members: "London No. 1 Lake Park",
-        phone: "+8801 778518304",
-        // tags: ["loser"],
-    },
-    {
-        key: "3",
-        domain: "Joe Black",
-        age: 32,
-        members: "Sydney No. 1 Lake Park",
-        phone: "+8801 778518304",
-        // tags: ["cool", "teacher"],
-    },
-];
+// const tableData = [
+//     {
+//         key: "1",
+//         domain: "John Brown",
+//         age: 32,
+//         members: "New York No. 1 Lake Park",
+//         phone: "+8801 778518304",
+//         // tags: ["nice", "developer"],
+//     },
+//     {
+//         key: "2",
+//         domain: "Jim Green",
+//         age: 42,
+//         members: "London No. 1 Lake Park",
+//         phone: "+8801 778518304",
+//         // tags: ["loser"],
+//     },
+//     {
+//         key: "3",
+//         domain: "Joe Black",
+//         age: 32,
+//         members: "Sydney No. 1 Lake Park",
+//         phone: "+8801 778518304",
+//         // tags: ["cool", "teacher"],
+//     },
+// ];
 
-const columns = {
-    1: { title: "Name", width: "" },
-    2: { title: "Age", width: "100px" },
-    3: { title: "Address", width: "100px" },
-    4: { title: "Phone", width: "100px" },
-};
+// const columns = {
+//     1: { title: "Name", width: "" },
+//     2: { title: "Age", width: "100px" },
+//     3: { title: "Address", width: "100px" },
+//     4: { title: "Phone", width: "100px" },
+// };
 
 // console.log(columns);
 // const table_title = "Domain1";
@@ -100,6 +100,12 @@ const DataViewTable = (props) => {
         const data_index = col_title.trim().toLowerCase().replace(/\s+/g, "_");
         const col_key = data_index;
         const col_width = columns[index]["width"];
+        console.log({
+            title: col_title,
+            dataIndex: data_index,
+            key: col_key,
+            width: col_width,
+        },'----getAvailableSubDomainsUnderDomainsWithMembers')
         return {
             title: col_title,
             dataIndex: data_index,
@@ -134,7 +140,7 @@ const DataViewTable = (props) => {
     };
 
     return (
-        <Box>
+        <Box style={{ width: "calc(100% - 20px)", margin: "0 10px" }}>
             <Table style={{ width: "100%" }} size="default" title={() => TableHeader()} bordered pagination={false} columns={columns_structure} dataSource={tableData} />
         </Box>
     );
