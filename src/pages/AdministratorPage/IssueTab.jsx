@@ -79,9 +79,6 @@ const DoaminTable = () => {
             dataVariable: "domain", // Variable to store data
             dataStoragePath: newEntryInputData.domain, // Path to store the data
 
-            getModalData: newEntryInputData, // Function or object to get modal data
-            setModalData: setNewEntryInputData, // Function to set modal data
-
             disableOkayButtonIfEmpty: true, // Disables the Okay button if no value is provided
         },
         members: {
@@ -97,9 +94,6 @@ const DoaminTable = () => {
 
             dataVariable: "members", // Variable to store data
             dataStoragePath: newEntryInputData.members, // Path to store the data
-
-            getModalData: newEntryInputData, // Function or object to get modal data
-            setModalData: setNewEntryInputData, // Function to set modal data
 
             disableOkayButtonIfEmpty: true, // Disables the Okay button if no value is provided
         },
@@ -404,69 +398,68 @@ const SubDomainTable = () => {
     //*------------------------------------------------------------------------------------------+
     //*                              MODAL BODAY ENTRY CONFIGURATION                             |
     //*------------------------------------------------------------------------------------------+
-    //                                                                                            |
+    //                                                                                           |
     const [modalBodyConfig, setModalBodyConfig] = useState({
         domain: {
-            title: "Domain", // Field title text
-            fieldType: "SelectSingle", // Field type
-            placeholderText: "Place your domain name ..", // Placeholder text for the entry field
-
-            ignoreSuggestions: false, // If true, ignore suggestions
-            suggestionsList: [], // List of suggestions/values
-
-            isFieldDisabled: false, // If true, disables the field based on provided data
-            disableDataVar: [], // Data used to determine if the field is disabled
-            disableCheckDataField: null, // Data used to determine if the field is disabled
-
-            dataVariable: "domain", // Variable to store data
-            dataStoragePath: newEntryInputData.domain, // Path to store the data
-
-            getModalData: newEntryInputData, // Function or object to get modal data
-            setModalData: setNewEntryInputData, // Function to set modal data
-
-            disableOkayButtonIfEmpty: true, // Disables the Okay button if no value is provided
-        },
+            //? ---------------------------- BASIC------------------------------------------------+
+            title: "Domain", // Field title text                                                  |
+            fieldType: "SelectSingle", // Field type                                              |
+            dataVariable: "domain", // Variable to store data                                     |
+            dataStoragePath: newEntryInputData.domain, // Path to store the data                  |
+            placeholderText: "Place your domain name", // Placeholder text for the entry field    |
+            //? ------------------------ SCEARCH SUGGETIONS---------------------------------------+
+            ignoreSuggestions: false, // If true, ignore suggestions                              |
+            suggestionsList: [], // List of suggestions/values                                    |
+            //? ---------- FIELD DISABLE CONDITIONS & RESPECT TO VARIABLE ------------------------+
+            isFieldDisabled: false, // If true, disables the field based on provided data         |
+            disableDataVar: [], // Data used to determine if the field is disabled                |
+            disableCheckDataField: null, // Data used to determine if the field is disabled       |
+            //? ------------------------ MODAL BUTTON DEPENDENCY ---------------------------------+
+            disableOkayButtonIfEmpty: true, // Disables the Okay button if no value is provided   |
+        }, //                                                                                     |
+        //----------------------------------------------------------------------------------------+
+        //
+        //
+        //
         subdomain: {
-            title: "Sub-Domain", // Field title text
-            fieldType: "Input", // Field type
+            //? ---------------------------- BASIC------------------------------------------------+
+            title: "Sub-Domain", // Field title text                                              |
+            fieldType: "Input", // Field type                                                     |
+            dataVariable: "subdomain", // Variable to store data                                  |
+            dataStoragePath: newEntryInputData.subdomain, // Path to store the data               |
             placeholderText: "Place your subdomain name ..", // Placeholder text for the entry field
-
-            ignoreSuggestions: false, // If true, ignore suggestions
-            suggestionsList: [], // List of suggestions/values
-
-            isFieldDisabled: true, // If true, disables the field based on provided data
-            disableDataVar: "domain", // Data used to determine if the field is disabled
+            //? ------------------------ SCEARCH SUGGETIONS---------------------------------------+
+            ignoreSuggestions: false, // If true, ignore suggestions                              |
+            suggestionsList: [], // List of suggestions/values                                    |
+            //? ---------- FIELD DISABLE CONDITIONS & RESPECT TO VARIABLE ------------------------+
+            isFieldDisabled: true, // If true, disables the field based on provided data          |
+            disableDataVar: "domain", // Data used to determine if the field is disabled          |
             disableCheckDataField: "SelectSingle", // Data used to determine if the field is disabled
-
-            dataVariable: "domain", // Variable to store data
-            dataStoragePath: newEntryInputData.domain, // Path to store the data
-
-            getModalData: newEntryInputData, // Function or object to get modal data
-            setModalData: setNewEntryInputData, // Function to set modal data
-
-            disableOkayButtonIfEmpty: true, // Disables the Okay button if no value is provided
-        },
+            //? ------------------------ MODAL BUTTON DEPENDENCY ---------------------------------+
+            disableOkayButtonIfEmpty: true, // Disables the Okay button if no value is provided   |
+        }, //                                                                                     |
+        //----------------------------------------------------------------------------------------+
+        //
+        //
+        //
         members: {
-            title: "Members", // Field title text
-            fieldType: "SelectMultiple", // Field type
-            placeholderText: null, // Placeholder text for the entry field
-
-            ignoreSuggestions: false, // If true, ignore suggestions
-            suggestionsList: [], // List of suggestions/values
-
-            isFieldDisabled: true, // If true, disables the field based on provided data
-            disableDataVar: "domain", // Data used to determine if the field is disabled
-            disableCheckDataField: "InputSuggetion", // Data used to determine if the field is disabled
-
-            dataVariable: "members", // Variable to store data
-            dataStoragePath: newEntryInputData.members, // Path to store the data
-
-            getModalData: newEntryInputData, // Function or object to get modal data
-            setModalData: setNewEntryInputData, // Function to set modal data
-
-            disableOkayButtonIfEmpty: true, // Disables the Okay button if no value is provided
-        },
-    });
+            //? ---------------------------- BASIC------------------------------------------------+
+            title: "Members", // Field title text                                                 |
+            fieldType: "SelectMultiple", // Field type                                            |
+            dataVariable: "members", // Variable to store data                                    |
+            dataStoragePath: newEntryInputData.members, // Path to store the data                 |
+            placeholderText: null, // Placeholder text for the entry field                        |
+            //? ------------------------ SCEARCH SUGGETIONS---------------------------------------+
+            ignoreSuggestions: false, // If true, ignore suggestions                              |
+            suggestionsList: [], // List of suggestions/values                                    |
+            //? ---------- FIELD DISABLE CONDITIONS & RESPECT TO VARIABLE ------------------------+
+            isFieldDisabled: true, // If true, disables the field based on provided data          |
+            disableDataVar: "subdomain", // Data used to determine if the field is disabled       |
+            disableCheckDataField: "Input", // Data used to determine if the field is disabled    |
+            //? ------------------------ MODAL BUTTON DEPENDENCY ---------------------------------+
+            disableOkayButtonIfEmpty: true, // Disables the Okay button if no value is provided   |
+        }, //                                                                                     |
+    }); //                                                                                        |
     //                                                                                            |
     //--------------------------------------------------------------------------------------------+
 
@@ -601,38 +594,6 @@ const SubDomainTable = () => {
 
             setTableData(arranged_data);
 
-            console.log(
-                Object.keys(data_getAvailableSubDomainsUnderDomainsWithMembers?.data || {}).map((domain_Idx) => {
-                    const domain_name = data_getAvailableSubDomainsUnderDomainsWithMembers?.data[domain_Idx]["domain_name"];
-                    const all_subdomain_data = data_getAvailableSubDomainsUnderDomainsWithMembers?.data[domain_Idx]["subdomains"];
-
-                    return Object.keys(all_subdomain_data || {}).map((subdomain_idx) => {
-                        const individuals_subdomain_data = all_subdomain_data[subdomain_idx];
-                        const subdomain_name = individuals_subdomain_data["subdomain_name"];
-
-                        // Debugging individual user data
-                        (individuals_subdomain_data["users"] || []).forEach((individuals_data) => {
-                            console.log(individuals_data, "GGHHJJKKLL");
-                        });
-
-                        // Returning structured data
-                        return {
-                            key: subdomain_idx,
-                            domain: domain_name,
-                            sub_domain: subdomain_name,
-                            members: (
-                                <Box>
-                                    {(individuals_subdomain_data["users"] || []).map((individuals_data) => {
-                                        return individuals_data["empid"];
-                                    })}
-                                </Box>
-                            ),
-                        };
-                    });
-                }),
-                "CCCCCCCCCCCCCCCCCCCC"
-            );
-
             // return {
             //     key: index + 1,
             //     domain: individual_data["domain_name"],
@@ -756,6 +717,29 @@ const SubDomainTable = () => {
     //                                     END QUERY
     //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
     //
+    // Check Entries data -----------------------------------------------------------------------+
+    useEffect(() => {
+        if (newEntryInputData.domain !== "" && data_getAvailableSubDomainsUnderDomainsWithMembers?.data) {
+            setModalBodyConfig({
+                ...modalBodyConfig,
+                subdomain: {
+                    ...modalBodyConfig["subdomain"],
+                    suggestionsList:
+                        //--------------------------
+                        // Object.keys(data_getAvailableDomainsWithMembers?.data).map((domain_Idx) => {
+                        //     return {
+                        //         value: domain_Idx,
+                        //         label: data_getAvailableDomainsWithMembers?.data[domain_Idx]["domain_name"],
+                        //     };
+                        // }),
+
+                    //--------------------------
+                },
+            });
+        } //                                                                                     |
+    }, [newEntryInputData, data_getAvailableSubDomainsUnderDomainsWithMembers]); //                                                                  |
+    //-------------------------------------------------------------------------------------------+
+    ////
 
     ////
     ////

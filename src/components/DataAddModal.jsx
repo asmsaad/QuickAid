@@ -310,7 +310,7 @@ const CustomInput = (props) => {
                 <Input
                     style={{ width: "100%" }}
                     allowClear
-                    placeholder={placeholderText ? placeholderText : null}
+                    placeholder={placeholderText ? placeholderText + "&&&" : null}
                     //  status={errorStatus}
                     value={choosedValue}
                     options={suggestionsList}
@@ -319,7 +319,8 @@ const CustomInput = (props) => {
                         setNewEntryInputData({ ...newEntryInputData, [dataVariable]: e.target.value });
                     }}
                     onClear={() => {
-                        console.log("MODAL DATA STORAGE << UPDATE", "--------------------------------------------->");
+                        setNewEntryInputData({ ...newEntryInputData, [dataVariable]: "" });
+                        console.log("MODAL DATA 1STORAGE << UPDATE", "--------------------------------------------->");
                     }}
                     disabled={
                         isFieldDisabled
