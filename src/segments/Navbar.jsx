@@ -111,7 +111,9 @@ const Navbar = () => {
                             <div className="avatar-wrapper">
                                 <div className="avatar-border"></div>
                                 <div className="avatar" style={{ overflow: "hidden" }}>
-                                    <img src={userCredential.picture} alt="Italian Trulli" width="100px" height="100px" />
+                                    {/* <img src={userCredential.picture} alt="Italian Trulli" width="100px" height="100px" /> */}
+
+                                    <img src='https://lh3.googleusercontent.com/a/ACg8ocIF7K75_0tD0da98-h0ytL7ej-Q34B_XEya5EHWjrsNn18A4TaI=s288-c-no' alt="Italian Trulli" width="100px" height="100px" />
                                 </div>
                             </div>
                         </Box>

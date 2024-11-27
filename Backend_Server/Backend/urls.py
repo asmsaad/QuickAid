@@ -5,8 +5,13 @@ from .views import *
 
 urlpatterns = [
     # path('', views.home, name= 'Home'),
-    # path('populate-designations/', PopulateDesignationsView.as_view(), name='populate-designations'),
-    # path('populate-user/', PopulateUserInfoView.as_view(), name='populate-designations'),
+    path('populate-designations/', PopulateDesignationsView.as_view(), name='populate-designations'),
+    path('populate-user/', PopulateUserInfoView.as_view(), name='populate-designations'),
+    path('assign_designation/', assign_designation, name='populate-designations'),
+    path('set_employee_supervisors/', set_employee_supervisors, name='populate-designations'),
+    path('assign_location/', assign_location, name='populate-designations'),
+    path('assign_department/', assign_department, name='populate-designations'),
+    path('missing-fields/', MissingFieldsAPIView.as_view(), name='missing-fields-api'),
     
     
     
@@ -20,6 +25,7 @@ urlpatterns = [
     path('get-all-cities/', get_all_cities, name='get-all-employee-info'),
     path('get-all-building/', get_all_building, name='get-all-employee-info'),
     path('get-all-loactions/', get_all_loactions, name='get-all-employee-info'),
+         
                
         
     # Dependent API's
@@ -55,6 +61,7 @@ urlpatterns = [
     path('get-user-info-by-email/', get_user_info_by_email, name='get-user-info-by-email'),  
     path('update-profile-url/', update_profile_url, name='update-profile-url'),  
       
+      
     
     # Create Entry API's
     path('create-new-request/', create_new_request, name='create-new-request'),
@@ -81,5 +88,9 @@ urlpatterns = [
     path('create-location/', create_location, name=''),
     path('edit-location/', edit_location, name=''),
 
+    
+    
+    # Statistics API's
+    path('banner-statistics/', banner_statistics, name=''),
     
 ]

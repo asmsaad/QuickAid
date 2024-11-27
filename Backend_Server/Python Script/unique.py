@@ -23,8 +23,8 @@ def extract_unique_entries_safe(file_path, column_number):
 
 # Example usage
 if __name__ == "__main__":
-    file_path = r"D:\GitHub\Quick Aid\QuickAid\Backend_Server\Python Script\file.xlsx"
-    column_number = 8
+    file_path = r"D:\GitHub\Quick Aid\QuickAid\Backend_Server\Python Script\location.xlsx"
+    column_number = 4
     unique_list = extract_unique_entries_safe(file_path, column_number)
     print("Unique Entries:", unique_list)
     for id, u in enumerate(unique_list):

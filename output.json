@@ -1,860 +1,1747 @@
 [
     {
-        "empid": "070301",
-        "name": "Mohammad Kamruzzaman",
-        "gender": "Male",
         "email": "md.kamruzzaman@ulkasemi.com",
-        "department": "IC",
-        "designation": "Senior",
-        "phone": "01700744741",
-        "sup_id": 70201,
-        "doj": "2007-03-15"
+        "department": "IC DESIGN, EDA & IT",
+        "location": "5th floor"
     },
     {
-        "empid": "130709",
-        "name": "Nusrat Sharmin",
-        "gender": "Female",
+        "email": "nishi@ulkasemi.com",
+        "department": "IC PHYSICAL DESIGN",
+        "location": "5th floor"
+    },
+    {
         "email": "nusrat@ulkasemi.com",
-        "department": "IC Design (ICD)",
-        "designation": "Senior Technical Manager",
-        "phone": "01531973114",
-        "sup_id": 70301,
-        "doj": "2013-07-01"
+        "department": "IC MASK DESIGN",
+        "location": "4th floor"
     },
     {
-        "empid": "170101",
-        "name": "Amzad Hossain",
-        "gender": "Male",
+        "email": "sajib.barua@ulkasemi.com",
+        "department": "CIRCUIT & SYSTEM DESIGN",
+        "location": "2nd floor"
+    },
+    {
+        "email": "ruhana@ulkasemi.com",
+        "department": "SILICON ENGINEERING",
+        "location": "3rd floor"
+    },
+    {
+        "email": "tasnuva@ulkasemi.com",
+        "department": "CIRCUIT & SYSTEM DESIGN",
+        "location": "3rd floor"
+    },
+    {
         "email": "amzad@ulkasemi.com",
-        "department": "IC Design (ICD)",
-        "designation": "Technical Manager",
-        "phone": "01825899343",
-        "sup_id": 70301,
-        "doj": "2017-01-02"
+        "department": "IC MASK DESIGN",
+        "location": "3rd floor"
     },
     {
-        "empid": "170507",
-        "name": "Fariha Mahzabin Islam",
-        "gender": "Female",
-        "email": "fariha@ulkasemi.com",
-        "department": "IC Design (ICD)",
-        "designation": "Technical Manager",
-        "phone": "01685646530",
-        "sup_id": 70301,
-        "doj": "2017-05-06"
+        "email": "muhtasim@ulkasemi.com",
+        "department": "CIRCUIT & SYSTEM DESIGN",
+        "location": "2nd floor"
     },
     {
-        "empid": "170707",
-        "name": "Oishi Maniha",
-        "gender": "Female",
+        "email": "jahirul@ulkasemi.com",
+        "department": "SILICON ENGINEERING",
+        "location": "3rd floor"
+    },
+    {
+        "email": "fariha@ulkasemi.com\n",
+        "department": "IC MASK DESIGN",
+        "location": "3rd floor"
+    },
+    {
         "email": "oishi@ulkasemi.com",
-        "department": "IC Design (ICD)",
-        "designation": "Assistant Technical Manager",
-        "phone": "01716801564",
-        "sup_id": 170101,
-        "doj": "2017-07-03"
+        "department": "IC MASK DESIGN",
+        "location": "3rd floor"
     },
     {
-        "empid": "180604",
-        "name": "Abdul Muttaleb Bhuiyan",
-        "gender": "Male",
+        "email": "hafizur@ulkasemi.com",
+        "department": "IT & SECURITY",
+        "location": "4th floor"
+    },
+    {
+        "email": "israt@ulkasemi.com",
+        "department": "IC PHYSICAL DESIGN",
+        "location": "5th floor"
+    },
+    {
+        "email": "zarin@ulkasemi.com",
+        "department": "IC PHYSICAL DESIGN",
+        "location": "5th floor"
+    },
+    {
         "email": "muttaleb@ulkasemi.com",
-        "department": "IC Design (ICD)",
-        "designation": "Assistant Technical Manager",
-        "phone": "01796588456",
-        "sup_id": 130709,
-        "doj": "2018-06-19"
+        "department": "IC MASK DESIGN",
+        "location": "4th floor"
     },
     {
-        "empid": "181106",
-        "name": "Md.Mossabbarul Islam",
-        "gender": "Male",
-        "email": "mossabbarul@ulkasemi.com",
-        "department": "IC Design (ICD)",
-        "designation": "Assistant Technical Manager",
-        "phone": "01521304444",
-        "sup_id": 130709,
-        "doj": "2018-11-08"
+        "email": "nawshi@ulkasemi.com",
+        "department": "FINANCE & ACCOUNTS",
+        "location": "3rd floor"
     },
     {
-        "empid": "190705",
-        "name": "Abdullah Al Noman",
-        "gender": "Male",
+        "email": "tuaha@ulkasemi.com",
+        "department": "CIRCUIT & SYSTEM DESIGN",
+        "location": "2nd floor"
+    },
+    {
+        "email": "mossabbarul@ulkasemi.com\n",
+        "department": "IC MASK DESIGN",
+        "location": "4th floor"
+    },
+    {
+        "email": "shaykat@ulkasemi.com",
+        "department": "IC PHYSICAL DESIGN",
+        "location": "5th floor"
+    },
+    {
+        "email": "minhajulazmir@ulkasemi.com",
+        "department": "CIRCUIT & SYSTEM DESIGN",
+        "location": "3rd floor"
+    },
+    {
+        "email": "tahmid@ulkasemi.com",
+        "department": "SILICON ENGINEERING",
+        "location": "3rd floor"
+    },
+    {
+        "email": "kayes@ulkasemi.com",
+        "department": "SILICON ENGINEERING",
+        "location": "3rd floor"
+    },
+    {
         "email": "noman@ulkasemi.com",
-        "department": "IC Design (ICD)",
-        "designation": "Senior Engineer",
-        "phone": "01689408863",
-        "sup_id": 170101,
-        "doj": "2019-07-18"
+        "department": "IC MASK DESIGN",
+        "location": "3rd floor"
     },
     {
-        "empid": "191202",
-        "name": "Md Ragibnur",
-        "gender": "Male",
+        "email": "sadman@ulkasemi.com",
+        "department": "SILICON ENGINEERING",
+        "location": "3rd floor"
+    },
+    {
+        "email": "puspa@ulkasemi.com",
+        "department": "SILICON ENGINEERING",
+        "location": "4th floor"
+    },
+    {
+        "email": "ashikurrahman@ulkasemi.com",
+        "department": "IC PHYSICAL DESIGN",
+        "location": "5th floor"
+    },
+    {
+        "email": "nargis@ulkasemi.com",
+        "department": "IC PHYSICAL DESIGN",
+        "location": "5th floor"
+    },
+    {
+        "email": "subrata@ulkasemi.com",
+        "department": "CIRCUIT & SYSTEM DESIGN",
+        "location": "2nd floor"
+    },
+    {
+        "email": "shahjahan@ulkasemi.com",
+        "department": "CIRCUIT & SYSTEM DESIGN",
+        "location": "4th floor"
+    },
+    {
         "email": "nur@ulkasemi.com",
-        "department": "IC Design (ICD)",
-        "designation": "Senior Engineer",
-        "phone": "01750157936",
-        "sup_id": 170101,
-        "doj": "2019-12-02"
+        "department": "IC MASK DESIGN",
+        "location": "3rd floor"
     },
     {
-        "empid": "191208",
-        "name": "Md.Najmul Hasan",
-        "gender": "Male",
         "email": "najmul.hasan@ulkasemi.com",
-        "department": "IC Design (ICD)",
-        "designation": "Senior Engineer",
-        "phone": "01937198438",
-        "sup_id": 170101,
-        "doj": "2019-12-02"
+        "department": "IC MASK DESIGN",
+        "location": "3rd floor"
     },
     {
-        "empid": "191211",
-        "name": "Md Fahim Rizwan",
-        "gender": "Male",
         "email": "rizwan@ulkasemi.com",
-        "department": "IC Design (ICD)",
-        "designation": "Senior Engineer",
-        "phone": "01767393919",
-        "sup_id": 130709,
-        "doj": "2019-12-02"
+        "department": "IC MASK DESIGN",
+        "location": "4th floor"
     },
     {
-        "empid": "191212",
-        "name": "Sazid Faysal Ayon",
-        "gender": "Male",
         "email": "ayon@ulkasemi.com",
-        "department": "IC Design (ICD)",
-        "designation": "Senior Engineer",
-        "phone": "01712361155",
-        "sup_id": 170101,
-        "doj": "2019-12-02"
+        "department": "IC MASK DESIGN",
+        "location": "3rd floor"
     },
     {
-        "empid": "191214",
-        "name": "Mashuda Islam",
-        "gender": "Female",
         "email": "mashuda.islam@ulkasemi.com",
-        "department": "IC Design (ICD)",
-        "designation": "Senior Engineer",
-        "phone": "01739003528",
-        "sup_id": 130709,
-        "doj": "2019-12-02"
+        "department": "IC MASK DESIGN",
+        "location": "4th floor"
     },
     {
-        "empid": "210203",
-        "name": "Md Mostakim Miah",
-        "gender": "Male",
-        "email": "md.mostakim.miah@ulkasemi.com",
-        "department": "IC Design (ICD)",
-        "designation": "Senior Engineer",
-        "phone": "01683005458",
-        "sup_id": 170507,
-        "doj": "2021-02-15"
+        "email": "sumon.pandit@ulkasemi.com",
+        "department": "FINANCE & ACCOUNTS",
+        "location": "3rd floor"
     },
     {
-        "empid": "210204",
-        "name": "Afifa-E-Jahan",
-        "gender": "Female",
+        "email": "nazmul.yeadin@ulkasemi.com",
+        "department": "IC PHYSICAL DESIGN",
+        "location": "5th floor"
+    },
+    {
+        "email": "al.abid@ulkasemi.com\u00a0",
+        "department": "CIRCUIT & SYSTEM DESIGN",
+        "location": "2nd floor"
+    },
+    {
+        "email": "md.nayem@ulkasemi.com",
+        "department": "CIRCUIT & SYSTEM DESIGN",
+        "location": "2nd floor"
+    },
+    {
+        "email": "tanima.taher@ulkasemi.com",
+        "department": "CIRCUIT & SYSTEM DESIGN",
+        "location": "2nd floor"
+    },
+    {
+        "email": "md.sajid@ulkasemi.com",
+        "department": "CIRCUIT & SYSTEM DESIGN",
+        "location": "2nd floor"
+    },
+    {
+        "email": "sushmit.sarker@ulkasemi.com",
+        "department": "CIRCUIT & SYSTEM DESIGN",
+        "location": "2nd floor"
+    },
+    {
+        "email": "hasan.mahamudul@ulkasemi.com",
+        "department": "CIRCUIT & SYSTEM DESIGN",
+        "location": "2nd floor"
+    },
+    {
+        "email": "alkousher@ulkasemi.com",
+        "department": "CIRCUIT & SYSTEM DESIGN",
+        "location": "2nd floor"
+    },
+    {
+        "email": "muzammel@ulkasemi.com",
+        "department": "BRANDING & PR",
+        "location": "3rd floor"
+    },
+    {
+        "email": "shahariar.rahman@ulkasemi.com",
+        "department": "HUMAN RESOURCES",
+        "location": "3rd floor"
+    },
+    {
+        "email": "bahar@ulkasemi.com",
+        "department": "CHIP TESTING",
+        "location": "4th floor"
+    },
+    {
+        "email": "ashraful.alam@ulkasemi.com",
+        "department": "FACILITY MANAGEMENT",
+        "location": "4th floor"
+    },
+    {
+        "email": "zobaer.bin.liaquot@ulkasemi.com",
+        "department": "IT & SECURITY",
+        "location": "4th floor"
+    },
+    {
+        "email": "prokash.kumar.shill@ulkasemi.com",
+        "department": "FINANCE & ACCOUNTS",
+        "location": "3rd floor"
+    },
+    {
+        "email": "rahmat@ulkasemi.com",
+        "department": "CIRCUIT & SYSTEM DESIGN",
+        "location": "2nd floor"
+    },
+    {
+        "email": "bhuiyan.huq@ulkasemi.com",
+        "department": "HUMAN RESOURCES",
+        "location": "3rd floor"
+    },
+    {
+        "email": "rahamoni@ulkasemi.com",
+        "department": "CIRCUIT & SYSTEM DESIGN",
+        "location": "2nd floor"
+    },
+    {
+        "email": "hussain@ulkasemi.com",
+        "department": "CIRCUIT & SYSTEM DESIGN",
+        "location": "2nd floor"
+    },
+    {
+        "email": "khondaker@ulkasemi.com",
+        "department": "CIRCUIT & SYSTEM DESIGN",
+        "location": "2nd floor"
+    },
+    {
+        "email": "binte@ulkasemi.com",
+        "department": "CIRCUIT & SYSTEM DESIGN",
+        "location": "2nd floor"
+    },
+    {
+        "email": "partha.sanjoy@ulkasemi.com",
+        "department": "IC PHYSICAL DESIGN",
+        "location": "5th floor"
+    },
+    {
+        "email": "nasim.reza@ulkasemi.com\n",
+        "department": "IC PHYSICAL DESIGN",
+        "location": "5th floor"
+    },
+    {
+        "email": "ariful.islam@ulkasemi.com\n",
+        "department": "CIRCUIT & SYSTEM DESIGN",
+        "location": "3rd floor"
+    },
+    {
+        "email": "rajib.saha@ulkasemi.com",
+        "department": "CIRCUIT & SYSTEM DESIGN",
+        "location": "2nd floor"
+    },
+    {
+        "email": "hasan.sad@ulkasemi.com\n",
+        "department": "CIRCUIT & SYSTEM DESIGN",
+        "location": "2nd floor"
+    },
+    {
+        "email": "nazmul.ahasan@ulkasemi.com",
+        "department": "CIRCUIT & SYSTEM DESIGN",
+        "location": "2nd floor"
+    },
+    {
+        "email": "tasnim.hridi@ulkasemi.com",
+        "department": "CIRCUIT & SYSTEM DESIGN",
+        "location": "2nd floor"
+    },
+    {
+        "email": "adnan.ahmed@ulkasemi.com",
+        "department": "IT & SECURITY",
+        "location": "4th floor"
+    },
+    {
+        "email": "shibly.talukdar@ulkasemi.com\n",
+        "department": "CIRCUIT & SYSTEM DESIGN",
+        "location": "2nd floor"
+    },
+    {
+        "email": "tanjir.mahmud@ulkasemi.com",
+        "department": "CIRCUIT & SYSTEM DESIGN",
+        "location": "2nd floor"
+    },
+    {
+        "email": "md.mostakim.miah@ulkasemi.com\n",
+        "department": "IC MASK DESIGN",
+        "location": "3rd floor"
+    },
+    {
         "email": "afifa.jahan@ulkasemi.com",
-        "department": "IC Design (ICD)",
-        "designation": "Senior Engineer",
-        "phone": "01957513091",
-        "sup_id": 170101,
-        "doj": "2021-02-15"
+        "department": "IC MASK DESIGN",
+        "location": "5th floor"
     },
     {
-        "empid": "210206",
-        "name": "Md Mushfiqur Rahman",
-        "gender": "Male",
-        "email": "md.mushfiqur.rahman@ulkasemi.com",
-        "department": "IC Design (ICD)",
-        "designation": "Senior Engineer",
-        "phone": "01789244465",
-        "sup_id": 170101,
-        "doj": "2021-02-15"
+        "email": "md.mushfiqur.rahman@ulkasemi.com\n",
+        "department": "IC MASK DESIGN",
+        "location": "4th floor"
     },
     {
-        "empid": "210207",
-        "name": "Md Sifat Abdullah",
-        "gender": "Male",
-        "email": "md.sifat.abdullah@ulkasemi.com",
-        "department": "IC Design (ICD)",
-        "designation": "Senior Engineer",
-        "phone": "01671331121",
-        "sup_id": 180604,
-        "doj": "2021-02-15"
+        "email": "md.sifat.abdullah@ulkasemi.com\n",
+        "department": "IC MASK DESIGN",
+        "location": "4th floor"
     },
     {
-        "empid": "210211",
-        "name": "Md Imranul Haque",
-        "gender": "Male",
-        "email": "md.imranul.haque@ulkasemi.com",
-        "department": "IC Design (ICD)",
-        "designation": "Senior Engineer",
-        "phone": "01633630432",
-        "sup_id": 170707,
-        "doj": "2021-02-15"
+        "email": "md.imranul.haque@ulkasemi.com\n",
+        "department": "IC MASK DESIGN",
+        "location": "4th floor"
     },
     {
-        "empid": "210502",
-        "name": "S R An Nababi",
-        "gender": "Male",
+        "email": "tanvir.rahman.sohug@ulkasemi.com\n",
+        "department": "FACILITY MANAGEMENT",
+        "location": "4th floor"
+    },
+    {
         "email": "s.r.an.nababi@ulkasemi.com",
-        "department": "IC Design (ICD)",
-        "designation": "Engineer",
-        "phone": "01780644685",
-        "sup_id": 180604,
-        "doj": "2021-08-09"
+        "department": "IC MASK DESIGN",
+        "location": "4th floor"
     },
     {
-        "empid": "210508",
-        "name": "Imtiaz Sultan",
-        "gender": "Male",
+        "email": "sahriar.habib@ulkasemi.com",
+        "department": "IC PHYSICAL DESIGN",
+        "location": "5th floor"
+    },
+    {
+        "email": "md.atiq.zaowad@ulkasemi.com",
+        "department": "IC PHYSICAL DESIGN",
+        "location": "5th floor"
+    },
+    {
+        "email": "alvy.ibn.feroz@ulkasemi.com",
+        "department": "IC PHYSICAL DESIGN",
+        "location": "5th floor"
+    },
+    {
         "email": "imtiaz.sultan@ulkasemi.com",
-        "department": "IC Design (ICD)",
-        "designation": "Engineer",
-        "phone": "01675736721",
-        "sup_id": 170101,
-        "doj": "2021-08-09"
+        "department": "IC MASK DESIGN",
+        "location": "3rd floor"
     },
     {
-        "empid": "210808",
-        "name": "Shaswata Dutta",
-        "gender": "Male",
+        "email": "md.piyas@ulkasemi.com",
+        "department": "CIRCUIT & SYSTEM DESIGN (QA)",
+        "location": "2nd floor"
+    },
+    {
+        "email": "mostafizur.rahman@ulkasemi.com",
+        "department": "CIRCUIT & SYSTEM DESIGN",
+        "location": "2nd floor"
+    },
+    {
+        "email": "tamim.haider@ulkasemi.com",
+        "department": "SILICON ENGINEERING",
+        "location": "2nd floor"
+    },
+    {
+        "email": "nafis.salah.adib@ulkasemi.com",
+        "department": "SILICON ENGINEERING",
+        "location": "3rd floor"
+    },
+    {
+        "email": "md.hasanujjaman@ulkasemi.com",
+        "department": "CIRCUIT & SYSTEM DESIGN",
+        "location": "2nd floor"
+    },
+    {
+        "email": "shawkat.jahan@ulkasemi.com",
+        "department": "CIRCUIT & SYSTEM DESIGN",
+        "location": "2nd floor"
+    },
+    {
+        "email": "md.moktar.hossain@ulkasemi.com",
+        "department": "CIRCUIT & SYSTEM DESIGN",
+        "location": "2nd floor"
+    },
+    {
+        "email": "fatema.tuz.zohra@ulkasemi.com",
+        "department": "CIRCUIT & SYSTEM DESIGN",
+        "location": "2nd floor"
+    },
+    {
+        "email": "farhana.akter.mummi@ulkasemi.com",
+        "department": "CIRCUIT & SYSTEM DESIGN",
+        "location": "3rd floor"
+    },
+    {
+        "email": "md.humaun.kabir@ulkasemi.com",
+        "department": "CIRCUIT & SYSTEM DESIGN",
+        "location": "2nd floor"
+    },
+    {
+        "email": "anik.paul@ulkasemi.com",
+        "department": "CIRCUIT & SYSTEM DESIGN",
+        "location": "2nd floor"
+    },
+    {
+        "email": "md.adib.ibne.yousuf@ulkasemi.com",
+        "department": "CIRCUIT & SYSTEM DESIGN",
+        "location": "2nd floor"
+    },
+    {
+        "email": "md.fayez.hasan@ulkasemi.com",
+        "department": "CIRCUIT & SYSTEM DESIGN",
+        "location": "2nd floor"
+    },
+    {
+        "email": "mohammad.ayub.pervej@ulkasemi.com",
+        "department": "HUMAN RESOURCES",
+        "location": "3rd floor"
+    },
+    {
+        "email": "mir.mariam.hossain@ulkasemi.com",
+        "department": "HUMAN RESOURCES",
+        "location": "3rd floor"
+    },
+    {
         "email": "shaswata.dutta@ulkasemi.com",
-        "department": "IC Design (ICD)",
-        "designation": "Engineer",
-        "phone": "01303934309",
-        "sup_id": 170507,
-        "doj": "2021-08-09"
+        "department": "IC MASK DESIGN",
+        "location": "3rd floor"
     },
     {
-        "empid": "210809",
-        "name": "Rahat Farhan",
-        "gender": "Male",
         "email": "rahat.farhan@ulkasemi.com",
-        "department": "IC Design (ICD)",
-        "designation": "Engineer",
-        "phone": "01628389220",
-        "sup_id": 181106,
-        "doj": "2021-08-09"
+        "department": "IC MASK DESIGN",
+        "location": "4th floor"
     },
     {
-        "empid": "210810",
-        "name": "Tanber Hasan Shemanto",
-        "gender": "Male",
         "email": "tanber.hasan.shemanto@ulkasemi.com",
-        "department": "IC Design (ICD)",
-        "designation": "Engineer",
-        "phone": "01521416649",
-        "sup_id": 210206,
-        "doj": "2021-08-09"
+        "department": "IC MASK DESIGN",
+        "location": "4th floor"
     },
     {
-        "empid": "210813",
-        "name": "Md Shahadot Hossain Rony",
-        "gender": "Male",
         "email": "md.shahadot.hossain.rony@ulkasemi.com",
-        "department": "IC Design (ICD)",
-        "designation": "Engineer",
-        "phone": "01761307534",
-        "sup_id": 170507,
-        "doj": "2021-08-09"
+        "department": "IC MASK DESIGN",
+        "location": "3rd floor"
     },
     {
-        "empid": "210814",
-        "name": "Md Ashik Uz Zaman",
-        "gender": "Male",
         "email": "md.ashik.u.zaman@ulkasemi.com",
-        "department": "IC Design (ICD)",
-        "designation": "Engineer",
-        "phone": "01750247066",
-        "sup_id": 170507,
-        "doj": "2021-08-09"
+        "department": "IC MASK DESIGN",
+        "location": "3rd floor"
     },
     {
-        "empid": "210819",
-        "name": "Irfan Rahman",
-        "gender": "Male",
         "email": "irfan.rahman@ulkasemi.com",
-        "department": "IC Design (ICD)",
-        "designation": "Engineer",
-        "phone": "01521208221",
-        "sup_id": 170507,
-        "doj": "2021-08-09"
+        "department": "IC MASK DESIGN",
+        "location": "3rd floor"
     },
     {
-        "empid": "210822",
-        "name": "Muhammad Omar Ziad",
-        "gender": "Male",
         "email": "muhammad.omar.ziad@ulkasemi.com",
-        "department": "IC Design (ICD)",
-        "designation": "Engineer",
-        "phone": "01843796701",
-        "sup_id": 181106,
-        "doj": "2021-08-09"
+        "department": "IC MASK DESIGN",
+        "location": "4th floor"
     },
     {
-        "empid": "210824",
-        "name": "Muhammad Jamil Hasan",
-        "gender": "Male",
         "email": "muhammad.jamil.hasan@ulkasemi.com",
-        "department": "IC Design (ICD)",
-        "designation": "Engineer",
-        "phone": "01717867628",
-        "sup_id": 180604,
-        "doj": "2021-08-09"
+        "department": "IC MASK DESIGN",
+        "location": "4th floor"
     },
     {
-        "empid": "210825",
-        "name": "Md Mahbubur Rahman Emon",
-        "gender": "Male",
         "email": "md.mahbubur.rahman.emon@ulkasemi.com",
-        "department": "IC Design (ICD)",
-        "designation": "Engineer",
-        "phone": "01600292474",
-        "sup_id": 170101,
-        "doj": "2021-08-09"
+        "department": "IC MASK DESIGN",
+        "location": "3rd floor"
     },
     {
-        "empid": "210827",
-        "name": "Md Shahriyar Hassan",
-        "gender": "Male",
         "email": "md.shahriyar.hassan@ulkasemi.com",
-        "department": "IC Design (ICD)",
-        "designation": "Engineer",
-        "phone": "01705847471",
-        "sup_id": 170101,
-        "doj": "2021-08-09"
+        "department": "IC MASK DESIGN",
+        "location": "3rd floor"
     },
     {
-        "empid": "220501",
-        "name": "Md Rohan Rahman",
-        "gender": "Male",
+        "email": "asraful.alam@ulkasemi.com ",
+        "department": "SILICON ENGINEERING",
+        "location": "3rd floor"
+    },
+    {
+        "email": "masuda.bhuian@ulkasemi.com",
+        "department": "FACILITY MANAGEMENT",
+        "location": "4th floor"
+    },
+    {
+        "email": "md.mahadi.hasan.bhuiyan@ulkasemi.com",
+        "department": "SILICON ENGINEERING",
+        "location": "3rd floor"
+    },
+    {
+        "email": "a.k.m.ferdous@ulkasemi.com",
+        "department": "SILICON ENGINEERING",
+        "location": "3rd floor"
+    },
+    {
+        "email": "md.shawon.islam@ulkasemi.com",
+        "department": "CIRCUIT & SYSTEM DESIGN",
+        "location": "2nd floor"
+    },
+    {
+        "email": "ihtyaz.kader.tasawar@ulkasemi.com",
+        "department": "IC PHYSICAL DESIGN",
+        "location": "5th floor"
+    },
+    {
+        "email": "tanvir.mahtab@ulkasemi.com",
+        "department": "IC PHYSICAL DESIGN",
+        "location": "5th floor"
+    },
+    {
+        "email": "syeda.fahima.nazreen@ulkasemi.com",
+        "department": "IC PHYSICAL DESIGN",
+        "location": "5th floor"
+    },
+    {
+        "email": "md.mehedi.hasan@ulkasemi.com",
+        "department": "IC PHYSICAL DESIGN",
+        "location": "5th floor"
+    },
+    {
+        "email": "uchchhash.sarkar@ulkasemi.com",
+        "department": "SILICON ENGINEERING",
+        "location": "3rd floor"
+    },
+    {
+        "email": "md.mosabbir.hossain@ulkasemi.com",
+        "department": "SILICON ENGINEERING",
+        "location": "3rd floor"
+    },
+    {
+        "email": "sk.md.mushfikur.rahman@ulkasemi.com",
+        "department": "SILICON ENGINEERING",
+        "location": "3rd floor"
+    },
+    {
+        "email": "tanvir.alam.roni@ulkasemi.com",
+        "department": "SILICON ENGINEERING",
+        "location": "3rd floor"
+    },
+    {
+        "email": "rahman@ulkasemi.com",
+        "department": "BOARD OF DIRECTORS",
+        "location": "3rd floor"
+    },
+    {
+        "email": "arifa@ulkasemi.com\n",
+        "department": "BOARD OF DIRECTORS",
+        "location": "3rd floor"
+    },
+    {
+        "email": "mahmud@ulkasemi.com",
+        "department": "CIRCUIT & SYSTEM DESIGN",
+        "location": "2nd floor"
+    },
+    {
+        "email": "shaer@ulkasemi.com",
+        "department": "IC MASK DESIGN",
+        "location": "3rd floor"
+    },
+    {
+        "email": "abyaz.kader.tanzeem@ulkasemi.com",
+        "department": "IC PHYSICAL DESIGN",
+        "location": "5th floor"
+    },
+    {
+        "email": "partha.acharjee@ulkasemi.com",
+        "department": "IC PHYSICAL DESIGN",
+        "location": "5th floor"
+    },
+    {
+        "email": "anowarul.azim@ulkasemi.com",
+        "department": "SILICON ENGINEERING",
+        "location": "3rd floor"
+    },
+    {
+        "email": "md.asif.imran.khan@ulkasemi.com",
+        "department": "SILICON ENGINEERING",
+        "location": "3rd floor"
+    },
+    {
+        "email": "mostofa.habib@ulkasemi.com",
+        "department": "SILICON ENGINEERING",
+        "location": "3rd floor"
+    },
+    {
+        "email": "jabid.asraf@ulkasemi.com",
+        "department": "SILICON ENGINEERING",
+        "location": "3rd floor"
+    },
+    {
+        "email": "md.kamrul.islam@ulkasemi.com",
+        "department": "SILICON ENGINEERING",
+        "location": "3rd floor"
+    },
+    {
+        "email": "farhan.hasin.khan@ulkasemi.com",
+        "department": "SILICON ENGINEERING",
+        "location": "3rd floor"
+    },
+    {
+        "email": "imrul.hasan.sabid@ulkasemi.com",
+        "department": "SILICON ENGINEERING",
+        "location": "3rd floor"
+    },
+    {
+        "email": "md.jahedul.islam@ulkasemi.com",
+        "department": "SILICON ENGINEERING",
+        "location": "3rd floor"
+    },
+    {
+        "email": "md.ashiqur.rahman@ulkasemi.com",
+        "department": "SILICON ENGINEERING",
+        "location": "4th floor"
+    },
+    {
+        "email": "sarker.md.nazmul@ulkasemi.com",
+        "department": "SILICON ENGINEERING",
+        "location": "4th floor"
+    },
+    {
+        "email": "anika.tasnim@ulkasemi.com",
+        "department": "SILICON ENGINEERING",
+        "location": "3rd floor"
+    },
+    {
+        "email": "md.jahidul.islam@ulkasemi.com",
+        "department": "CIRCUIT & SYSTEM DESIGN",
+        "location": "2nd floor"
+    },
+    {
+        "email": "md.mahabur.rahman@ulkasemi.com",
+        "department": "CIRCUIT & SYSTEM DESIGN",
+        "location": "2nd floor"
+    },
+    {
+        "email": "tanvir.alam@ulkasemi.com",
+        "department": "CIRCUIT & SYSTEM DESIGN",
+        "location": "2nd floor"
+    },
+    {
+        "email": "mohibul.islam@ulkasemi.com",
+        "department": "CIRCUIT & SYSTEM DESIGN",
+        "location": "2nd floor"
+    },
+    {
+        "email": "nawrin.tamim.adity@ulkasemi.com",
+        "department": "CIRCUIT & SYSTEM DESIGN",
+        "location": "3rd floor"
+    },
+    {
+        "email": "md.mominul.islam.chomok@ulkasemi.com",
+        "department": "CIRCUIT & SYSTEM DESIGN",
+        "location": "3rd floor"
+    },
+    {
+        "email": "rifat.siddique.mim@ulkasemi.com",
+        "department": "CIRCUIT & SYSTEM DESIGN",
+        "location": "3rd floor"
+    },
+    {
+        "email": "morshed.kazi@ulkasemi.com",
+        "department": "CIRCUIT & SYSTEM DESIGN",
+        "location": "2nd floor"
+    },
+    {
+        "email": "md.nazmul.hasan@ulkasemi.com",
+        "department": "CIRCUIT & SYSTEM DESIGN",
+        "location": "2nd floor"
+    },
+    {
         "email": "md.rohan.rahman@ulkasemi.com",
-        "department": "IC Design (ICD)",
-        "designation": "Engineer",
-        "phone": "01643160469",
-        "sup_id": 180604,
-        "doj": "2022-05-16"
+        "department": "IC MASK DESIGN",
+        "location": "4th floor"
     },
     {
-        "empid": "220502",
-        "name": "Md Ashraful Alam",
-        "gender": "Male",
         "email": "md.ashraful.alam@ulkasemi.com",
-        "department": "IC Design (ICD)",
-        "designation": "Engineer",
-        "phone": "01717477725",
-        "sup_id": 191211,
-        "doj": "2022-05-16"
+        "department": "IC MASK DESIGN",
+        "location": "4th floor"
     },
     {
-        "empid": "220503",
-        "name": "Kh. Shakil Ahmed",
-        "gender": "Male",
         "email": "kh.shakil.ahmad@ulkasemi.com",
-        "department": "IC Design (ICD)",
-        "designation": "Engineer",
-        "phone": "01635813200",
-        "sup_id": 191214,
-        "doj": "2022-05-16"
+        "department": "IC MASK DESIGN",
+        "location": "4th floor"
     },
     {
-        "empid": "220614",
-        "name": "Md. Alif Ul Sofi Suvro",
-        "gender": "Male",
+        "email": "mesbah.ul.huq@ulkasemi.com",
+        "department": "SILICON ENGINEERING",
+        "location": "3rd floor"
+    },
+    {
+        "email": "md.mahdi.asef.chowdhury@ulkasemi.com",
+        "department": "SILICON ENGINEERING",
+        "location": "3rd floor"
+    },
+    {
+        "email": "abu.saleah@ulkasemi.com",
+        "department": "SILICON ENGINEERING",
+        "location": "3rd floor"
+    },
+    {
+        "email": "pranesh.majumder@ulkasemi.com",
+        "department": "SILICON ENGINEERING",
+        "location": "3rd floor"
+    },
+    {
+        "email": "shuvan.bhowmik@ulkasemi.com",
+        "department": "SILICON ENGINEERING",
+        "location": "3rd floor"
+    },
+    {
+        "email": "istiaque.ahmed@ulkasemi.com",
+        "department": "SILICON ENGINEERING",
+        "location": "3rd floor"
+    },
+    {
+        "email": "minhaz.ahmed.pallab@ulkasemi.com",
+        "department": "SILICON ENGINEERING",
+        "location": "3rd floor"
+    },
+    {
+        "email": "abu.nayem.md.noman@ulkasemi.com",
+        "department": "SILICON ENGINEERING",
+        "location": "3rd floor"
+    },
+    {
         "email": "md.alif.ul.sofi.suvro@ulkasemi.com",
-        "department": "IC Design (ICD)",
-        "designation": "Engineer",
-        "phone": "01536060181",
-        "sup_id": 191214,
-        "doj": "2022-06-15"
+        "department": "IC MASK DESIGN",
+        "location": "4th floor"
     },
     {
-        "empid": "220615",
-        "name": "Md. Khandaker Riaz Mahmud",
-        "gender": "Male",
         "email": "md.khandaker.riaz.mahamud@ulkasemi.com",
-        "department": "IC Design (ICD)",
-        "designation": "Engineer",
-        "phone": "01891962979",
-        "sup_id": 181106,
-        "doj": "2022-06-15"
+        "department": "IC MASK DESIGN",
+        "location": "4th floor"
     },
     {
-        "empid": "220617",
-        "name": "Rashid Shabab Billah",
-        "gender": "Male",
+        "email": "mila.mukherjee@ulkasemi.com",
+        "department": "IC MASK DESIGN",
+        "location": "2nd floor"
+    },
+    {
         "email": "rashid.shabab.billah@ulkasemi.com",
-        "department": "IC Design (ICD)",
-        "designation": "Engineer",
-        "phone": "01781794429",
-        "sup_id": 210824,
-        "doj": "2022-06-15"
+        "department": "IC MASK DESIGN",
+        "location": "4th floor"
     },
     {
-        "empid": "220618",
-        "name": "Md. Mobin Hossain",
-        "gender": "Male",
         "email": "md.mobin.hossain@ulkasemi.com",
-        "department": "IC Design (ICD)",
-        "designation": "Engineer",
-        "phone": "01992701191",
-        "sup_id": 210203,
-        "doj": "2022-06-15"
+        "department": "IC MASK DESIGN",
+        "location": "3rd floor"
     },
     {
-        "empid": "220619",
-        "name": "Mazharul Islam",
-        "gender": "Male",
         "email": "mazharul.islam@ulkasemi.com",
-        "department": "IC Design (ICD)",
-        "designation": "Engineer",
-        "phone": "01857100476",
-        "sup_id": 181106,
-        "doj": "2022-06-15"
+        "department": "IC MASK DESIGN",
+        "location": "4th floor"
     },
     {
-        "empid": "220620",
-        "name": "K.M. Al Jubayer",
-        "gender": "Male",
         "email": "k.m.al.jubayer@ulkasemi.com",
-        "department": "IC Design (ICD)",
-        "designation": "Engineer",
-        "phone": "01521205122",
-        "sup_id": 191211,
-        "doj": "2022-06-15"
+        "department": "IC MASK DESIGN",
+        "location": "4th floor"
     },
     {
-        "empid": "220621",
-        "name": "Md. Sohel Rana",
-        "gender": "Male",
         "email": "md.sohel.rana@ulkasemi.com",
-        "department": "IC Design (ICD)",
-        "designation": "Engineer",
-        "phone": "01751340697",
-        "sup_id": 181106,
-        "doj": "2022-06-15"
+        "department": "IC MASK DESIGN",
+        "location": "4th floor"
     },
     {
-        "empid": "220702",
-        "name": "Md Sabbir Islam",
-        "gender": "Male",
         "email": "md.sabbir.islam@ulkasemi.com",
-        "department": "IC Design (ICD)",
-        "designation": "Engineer",
-        "phone": "01796775040",
-        "sup_id": 210211,
-        "doj": "2022-07-18"
+        "department": "IC MASK DESIGN",
+        "location": "4th floor"
     },
     {
-        "empid": "220703",
-        "name": "Md Nizam Uddin",
-        "gender": "Male",
         "email": "md.nizam.uddin@ulkasemi.com",
-        "department": "IC Design (ICD)",
-        "designation": "Engineer",
-        "phone": "01613416472",
-        "sup_id": 191214,
-        "doj": "2022-07-18"
+        "department": "IC MASK DESIGN",
+        "location": "4th floor"
     },
     {
-        "empid": "220704",
-        "name": "Md Imranul Haque",
-        "gender": "Male",
         "email": "md.shafiquzzaman@ulkasemi.com",
-        "department": "IC Design (ICD)",
-        "designation": "Engineer",
-        "phone": "01684530560",
-        "sup_id": 210206,
-        "doj": "2022-07-18"
+        "department": "IC MASK DESIGN",
+        "location": "4th floor"
     },
     {
-        "empid": "220906",
-        "name": "Salah Uddin",
-        "gender": "Male",
+        "email": "farah.hoque.naima@ulkasemi.com",
+        "department": "IC PHYSICAL DESIGN",
+        "location": "5th floor"
+    },
+    {
+        "email": "rafiul.awal.dhruba@ulkasemi.com",
+        "department": "IC PHYSICAL DESIGN",
+        "location": "5th floor"
+    },
+    {
+        "email": "rubaiat.hossain@ulkasemi.com",
+        "department": "IC PHYSICAL DESIGN",
+        "location": "5th floor"
+    },
+    {
+        "email": "shuk.deb.das@ulkasemi.com",
+        "department": "IC PHYSICAL DESIGN",
+        "location": "5th floor"
+    },
+    {
+        "email": "raihan.motalib@ulkasemi.com",
+        "department": "IC PHYSICAL DESIGN",
+        "location": "5th floor"
+    },
+    {
+        "email": "kazi.sazzad.ahamed@ulkasemi.com",
+        "department": "IC PHYSICAL DESIGN",
+        "location": "5th floor"
+    },
+    {
+        "email": "md.arif.hossain@ulkasemi.com",
+        "department": "IC PHYSICAL DESIGN",
+        "location": "5th floor"
+    },
+    {
+        "email": "himel.roy@ulkasemi.com",
+        "department": "IC PHYSICAL DESIGN",
+        "location": "5th floor"
+    },
+    {
+        "email": "sajid-ul-haque@ulkasemi.com",
+        "department": "IC PHYSICAL DESIGN",
+        "location": "5th floor"
+    },
+    {
+        "email": "tafannum.tahiat.ohi@ulkasemi.com",
+        "department": "IC DESIGN",
+        "location": "5th floor"
+    },
+    {
+        "email": "ritu.banik@ulkasemi.com",
+        "department": "CIRCUIT & SYSTEM DESIGN",
+        "location": "2nd floor"
+    },
+    {
+        "email": "faiaz.mahmud@ulkasemi.com",
+        "department": "CIRCUIT & SYSTEM DESIGN",
+        "location": "2nd floor"
+    },
+    {
+        "email": "abu.shalea.mohammad.nasim@ulkasemi.com",
+        "department": "CIRCUIT & SYSTEM DESIGN",
+        "location": "2nd floor"
+    },
+    {
+        "email": "s.m.kifayat.kabir@ulkasemi.com",
+        "department": "CIRCUIT & SYSTEM DESIGN",
+        "location": "2nd floor"
+    },
+    {
+        "email": "khandaker.shams.arefin@ulkasemi.com",
+        "department": "CIRCUIT & SYSTEM DESIGN",
+        "location": "2nd floor"
+    },
+    {
+        "email": "md.golam.azam@ulkasemi.com",
+        "department": "CIRCUIT & SYSTEM DESIGN",
+        "location": "2nd floor"
+    },
+    {
+        "email": "md.alve@ulkasemi.com",
+        "department": "CIRCUIT & SYSTEM DESIGN",
+        "location": "2nd floor"
+    },
+    {
+        "email": "samiul.islam@ulkasemi.com",
+        "department": "CIRCUIT & SYSTEM DESIGN",
+        "location": "2nd floor"
+    },
+    {
+        "email": "md.mahbubur.rahman@ulkasemi.com",
+        "department": "CIRCUIT & SYSTEM DESIGN",
+        "location": "2nd floor"
+    },
+    {
+        "email": "lamiya.sayed@ulkasemi.com",
+        "department": "CIRCUIT & SYSTEM DESIGN",
+        "location": "2nd floor"
+    },
+    {
+        "email": "md.golam.mortuza@ulkasemi.com",
+        "department": "CIRCUIT & SYSTEM DESIGN",
+        "location": "2nd floor"
+    },
+    {
+        "email": "md.mostafejur.rahman@ulkasemi.com",
+        "department": "CIRCUIT & SYSTEM DESIGN",
+        "location": "2nd floor"
+    },
+    {
+        "email": "ammar.azad.khan@ulkasemi.com",
+        "department": "CIRCUIT & SYSTEM DESIGN",
+        "location": "2nd floor"
+    },
+    {
+        "email": "md.mamunur.rashid@ulkasemi.com",
+        "department": "CIRCUIT & SYSTEM DESIGN",
+        "location": "2nd floor"
+    },
+    {
+        "email": "md.sakif.rafid@ulkasemi.com",
+        "department": "CIRCUIT & SYSTEM DESIGN",
+        "location": "2nd floor"
+    },
+    {
+        "email": "shah.mohammed.sadiqur.rahman@ulkasemi.com",
+        "department": "CIRCUIT & SYSTEM DESIGN",
+        "location": "2nd floor"
+    },
+    {
+        "email": "k.m.sayem.bin.rahmotullah@ulkasemi.com",
+        "department": "SILICON ENGINEERING",
+        "location": "3rd floor"
+    },
+    {
+        "email": "suraiya.tasnuva@ulkasemi.com",
+        "department": "CIRCUIT & SYSTEM DESIGN",
+        "location": "2nd floor"
+    },
+    {
+        "email": "md.bakhtiar.masuk@ulkasemi.com",
+        "department": "SILICON ENGINEERING",
+        "location": "3rd floor"
+    },
+    {
+        "email": "tahmid.kamal@ulkasemi.com",
+        "department": "SILICON ENGINEERING",
+        "location": "3rd floor"
+    },
+    {
+        "email": "tanvir.hossain@ulkasemi.com",
+        "department": "SILICON ENGINEERING",
+        "location": "3rd floor"
+    },
+    {
         "email": "salah.uddin@ulkasemi.com",
-        "department": "IC Design (ICD)",
-        "designation": "Engineer",
-        "phone": "01846995794",
-        "sup_id": 210207,
-        "doj": "2022-09-19"
+        "department": "IC MASK DESIGN",
+        "location": "4th floor"
     },
     {
-        "empid": "220909",
-        "name": "Md. Shahanur Alam Rimon",
-        "gender": "Male",
         "email": "md.shahanur.alam.rimon@ulkasemi.com",
-        "department": "IC Design (ICD)",
-        "designation": "Engineer",
-        "phone": "01762597901",
-        "sup_id": 170101,
-        "doj": "2022-09-19"
+        "department": "IC MASK DESIGN",
+        "location": "3rd floor"
     },
     {
-        "empid": "220910",
-        "name": "Redwan Ahmmed",
-        "gender": "Male",
         "email": "redwan.ahmmed@ulkasemi.com",
-        "department": "IC Design (ICD)",
-        "designation": "Engineer",
-        "phone": "01554714710",
-        "sup_id": 210502,
-        "doj": "2022-09-19"
+        "department": "IC MASK DESIGN",
+        "location": "4th floor"
     },
     {
-        "empid": "220911",
-        "name": "Ahmed Musanna Tasnim Khan",
-        "gender": "Male",
         "email": "ahmed.musanna.tasnim.khan@ulkasemi.com",
-        "department": "IC Design (ICD)",
-        "designation": "Engineer",
-        "phone": "01868885982",
-        "sup_id": 210207,
-        "doj": "2022-09-19"
+        "department": "IC PHYSICAL DESIGN",
+        "location": "5th floor"
     },
     {
-        "empid": "220912",
-        "name": "S. M. Mahabub-E-Rasul",
-        "gender": "Male",
         "email": "s.m.mahabub.e.rasul@ulkasemi.com",
-        "department": "IC Design (ICD)",
-        "designation": "Engineer",
-        "phone": "01720437344",
-        "sup_id": 181106,
-        "doj": "2022-09-19"
+        "department": "IC MASK DESIGN",
+        "location": "4th floor"
     },
     {
-        "empid": "221102",
-        "name": "Sambit Al Ferdous",
-        "gender": "Male",
+        "email": "md.jahidul@ulkasemi.com",
+        "department": "IC PHYSICAL DESIGN",
+        "location": "5th floor"
+    },
+    {
+        "email": "syed.shah.sufi.azmat.ullah@ulkasemi.com",
+        "department": "IC PHYSICAL DESIGN",
+        "location": "5th floor"
+    },
+    {
+        "email": "md.fazle.rabbi@ulkasemi.com",
+        "department": "IC PHYSICAL DESIGN",
+        "location": "5th floor"
+    },
+    {
+        "email": "mohammad.arafat.ullah@ulkasemi.com",
+        "department": "IC PHYSICAL DESIGN",
+        "location": "5th floor"
+    },
+    {
+        "email": "faizul.islam.imam@ulkasemi.com",
+        "department": "IC PHYSICAL DESIGN",
+        "location": "5th floor"
+    },
+    {
+        "email": "mahfuza.akhter.tasneem@ulkasemi.com",
+        "department": "IC PHYSICAL DESIGN",
+        "location": "5th floor"
+    },
+    {
+        "email": "md.jannatun.nayem.tonmoy@ulkasemi.com",
+        "department": "SILICON ENGINEERING",
+        "location": "3rd floor"
+    },
+    {
         "email": "sambit.al.ferdous@ulkasemi.com",
-        "department": "IC Design (ICD)",
-        "designation": "Assistant Engineer",
-        "phone": "01795370298",
-        "sup_id": 210203,
-        "doj": "2022-11-07"
+        "department": "IC MASK DESIGN",
+        "location": "5th floor"
     },
     {
-        "empid": "230501",
-        "name": "Ahmed Jubayer",
-        "gender": "Male",
+        "email": "a.b.m.safiulla@ulkasemi.com",
+        "department": "SILICON ENGINEERING",
+        "location": "3rd floor"
+    },
+    {
+        "email": "prama.talukder@ulkasemi.com",
+        "department": "CIRCUIT & SYSTEM DESIGN",
+        "location": "2nd floor"
+    },
+    {
         "email": "ahmed.jubayer@ulkasemi.com",
-        "department": "IC Design (ICD)",
-        "designation": "Assistant Engineer",
-        "phone": "01971211847",
-        "sup_id": 170507,
-        "doj": "2023-05-02"
+        "department": "IC DESIGN",
+        "location": "4th floor"
     },
     {
-        "empid": "230502",
-        "name": "Asaduzzaman Seam",
-        "gender": "Male",
         "email": "asaduzzaman.seam@ulkasemi.com",
-        "department": "IC Design (ICD)",
-        "designation": "Assistant Engineer",
-        "phone": "01679188411",
-        "sup_id": 170507,
-        "doj": "2023-05-02"
+        "department": "IC DESIGN",
+        "location": "4th floor"
     },
     {
-        "empid": "230503",
-        "name": "Md. Nazim Hossain",
-        "gender": "Male",
         "email": "md.nazim.hossain@ulkasemi.com",
-        "department": "IC Design (ICD)",
-        "designation": "Assistant Engineer",
-        "phone": "01957127897",
-        "sup_id": 170507,
-        "doj": "2023-05-02"
+        "department": "IC DESIGN",
+        "location": "4th floor"
     },
     {
-        "empid": "230504",
-        "name": "Mridul Kanti Roy",
-        "gender": "Male",
         "email": "mridul.kanti.roy@ulkasemi.com",
-        "department": "IC Design (ICD)",
-        "designation": "Assistant Engineer",
-        "phone": "01957194282",
-        "sup_id": 170507,
-        "doj": "2023-05-02"
+        "department": "IC DESIGN",
+        "location": "4th floor"
     },
     {
-        "empid": "240407",
-        "name": "Shakil Imroz Tanvir",
-        "gender": "Male",
+        "email": "naimur.rhaman.sayam@ulkasemi.com",
+        "department": "IC DESIGN",
+        "location": "5th floor"
+    },
+    {
+        "email": "sajib.bain@ulkasemi.com",
+        "department": "SILICON ENGINEERING",
+        "location": "3rd floor"
+    },
+    {
+        "email": "mahmadul.hassan.robin@ulkasemi.com",
+        "department": "SILICON ENGINEERING",
+        "location": "3rd floor"
+    },
+    {
+        "email": "shadman.hasan.khan@ulkasemi.com",
+        "department": "SILICON ENGINEERING",
+        "location": "3rd floor"
+    },
+    {
+        "email": "iftikher.ahmed@ulkasemi.com",
+        "department": "IC DESIGN",
+        "location": "5th floor"
+    },
+    {
+        "email": "taiabur.rahman@ulkasemi.com",
+        "department": "IT & SECURITY",
+        "location": "4th floor"
+    },
+    {
+        "email": "abdullah.al.hadi@ulkasemi.com",
+        "department": "CIRCUIT & SYSTEM DESIGN",
+        "location": "2nd floor"
+    },
+    {
+        "email": "subrata.chandra.day@ulkasemi.com",
+        "department": "CIRCUIT & SYSTEM DESIGN",
+        "location": "2nd floor"
+    },
+    {
+        "email": "kazi.naimul.islam.nabeen@ulkasemi.com",
+        "department": "CIRCUIT & SYSTEM DESIGN",
+        "location": "2nd floor"
+    },
+    {
+        "email": "nazmul.haider.sonet@ulkasemi.com",
+        "department": "SILICON ENGINEERING",
+        "location": "3rd floor"
+    },
+    {
+        "email": "sazin.reshed.samin@ulkasemi.com\u00a0",
+        "department": "SILICON ENGINEERING",
+        "location": "3rd floor"
+    },
+    {
+        "email": "a.s.m.abdul.mubin@ulkasemi.com",
+        "department": "SILICON ENGINEERING",
+        "location": "4th floor"
+    },
+    {
+        "email": "syed.shouvik.islam@ulkasemi.com\u00a0",
+        "department": "SILICON ENGINEERING",
+        "location": "4th floor"
+    },
+    {
+        "email": "miraj.ahmed@ulkasemi.com",
+        "department": "SILICON ENGINEERING",
+        "location": "4th floor"
+    },
+    {
+        "email": "adnan.khandokar.alif@ulkasemi.com",
+        "department": "BRANDING & PR",
+        "location": "3rd floor"
+    },
+    {
+        "email": "md.rashik.anzum.shohan@ulkasemi.com",
+        "department": "CIRCUIT & SYSTEM DESIGN",
+        "location": "2nd floor"
+    },
+    {
+        "email": "sourav.singha@ulkasemi.com",
+        "department": "CIRCUIT & SYSTEM DESIGN",
+        "location": "2nd floor"
+    },
+    {
+        "email": "mohammad.hasanul.jami.sarker@ulkasemi.com",
+        "department": "CIRCUIT & SYSTEM DESIGN",
+        "location": "2nd floor"
+    },
+    {
+        "email": "md.sohel@ulkasemi.com",
+        "department": "CIRCUIT & SYSTEM DESIGN",
+        "location": "2nd floor"
+    },
+    {
+        "email": "arindam.roy@ulkasemi.com",
+        "department": "POST SILICON TESTING",
+        "location": "4th floor"
+    },
+    {
+        "email": "suranjit.shuvra.dhar@ulkasemi.com",
+        "department": "POST SILICON TESTING",
+        "location": "4th floor"
+    },
+    {
+        "email": "abdul.gaffer@ulkasemi.com",
+        "department": "POST SILICON TESTING",
+        "location": "4th floor"
+    },
+    {
+        "email": "adnan.khan.anik@ulkasemi.com",
+        "department": "POST SILICON TESTING",
+        "location": "4th floor"
+    },
+    {
+        "email": "mohammad.tanzim.rowshan@ulkasemi.com",
+        "department": "POST SILICON TESTING",
+        "location": "4th floor"
+    },
+    {
+        "email": "husni.mahdi@ulkasemi.com",
+        "department": "SILICON ENGINEERING",
+        "location": "3rd floor"
+    },
+    {
+        "email": "jubaer.ahmed@ulkasemi.com",
+        "department": "SILICON ENGINEERING",
+        "location": "3rd floor"
+    },
+    {
+        "email": "shahriar.hasan@ulkasemi.com",
+        "department": "SILICON ENGINEERING",
+        "location": "3rd floor"
+    },
+    {
+        "email": "sabbir.bhuyian@ulkasemi.com",
+        "department": "SILICON ENGINEERING",
+        "location": "3rd floor"
+    },
+    {
+        "email": "tonima.rani.ghosh@ulkasemi.com",
+        "department": "SILICON ENGINEERING",
+        "location": "3rd floor"
+    },
+    {
+        "email": "nahidul.islam@ulkasemi.com",
+        "department": "SILICON ENGINEERING",
+        "location": "3rd floor"
+    },
+    {
         "email": "shakil.imroz.tanvir@ulkasemi.com",
-        "department": "IC Design (ICD)",
-        "designation": "Trainee Engineer",
-        "phone": "01701054695",
-        "sup_id": "130709",
-        "doj": "2024-04-16"
+        "department": "IC MASK DESIGN",
+        "location": "3rd floor"
     },
     {
-        "empid": "240408",
-        "name": "Ismail Hossain",
-        "gender": "Male",
         "email": "ismail.hossain@ulkasemi.com",
-        "department": "IC Design (ICD)",
-        "designation": "Trainee Engineer",
-        "phone": "01745396363",
-        "sup_id": "130709",
-        "doj": "2024-04-16"
+        "department": "IC MASK DESIGN",
+        "location": "5th floor"
     },
     {
-        "empid": "240409",
-        "name": "Ashraf Akhand Ratul",
-        "gender": "Male",
         "email": "ashraf.akhand.ratul@ulkasemi.com",
-        "department": "IC Design (ICD)",
-        "designation": "Trainee Engineer",
-        "phone": "01745396363",
-        "sup_id": "130709",
-        "doj": "2024-04-16"
+        "department": "IC MASK DESIGN",
+        "location": "5th floor"
     },
     {
-        "empid": "240410",
-        "name": "S. M. Samius Salehin",
-        "gender": "Male",
         "email": "s.m.samius.salehin@ulkasemi.com",
-        "department": "IC Design (ICD)",
-        "designation": "Trainee Engineer",
-        "phone": "01779991857",
-        "sup_id": "130709",
-        "doj": "2024-04-16"
+        "department": "IC MASK DESIGN",
+        "location": "5th floor"
     },
     {
-        "empid": "240501",
-        "name": "Ahnaf Akif",
-        "gender": "Male",
-        "email": "Ahnaf.Akif@ulkasemi.com",
-        "department": "IC Design (ICD)",
-        "designation": "Trainee Engineer",
-        "phone": "01997245544",
-        "sup_id": 170101,
-        "doj": "2024-05-02"
+        "email": "ahnaf.akif@ulkasemi.com",
+        "department": "IC MASK DESIGN",
+        "location": "3rd floor"
     },
     {
-        "empid": "240503",
-        "name": "Khaled Hasan",
-        "gender": "Male",
-        "email": "Khaled.Hasan@ulkasemi.com",
-        "department": "IC Design (ICD)",
-        "designation": "Trainee Engineer",
-        "phone": "01670909941",
-        "sup_id": 170101,
-        "doj": "2024-05-02"
+        "email": "khaled.hasan@ulkasemi.com",
+        "department": "IC MASK DESIGN",
+        "location": "3rd floor"
     },
     {
-        "empid": "240504",
-        "name": "Md. Golam Sabur",
-        "gender": "Male",
-        "email": "Md.Golam.Sabur@ulkasemi.com",
-        "department": "IC Design (ICD)",
-        "designation": "Trainee Engineer",
-        "phone": "01613131192",
-        "sup_id": 170101,
-        "doj": "2024-05-02"
+        "email": "md.golam.sabur@ulkasemi.com",
+        "department": "IC MASK DESIGN",
+        "location": "3rd floor"
     },
     {
-        "empid": "240505",
-        "name": "Mushfirah Mortuza",
-        "gender": "Female",
-        "email": "Mushfirah.Mortuza@ulkasemi.com",
-        "department": "IC Design (ICD)",
-        "designation": "Trainee Engineer",
-        "phone": "01620851509",
-        "sup_id": 170101,
-        "doj": "2024-05-02"
+        "email": "mushfirah.mortuza@ulkasemi.com",
+        "department": "IC MASK DESIGN",
+        "location": "3rd floor"
     },
     {
-        "empid": "240610",
-        "name": "Rakib Hossain",
-        "gender": "Male",
-        "email": "Rakib.Hossain@ulkasemi.com",
-        "department": "IC Design (ICD)",
-        "designation": "Trainee Engineer",
-        "phone": "01934011003",
-        "sup_id": 170507,
-        "doj": "2024-06-04"
+        "email": "md.ashraful.emon@ulkasemi.com",
+        "department": "IC PHYSICAL DESIGN",
+        "location": "5th floor"
     },
     {
-        "empid": "240611",
-        "name": "Md. Rabiul Islam",
-        "gender": "Male",
-        "email": "Md.Rabiul.Islam@ulkasemi.com",
-        "department": "IC Design (ICD)",
-        "designation": "Trainee Engineer",
-        "phone": "01305801153",
-        "sup_id": 170101,
-        "doj": "2024-06-04"
+        "email": "mehedee.hasan@ulkasemi.com",
+        "department": "IC PHYSICAL DESIGN",
+        "location": "5th floor"
     },
     {
-        "empid": "240612",
-        "name": "Md. Abul Kalam Azad Raju",
-        "gender": "Male",
-        "email": "Md.Abul.Kalam.Azad.Raju@ulkasemi.com",
-        "department": "IC Design (ICD)",
-        "designation": "Trainee Engineer",
-        "phone": "01726727464",
-        "sup_id": 170507,
-        "doj": "2024-06-04"
+        "email": "md.ijaj.morshed@ulkasemi.com",
+        "department": "IC PHYSICAL DESIGN",
+        "location": "5th floor"
     },
     {
-        "empid": "240620",
-        "name": "Nusrat Sultana Keya",
-        "gender": "Female",
-        "email": "Nusrat.Sultana.Keya@ulkasemi.com",
-        "department": "IC Design (ICD)",
-        "designation": "Trainee Engineer",
-        "phone": "01789345838",
-        "sup_id": 170101,
-        "doj": "2024-06-05"
+        "email": "sarah.abbas@ulkasemi.com",
+        "department": "IC PHYSICAL DESIGN",
+        "location": "5th floor"
     },
     {
-        "empid": "240621",
-        "name": "Sahadat Hossain Sakil",
-        "gender": "Male",
-        "email": "Sahadat.Hossain.Sakil@ulkasemi.com",
-        "department": "IC Design (ICD)",
-        "designation": "Trainee Engineer",
-        "phone": "01640799123",
-        "sup_id": 170101,
-        "doj": "2024-06-05"
+        "email": "tasnia.tanjim.mim@ulkasemi.com",
+        "department": "SILICON ENGINEERING",
+        "location": "3rd floor"
     },
     {
-        "empid": "240622",
-        "name": "Fazilatun Nesa Umama",
-        "gender": "Female",
-        "email": "Fazilatun.Nesa.Umama@ulkasemi.com",
-        "department": "IC Design (ICD)",
-        "designation": "Trainee Engineer",
-        "phone": "01905440614",
-        "sup_id": 170101,
-        "doj": "2024-06-05"
+        "email": "irtiza.shadab@ulkasemi.com",
+        "department": "SILICON ENGINEERING",
+        "location": "3rd floor"
     },
     {
-        "empid": "240701",
-        "name": "Mubtasim Haque Talha",
-        "gender": "Male",
+        "email": "afif.hassan.choudhury@ulkasemi.com",
+        "department": "SILICON ENGINEERING",
+        "location": "3rd floor"
+    },
+    {
+        "email": "sakib.muhammad.touhidul.islam@ulkasemi.com",
+        "department": "SILICON ENGINEERING",
+        "location": "3rd floor"
+    },
+    {
+        "email": "pijush.majumder@ulkasemi.com",
+        "department": "SILICON ENGINEERING",
+        "location": "3rd floor"
+    },
+    {
+        "email": "md.sajjad.hossain@ulkasemi.com",
+        "department": "SILICON ENGINEERING",
+        "location": "3rd floor"
+    },
+    {
+        "email": "rakib.hossain@ulkasemi.com",
+        "department": "IC MASK DESIGN",
+        "location": "5th floor"
+    },
+    {
+        "email": "md.rabiul.islam@ulkasemi.com",
+        "department": "IC MASK DESIGN",
+        "location": "5th floor"
+    },
+    {
+        "email": "md.abul.kalam.azad.raju@ulkasemi.com",
+        "department": "IC MASK DESIGN",
+        "location": "5th floor"
+    },
+    {
+        "email": "md.lutfur.hasan@ulkasemi.com",
+        "department": "IC PHYSICAL DESIGN",
+        "location": "5th floor"
+    },
+    {
+        "email": "md.raihan.sikder.tuser@ulkasemi.com",
+        "department": "IC PHYSICAL DESIGN",
+        "location": "5th floor"
+    },
+    {
+        "email": "md.idrak.efaz@ulkasemi.com",
+        "department": "IC PHYSICAL DESIGN",
+        "location": "5th floor"
+    },
+    {
+        "email": "niloy.malo@ulkasemi.com",
+        "department": "IC PHYSICAL DESIGN",
+        "location": "5th floor"
+    },
+    {
+        "email": "tasnim.hasan@ulkasemi.com",
+        "department": "SILICON ENGINEERING",
+        "location": "3rd floor"
+    },
+    {
+        "email": "nusrat.sultana.keya@ulkasemi.com",
+        "department": "IC MASK DESIGN",
+        "location": "3rd floor"
+    },
+    {
+        "email": "sahadat.hossain.sakil@ulkasemi.com",
+        "department": "IC MASK DESIGN",
+        "location": "5th floor"
+    },
+    {
+        "email": "fazilatun.nesa.umama@ulkasemi.com",
+        "department": "IC MASK DESIGN",
+        "location": "5th floor"
+    },
+    {
+        "email": "james.simon.das@ulkasemi.com",
+        "department": "OFFICE OF COO",
+        "location": "4th floor"
+    },
+    {
+        "email": "rafid.bin.abdul.halim@ulkasemi.com",
+        "department": "CIRCUIT & SYSTEM DESIGN",
+        "location": "2nd floor"
+    },
+    {
         "email": "mubtasim@ulkasemi.com",
-        "department": "IC Design (ICD)",
-        "designation": "Senior Engineer",
-        "phone": "01780467660",
-        "sup_id": 170507,
-        "doj": "2024-07-01"
+        "department": "IC MASK DESIGN",
+        "location": "5th floor"
     },
     {
-        "empid": "240702",
-        "name": "Atikur Rahman",
-        "gender": "Male",
-        "email": "Atikur.Rahman@ulkasemi.com",
-        "department": "IC Design (ICD)",
-        "designation": "Trainee Engineer",
-        "phone": "01531950800",
-        "sup_id": 170507,
-        "doj": "2024-07-01"
+        "email": "atikur.rahman@ulkasemi.com",
+        "department": "IC MASK DESIGN",
+        "location": "5th floor"
     },
     {
-        "empid": "240703",
-        "name": "Abu Sufian Mohammad Rokon Uddin",
-        "gender": "Male",
-        "email": "Abu.Sufian.Mohammad.Rokon.Uddin@ulkasemi.com",
-        "department": "IC Design (ICD)",
-        "designation": "Trainee Engineer",
-        "phone": "01732172461",
-        "sup_id": 170507,
-        "doj": "2024-07-01"
+        "email": "abu.sufian.mohammad.rokon.uddin@ulkasemi.com",
+        "department": "IC MASK DESIGN",
+        "location": "5th floor"
     },
     {
-        "empid": "240908",
-        "name": "Abdullah-Al- Noman",
-        "gender": "Male",
-        "email": "Abdullah.Al.Noman@ulkasemi.com",
-        "department": "IC Design (ICD)",
-        "designation": "Trainee Engineer",
-        "phone": "01732426265",
-        "sup_id": 170507,
-        "doj": "2024-09-03"
+        "email": "md.lutfur.rahaman@ulkasemi.com",
+        "department": "SILICON ENGINEERING",
+        "location": "3rd floor"
     },
     {
-        "empid": "240909",
-        "name": "Nahid Hasan Niloy",
-        "gender": "Male",
+        "email": "mehedi.hasan.shimul@ulkasemi.com",
+        "department": "SILICON ENGINEERING",
+        "location": "3rd floor"
+    },
+    {
+        "email": "shah.mahmud.yasin@ulkasemi.com",
+        "department": "IC PHYSICAL DESIGN",
+        "location": "5th floor"
+    },
+    {
+        "email": "md.asif.uddin.nihal@ulkasemi.com",
+        "department": "IC PHYSICAL DESIGN",
+        "location": "5th floor"
+    },
+    {
+        "email": "shihab.shahriar@ulkasemi.com",
+        "department": "IC PHYSICAL DESIGN",
+        "location": "5th floor"
+    },
+    {
+        "email": "saheeb.ahmad@ulkasemi.com",
+        "department": "SILICON ENGINEERING",
+        "location": "3rd floor"
+    },
+    {
+        "email": "mariom.hossain.nijhum@ulkasemi.com",
+        "department": "SILICON ENGINEERING",
+        "location": "3rd floor"
+    },
+    {
+        "email": "aalolika.roy.chowdhury@ulkasemi.com",
+        "department": "SILICON ENGINEERING",
+        "location": "3rd floor"
+    },
+    {
+        "email": "rubayet.bin.nasir@ulkasemi.com",
+        "department": "SILICON ENGINEERING",
+        "location": "3rd floor"
+    },
+    {
+        "email": "diptangshu.datta@ulkasemi.com",
+        "department": "SILICON ENGINEERING",
+        "location": "3rd floor"
+    },
+    {
+        "email": "nuzhat.fairooz.rity@ulkasemi.com",
+        "department": "SILICON ENGINEERING",
+        "location": "3rd floor"
+    },
+    {
+        "email": "mritunjoy.kar.pial@ulkasemi.com",
+        "department": "SILICON ENGINEERING",
+        "location": "3rd floor"
+    },
+    {
+        "email": "md.faysal.ikbal@ulkasemi.com",
+        "department": "SILICON ENGINEERING",
+        "location": "3rd floor"
+    },
+    {
+        "email": "maisha.mumtaz.rahman@ulkasemi.com",
+        "department": "SILICON ENGINEERING",
+        "location": "4th floor"
+    },
+    {
+        "email": "md.abdul.sakib.tonmoy@ulkasemi.com",
+        "department": "SILICON ENGINEERING",
+        "location": "4th floor"
+    },
+    {
+        "email": "mohammad.sakibul.hasan@ulkasemi.com",
+        "department": "SILICON ENGINEERING",
+        "location": "3rd floor"
+    },
+    {
+        "email": "md.anisur.rahman@ulkasemi.com",
+        "department": "SILICON ENGINEERING",
+        "location": "3rd floor"
+    },
+    {
+        "email": "md.raton.ali@ulkasemi.com",
+        "department": "SILICON ENGINEERING",
+        "location": "3rd floor"
+    },
+    {
+        "email": "bipro.das@ulkasemi.com",
+        "department": "SILICON ENGINEERING",
+        "location": "3rd floor"
+    },
+    {
+        "email": "md.rabby.hasan@ulkasemi.com",
+        "department": "SILICON ENGINEERING",
+        "location": "3rd floor"
+    },
+    {
+        "email": "md.yusuf@ulkasemi.com",
+        "department": "SILICON ENGINEERING",
+        "location": "3rd floor"
+    },
+    {
+        "email": "s.m.moshiur.rahman@ulkasemi.com",
+        "department": "SILICON ENGINEERING",
+        "location": "3rd floor"
+    },
+    {
+        "email": "md.sarwar.rabiul.schawccha@ulkasemi.com",
+        "department": "SILICON ENGINEERING",
+        "location": "3rd floor"
+    },
+    {
+        "email": "tanmay.deb.dhurb@ulkasemi.com",
+        "department": "SILICON ENGINEERING",
+        "location": "3rd floor"
+    },
+    {
+        "email": "mehedi.hasan@ulkasemi.com",
+        "department": "SILICON ENGINEERING",
+        "location": "3rd floor"
+    },
+    {
+        "email": "md.obayed.islam@ulkasemi.com",
+        "department": "SILICON ENGINEERING",
+        "location": "3rd floor"
+    },
+    {
+        "email": "kazi.khaledul.bari@ulkasemi.com",
+        "department": "SILICON ENGINEERING",
+        "location": "3rd floor"
+    },
+    {
+        "email": "abdullah.al.noman@ulkasemi.com",
+        "department": "IC DESIGN",
+        "location": "3rd floor"
+    },
+    {
         "email": "nahid.hasan.niloy@ulkasemi.com",
-        "department": "IC Design (ICD)",
-        "designation": "Trainee Engineer",
-        "phone": "01910644341",
-        "sup_id": 170507,
-        "doj": "2024-09-03"
+        "department": "IC DESIGN",
+        "location": "5th floor"
     },
     {
-        "empid": "240910",
-        "name": "Kazi Md Tanvir Hasan",
-        "gender": "Male",
-        "email": "Kazi.Md.Tanvir.Hasan@ulkasemi.com",
-        "department": "IC Design (ICD)",
-        "designation": "Trainee Engineer",
-        "phone": "01625826464",
-        "sup_id": 170507,
-        "doj": "2024-09-03"
+        "email": "kazi.md.tanvir.hasan@ulkasemi.com",
+        "department": "IC DESIGN",
+        "location": "5th floor"
     },
     {
-        "empid": "240911",
-        "name": "Fatrul Rawshan",
-        "gender": "Male",
-        "email": "Fatrul.Rawshan@ulkasemi.com",
-        "department": "IC Design (ICD)",
-        "designation": "Trainee Engineer",
-        "phone": "01737745671",
-        "sup_id": 170507,
-        "doj": "2024-09-03"
+        "email": "fatrul.rawshan@ulkasemi.com",
+        "department": "IC DESIGN",
+        "location": "5th floor"
     },
     {
-        "empid": "241020",
-        "name": "Md Istiaq Jannat",
-        "gender": "Male",
-        "email": "Md.Istiaq.Jannat@Ulkasemi.Com",
-        "department": "IC Design (ICD)",
-        "designation": "Trainee Engineer",
-        "phone": "01783137526",
-        "sup_id": 191211,
-        "doj": "2024-10-08"
+        "email": "m.m.jubaid.hassan@ulkasemi.com",
+        "department": "SILICON ENGINEERING",
+        "location": "3rd floor"
     },
     {
-        "empid": "241021",
-        "name": "Raihanul Hoque",
-        "gender": "Male",
-        "email": "Raihanul.Hoque@Ulkasemi.Com",
-        "department": "IC Design (ICD)",
-        "designation": "Trainee Engineer",
-        "phone": "01624365896",
-        "sup_id": 191214,
-        "doj": "2024-10-08"
+        "email": "md.abdus.salam.khan@ulkasemi.com",
+        "department": "SILICON ENGINEERING",
+        "location": "3rd floor"
     },
     {
-        "empid": "241022",
-        "name": "Md Wahidur Rahman Easin",
-        "gender": "Male",
-        "email": "Md.Wahidur.Rahman@Ulkasemi.Com",
-        "department": "IC Design (ICD)",
-        "designation": "Trainee Engineer",
-        "phone": "01518637933",
-        "sup_id": 191211,
-        "doj": "2024-10-08"
+        "email": "md.touhidul.islam.kowshik@ulkasemi.com",
+        "department": "SILICON ENGINEERING",
+        "location": "3rd floor"
     },
     {
-        "empid": "241023",
-        "name": "Md. Khorsheduzzaman Sizan",
-        "gender": "Male",
-        "email": "Md.Khorsheduzzaman.Sizan@Ulkasemi.Com",
-        "department": "IC Design (ICD)",
-        "designation": "Trainee Engineer",
-        "phone": "01838399712",
-        "sup_id": 191214,
-        "doj": "2024-10-08"
+        "email": "abdullah.mamun@ulkasemi.com",
+        "department": "SILICON ENGINEERING",
+        "location": "3rd floor"
+    },
+    {
+        "email": "tawhid.al.nahian@ulkasemi.com",
+        "department": "SILICON ENGINEERING",
+        "location": "3rd floor"
+    },
+    {
+        "email": "salahuddin.ahmed@ulkasemi.com",
+        "department": "FINANCE & ACCOUNTS",
+        "location": "3rd floor"
+    },
+    {
+        "email": "md.rafid.kabir@ulkasemi.com",
+        "department": "SILICON ENGINEERING",
+        "location": "3rd floor"
+    },
+    {
+        "email": "md.niloy.khan@ulkasemi.com",
+        "department": "CIRCUIT & SYSTEM DESIGN",
+        "location": "2nd floor"
+    },
+    {
+        "email": "rajiv.das@ulkasemi.com",
+        "department": "CIRCUIT & SYSTEM DESIGN",
+        "location": "2nd floor"
+    },
+    {
+        "email": "tasnim.azad@ulkasemi.com",
+        "department": "CIRCUIT & SYSTEM DESIGN",
+        "location": "2nd floor"
+    },
+    {
+        "email": "kamrun.nahar.anni@ulkasemi.com",
+        "department": "CIRCUIT & SYSTEM DESIGN",
+        "location": "2nd floor"
+    },
+    {
+        "email": "dewan.md.iftakharul@ulkasemi.com",
+        "department": "CIRCUIT & SYSTEM DESIGN",
+        "location": "2nd floor"
+    },
+    {
+        "email": "md.shawkat.kibria@ulkasemi.com",
+        "department": "CIRCUIT & SYSTEM DESIGN",
+        "location": "2nd floor"
+    },
+    {
+        "email": "tanvir.hasan@ulkasemi.com",
+        "department": "CIRCUIT & SYSTEM DESIGN",
+        "location": "2nd floor"
+    },
+    {
+        "email": "rajanee.chandra@ulkasemi.com",
+        "department": "SILICON ENGINEERING",
+        "location": "3rd floor"
+    },
+    {
+        "email": "rubaiya.islam@ulkasemi.com",
+        "department": "SILICON ENGINEERING",
+        "location": "3rd floor"
+    },
+    {
+        "email": "md.sohanoor.rahman@ulkasemi.com",
+        "department": "SILICON ENGINEERING",
+        "location": "3rd floor"
+    },
+    {
+        "email": "md.istiaq.jannat@ulkasemi.com",
+        "department": "IC DESIGN",
+        "location": "5th floor"
+    },
+    {
+        "email": "raihanul.hoque@ulkasemi.com",
+        "department": "IC DESIGN",
+        "location": "5th floor"
+    },
+    {
+        "email": "md.wahidur.rahman@ulkasemi.com",
+        "department": "IC DESIGN",
+        "location": "5th floor"
+    },
+    {
+        "email": "md.khorsheduzzaman.sizan@ulkasemi.com",
+        "department": "IC DESIGN",
+        "location": "5th floor"
+    },
+    {
+        "email": "ahnaf.bin.aftab@ulkasemi.com",
+        "department": "IC DESIGN",
+        "location": "5th floor"
+    },
+    {
+        "email": "md.mehedi@ulkasemi.com",
+        "department": "IC DESIGN",
+        "location": "5th floor"
+    },
+    {
+        "email": "k.m.mukter@ulkasemi.com",
+        "department": "IC DESIGN",
+        "location": "5th floor"
+    },
+    {
+        "email": "ahasanul.karim@ulkasemi.com",
+        "department": "IC DESIGN",
+        "location": "5th floor"
+    },
+    {
+        "email": "tasmia.tabassum.rahman@ulkasemi.com",
+        "department": "SILICON ENGINEERING",
+        "location": "3rd floor"
+    },
+    {
+        "email": "md.shihabul.islam@ulkasemi.com",
+        "department": "CIRCUIT & SYSTEM DESIGN",
+        "location": "2nd floor"
+    },
+    {
+        "email": "rubaba.tarannum@ulkasemi.com",
+        "department": "HUMAN RESOURCES",
+        "location": "4th floor"
+    },
+    {
+        "email": "nafis.fouad@ulkasemi.com",
+        "department": "IC DESIGN",
+        "location": "5th floor"
+    },
+    {
+        "email": "tasluva.islam@ulkasemi.com",
+        "department": "IC DESIGN",
+        "location": "5th floor"
+    },
+    {
+        "email": "md.jubaer.alam@ulkasemi.com",
+        "department": "IC DESIGN",
+        "location": "5th floor"
+    },
+    {
+        "email": "anan.barua@ulkasemi.com",
+        "department": "IC DESIGN",
+        "location": "4th floor"
+    },
+    {
+        "email": "kazi.mir@ulkasemi.com",
+        "department": "IC DESIGN",
+        "location": "4th floor"
+    },
+    {
+        "email": "al.mamun@ulkasemi.com",
+        "department": "IC DESIGN",
+        "location": "4th floor"
+    },
+    {
+        "email": "tasnim.hasan.tamim@ulkasemi.com",
+        "department": "IC DESIGN",
+        "location": "4th floor"
+    },
+    {
+        "email": "jumman.hossain@ulkasemi.com",
+        "department": "IC DESIGN",
+        "location": "4th floor"
+    },
+    {
+        "email": "mostakim.mahmud@ulkasemi.com",
+        "department": "IC DESIGN",
+        "location": "5th floor"
+    },
+    {
+        "email": "avijit.dey.joy@ulkasemi.com",
+        "department": "IC DESIGN",
+        "location": "5th floor"
+    },
+    {
+        "email": "safwan.rahman.talukder@ulkasemi.com",
+        "department": "SILICON ENGINEERING",
+        "location": "3rd floor"
+    },
+    {
+        "email": "md.muzahidul.iftekhar@ulkasemi.com",
+        "department": "SILICON ENGINEERING",
+        "location": "3rd floor"
+    },
+    {
+        "email": NaN,
+        "department": "IT & SECURITY",
+        "location": "4th floor"
+    },
+    {
+        "email": NaN,
+        "department": "BRANDING & PR",
+        "location": "4th floor"
     }
 ]

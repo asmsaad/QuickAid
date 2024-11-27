@@ -101,7 +101,7 @@ WSGI_APPLICATION = 'Backend_Server.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'quickaiddb',
+        'NAME': 'quick_aid',
         'USER' : 'ammarkhan',
         'PASSWORD': 'ammarkhan',
         'HOST': 'localhost',
