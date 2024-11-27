@@ -1,6 +1,6 @@
 import { CaretRightOutlined, MedicineBoxOutlined, SisternodeOutlined, UserAddOutlined } from "@ant-design/icons";
 import { Box } from "@mui/material";
-import { Breadcrumb, Button, Card, Divider, Input, Modal, Select, Tag, Timeline, Typography } from "antd";
+import { Badge, Breadcrumb, Button, Card, Divider, Input, Modal, Select, Tag, Timeline, Typography } from "antd";
 import React, { useEffect, useState } from "react";
 
 import "../All_Styles/Scrollbar.css";
@@ -22,13 +22,14 @@ import { Outlet, Link, useNavigate, useLocation, useParams } from "react-router-
 
 import AccessTimeOutlinedIcon from "@mui/icons-material/AccessTimeOutlined";
 import CalendarMonthRoundedIcon from "@mui/icons-material/CalendarMonthRounded";
+import PersonRoundedIcon from "@mui/icons-material/PersonRounded";
 
 const { Text } = Typography;
 
 export const TicketViewerPageStructure = (props) => {
     const { isLoading_getAllTicketsByEmpID, data_getAllTicketsByEmpID, isError_getAllTicketsByEmpID, error_getAllTicketsByEmpID } = props;
 
-    console.log(data_getAllTicketsByEmpID, "=======================================");
+    // console.log(data_getAllTicketsByEmpID, "=======================================");
 
     const [selectedTicket, setSelectedTicket] = useState(null);
 
@@ -56,8 +57,8 @@ export const TicketViewerPageStructure = (props) => {
             const original_loc_split = original_loc.split("/");
             if (original_loc_split.length > 2) {
                 const element = document.getElementById(`ticket-${original_loc_split[3]}`);
-                console.log(`ticket-${original_loc_split[3]}`, "<<< FFG ***");
-                console.log(element, "<<< FFG ###");
+                // console.log(`ticket-${original_loc_split[3]}`, "<<< FFG ***");
+                // console.log(element, "<<< FFG ###");
 
                 if (element) {
                     element.scrollIntoView({ behavior: "smooth", block: "center" }); // Scroll to the element
@@ -126,14 +127,14 @@ export const TicketViewerPageStructure = (props) => {
                 </Box>
 
                 <Box className="custom-scrollbar" sx={{ width: "100%", flex: 1, flexDirection: "column", gap: "5px", overflowY: "scroll", alignItems: "center", padding: "10px 0" }}>
-                    {Object.keys(data_getAllTicketsByEmpID?.data || {}).map((index, index_) => {
-                        const ticket_id = data_getAllTicketsByEmpID?.data[index]["ticket_id"];
-                        console.log(`ticket-${ticket_id}`, "<<< FFG");
+                    {Object.keys(data_getAllTicketsByEmpID || {}).map((index, index_) => {
+                        const ticket_id = data_getAllTicketsByEmpID[index]["ticket_id"];
+                        // console.log(`ticket-${ticket_id}`, "<<< FFG");
                         return (
-                            <Box>
+                            <Box key={ticket_id}>
                                 {index_ !== 0 && <Divider style={{ width: "50%", margin: "0", padding: "0" }} />}
                                 <Link id={`ticket-${ticket_id}`} key={ticket_id} to={`${ticket_id}`} style={{ ...reactLinkStyleRemove, width: "100%" }}>
-                                    <RequestCard ticket_info={data_getAllTicketsByEmpID?.data[index]} ticket_id={ticket_id} selectedTicket={selectedTicket} />
+                                    <RequestCard ticket_info={data_getAllTicketsByEmpID[index]} ticket_id={ticket_id} selectedTicket={selectedTicket} />
                                 </Link>
                             </Box>
                         );
@@ -168,6 +169,7 @@ const RequestCard = (props) => {
             {/* HEADER */}
             <Box sx={{ minWidth: "100%", display: "flex", justifyContent: "space-between" }}>
                 <Box sx={{ display: "flex", gap: "5px" }}>
+                    {!ticket_info.read && <Badge color={"red"} />}
                     <Tag style={{ margin: "0" }} bordered={false}>
                         {ticket_info["domain"]["name"]}-{ticket_info["issue_catagory"]["name"]}
                     </Tag>
@@ -179,7 +181,6 @@ const RequestCard = (props) => {
                         {ticket_info["issue_sub_category"]["name"]}
                     </Tag>
                 </Box>
-
                 <Box>
                     <Tag style={{ margin: "0" }} color={ticket_info.status.color}>
                         {ticket_info.status.name}
@@ -194,17 +195,19 @@ const RequestCard = (props) => {
             {/* FOOTER INFO */}
             <Box sx={{ width: "100%", display: "flex", justifyContent: "space-between" }}>
                 <Box sx={{ display: "flex", flexDirection: "column", fontSize: "12px", justifyContent: "flex-end" }}>
-                    <Box sx={{ fontSize: "11px", color: "grey", display: "flex", alignItems: "center" }}>
+                    <Box sx={{ fontSize: "12px", color: "grey", display: "flex", alignItems: "center" }}>
                         <CalendarMonthRoundedIcon fontSize="16px" style={{ margin: "0 2px 0 0", color: "#b5b5b5" }} />
                         {convertTimestamp(ticket_info.time).date}
-                        <AccessTimeOutlinedIcon fontSize="16px" style={{ margin: "0 2px 0 10px", color: "#b5b5b5" }} />
+                        <AccessTimeOutlinedIcon fontSize="16px" style={{ margin: "0 2px 0 5px", color: "#b5b5b5" }} />
                         {convertTimestamp(ticket_info.time).time}
                     </Box>
                 </Box>
 
                 <Box sx={{ display: "flex", flexDirection: "column", alignItems: "flex-end", fontSize: "12px" }}>
-                    <Box>
-                        <UserAddOutlined /> {ticket_info.requestor.name}
+                    <Box sx={{ fontSize: "12px", color: "grey", display: "flex", alignItems: "center" }}>
+                        <PersonRoundedIcon fontSize="16px" style={{ margin: "0 2px 0 0px", color: "#b5b5b5" }} />
+                        {/* <AccessTimeOutlinedIcon fontSize="16px" style={{ margin: "0 2px 0 10px", color: "#b5b5b5" }} /> */}
+                        {ticket_info.requestor.name}
                     </Box>
                 </Box>
             </Box>

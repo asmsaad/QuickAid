@@ -62,7 +62,7 @@ const RequestPage = () => {
 
     return (
         <Box sx={{ width: "100%", height: "100%", display: "flex" }}>
-            <TicketViewerPageStructure isLoading_getAllTicketsByEmpID={isLoading_getAllAccessabnleTicketsByEmpID} data_getAllTicketsByEmpID={data_getAllAccessabnleTicketsByEmpID} isError_getAllTicketsByEmpID={isError_getAllAccessabnleTicketsByEmpID} error_getAllTicketsByEmpID={error_getAllAccessabnleTicketsByEmpID} />
+            <TicketViewerPageStructure isLoading_getAllTicketsByEmpID={isLoading_getAllAccessabnleTicketsByEmpID} data_getAllTicketsByEmpID={data_getAllAccessabnleTicketsByEmpID?.data} isError_getAllTicketsByEmpID={isError_getAllAccessabnleTicketsByEmpID} error_getAllTicketsByEmpID={error_getAllAccessabnleTicketsByEmpID} />
         </Box>
     );
 };

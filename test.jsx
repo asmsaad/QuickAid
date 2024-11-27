@@ -15,9 +15,10 @@ const test = () => {
             onChange={(value, selectedObject) => {
                 setSelectedData({ ...selectedData, acknowledged_person: value ? value : [] });
             }}
-            options={Object.keys(data_getAllEmployee?.data || {}).map((empid) => {
-                return { value: empid, label: data_getAllEmployee?.data[empid]["name"] + ` (${empid})` };
-            })}
+            // options={Object.keys(data_getAllEmployee?.data || {}).map((empid) => {
+            //     return { value: empid, label: data_getAllEmployee?.data[empid]["name"] + ` (${empid})` };
+            // })}
+            
         />
     );
 };
