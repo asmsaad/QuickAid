@@ -14,6 +14,8 @@ import { Tabs } from "antd";
 import { Padding } from "@mui/icons-material";
 //*---------------------------------------------------------------------
 
+import "./../All_Styles/Scrollbar.css";
+
 const AdministratorPage = () => {
     const navigate = useNavigate();
     const location = useLocation();
@@ -58,8 +60,7 @@ const AdministratorPage = () => {
             <Box className="Tabs" sx={{ width: "100%", position: "sticky", top: "0", zIndex: "999" }}>
                 <Tabs size="large" activeKey={selectedTab} items={items} onChange={onChange} style={{ width: `calc(100% - 20px)`, margin: "0 10px", position: "sticky", top: "0", zIndex: "100", backgroundColor: "white" }} />
             </Box>
-            <Box style={{ width: "100%", overflowY: "auto", flex:1}}>
-            {/* <Box style={{ width: "100%", overflowY: "auto", backgroundColor :'red', flex:1}}> */}
+            <Box className="custom-scrollbar" style={{ width: "100%", overflowY: "auto", flex: 1 }}>
                 <Outlet /> {/* Make sure this is included to render nested routes */}
             </Box>
         </Box>

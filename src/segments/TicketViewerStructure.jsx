@@ -27,9 +27,20 @@ import PersonRoundedIcon from "@mui/icons-material/PersonRounded";
 const { Text } = Typography;
 
 export const TicketViewerPageStructure = (props) => {
-    const { isLoading_getAllTicketsByEmpID, data_getAllTicketsByEmpID, isError_getAllTicketsByEmpID, error_getAllTicketsByEmpID } = props;
+    const { isLoading_getAllTicketsByEmpID, data_getAllTicketsByEmpID, isError_getAllTicketsByEmpID, error_getAllTicketsByEmpID, refetch_getAllTicketsByEmpID } = props;
 
-    // console.log(data_getAllTicketsByEmpID, "=======================================");
+    console.log(data_getAllTicketsByEmpID, "FC=======================================");
+
+    //* AUTO REFRESH UNREAD BUBBLE NUMBER---------------------------------------------------------------------------+
+    useEffect(() => {
+        //                                                                                            |
+        refetch_getAllTicketsByEmpID(); // Initial fetch                                                  |
+        const interval = setInterval(refetch_getAllTicketsByEmpID, 15000); // Fetch every 5 seconds        |
+        //                                                                                                          |
+        // Cleanup on unmount                                                                                       |
+        return () => clearInterval(interval); //                                                                    |
+    }, []); // Empty dependency array to run once                                                                   |
+    // -------------------------------------------------------------------------------------------------------------+
 
     const [selectedTicket, setSelectedTicket] = useState(null);
 
@@ -164,7 +175,7 @@ const RequestCard = (props) => {
     const { ticket_info, ticket_id, selectedTicket } = props;
 
     return (
-        <Box sx={{ width: `calc(100% - 3px)`, maxWidth: { xs: "calc(100% - 3px)", xl: "400px" }, height: "fit-content", borderRadius: "3px", border: "0px solid #fdfdfd", "&:hover": { bgcolor: "#f8f8f8", cursor: "pointer" }, padding: "5px 10px", bgcolor: selectedTicket == ticket_id ? "#f6f6f6" : null }}>
+        <Box sx={{ width: `calc(100% - 3px)`, maxWidth: { xs: "calc(100% - 3px)", xl: "400px" }, height: "fit-content", borderRadius: "3px", border: "0px solid #fdfdfd", "&:hover": { bgcolor: "#f8f8f8", cursor: "pointer" }, padding: "5px 10px", bgcolor: selectedTicket == ticket_id ? "#f6f6f6" : null, fontWeight: !ticket_info.read ? "600" : "normal"}}>
         {/* <Box sx={{ width: `calc(100% - 3px)`, maxWidth: { xs: "calc(100% - 3px)", xl: "400px" }, height: "fit-content", borderRadius: "10px", border: "0.5px solid #fdfdfd", "&:hover": { border: "1px dashed grey", cursor: "pointer" }, padding: "5px 10px", bgcolor: selectedTicket == ticket_id ? "#f6f6f6" : null }}> */}
             {/* ///// */}
             {/* HEADER */}

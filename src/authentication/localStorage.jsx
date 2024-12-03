@@ -50,8 +50,8 @@ export const saveDataToLocalStorage = (key, data) => {
 
 
 export const getLoginUserID = () => {
-    logPrint('getLoginUserID :: '+getDataFromLocalStorage("user-credential")["empid"] )
-    return getDataFromLocalStorage("user-credential")["empid"]
+    logPrint('getLoginUserID :: '+getDataFromLocalStorage("user-credential")?.["empid"] )
+    return getDataFromLocalStorage("user-credential")?.["empid"]
 }
 
 

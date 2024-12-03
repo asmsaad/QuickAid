@@ -3,6 +3,22 @@ import { AutoComplete, Button, Input, Modal, Select } from "antd";
 import { Box } from "@mui/material";
 import { InfoLabel } from "@fluentui/react-components";
 
+const check_isDisable = (props) => {
+    const { isFieldDisabled, disableCheckDataField, newEntryInputData, disableDataVar } = props;
+
+    if (isFieldDisabled) {
+        if (["Select", "SelectMultiple"].includes(disableCheckDataField) && Array.isArray(newEntryInputData[disableDataVar]) && newEntryInputData[disableDataVar].length === 0) {
+            return true;
+        } else if (["Input", "InputSuggetion", "SelectSingle"].includes(disableCheckDataField) && (newEntryInputData[disableDataVar] === "" || newEntryInputData[disableDataVar] === null)) {
+            return true;
+        } else {
+            return false;
+        }
+    } else {
+        return false;
+    }
+};
+
 // const App = () => {
 //     const [isModalOpen, setIsModalOpen] = useState(false);
 //     const showModal = () => {
@@ -206,39 +222,40 @@ const CustomInputSuggetion = (props) => {
                     options={searchAbleValue}
                     // onSearch={(text) => {
                     onChange={(value) => {
-                        const trimmedSearchVar = value.trim(); // Remove leading and trailing whitespace
-                        setChoosedValue(trimmedSearchVar);
+                        // const trimmedSearchVar = value.trim(); // Remove leading and trailing whitespace
+                        setChoosedValue(value);
 
-                        setsearchAbleValue(new_suggestionsList.filter((item) => item.label.toLowerCase().includes(trimmedSearchVar.toLowerCase())));
+                        setsearchAbleValue(new_suggestionsList.filter((item) => item.label.toLowerCase().includes(value.trim().toLowerCase())));
 
-                        new_suggestionsList.some((item) => item.label.toLowerCase() === trimmedSearchVar.toLowerCase()) && ignoreSuggestions
+                        new_suggestionsList.some((item) => item.label.toLowerCase() === value.trim().toLowerCase()) && ignoreSuggestions
                             ? (() => {
                                   setErrorStatus("error");
                                   setNewEntryInputData({ ...newEntryInputData, [dataVariable]: "" });
                               })()
                             : (() => {
                                   setErrorStatus("");
-                                  setNewEntryInputData({ ...newEntryInputData, [dataVariable]: trimmedSearchVar });
+                                  setNewEntryInputData({ ...newEntryInputData, [dataVariable]: value });
                               })();
                     }}
-                    disabled={
-                        isFieldDisabled
-                            ? //
-                              ["Select", "SelectMultiple"].includes(disableCheckDataField) && Array.isArray(newEntryInputData[disableDataVar]) && newEntryInputData[disableDataVar].length === 0
-                                ? //
-                                  true
-                                : //
-                                //
-                                ["Input", "InputSuggetion", "SelectSingle"].includes(disableCheckDataField) && newEntryInputData[disableDataVar] === ""
-                                ? //
-                                  true
-                                : //
-                                  //
-                                  false
-                            : //
-                              //
-                              false
-                    }
+                    disabled={check_isDisable({ ...props })}
+                    // disabled={
+                    //     isFieldDisabled
+                    //         ? //
+                    //           ["Select", "SelectMultiple"].includes(disableCheckDataField) && Array.isArray(newEntryInputData[disableDataVar]) && newEntryInputData[disableDataVar].length === 0
+                    //             ? //
+                    //               true
+                    //             : //
+                    //             //
+                    //             ["Input", "InputSuggetion", "SelectSingle"].includes(disableCheckDataField) && newEntryInputData[disableDataVar] === ""
+                    //             ? //
+                    //               true
+                    //             : //
+                    //               //
+                    //               false
+                    //         : //
+                    //           //
+                    //           false
+                    // }
                 />
 
                 {/* <Input
@@ -322,24 +339,25 @@ const CustomInput = (props) => {
                         setNewEntryInputData({ ...newEntryInputData, [dataVariable]: "" });
                         console.log("MODAL DATA 1STORAGE << UPDATE", "--------------------------------------------->");
                     }}
-                    disabled={
-                        isFieldDisabled
-                            ? //
-                              ["Select", "SelectMultiple"].includes(disableCheckDataField) && Array.isArray(newEntryInputData[disableDataVar]) && newEntryInputData[disableDataVar].length === 0
-                                ? //
-                                  true
-                                : //
-                                //
-                                ["Input", "InputSuggetion", "SelectSingle"].includes(disableCheckDataField) && newEntryInputData[disableDataVar] === ""
-                                ? //
-                                  true
-                                : //
-                                  //
-                                  false
-                            : //
-                              //
-                              false
-                    }
+                    disabled={check_isDisable({ ...props })}
+                    // disabled={
+                    //     isFieldDisabled
+                    //         ? //
+                    //           ["Select", "SelectMultiple"].includes(disableCheckDataField) && Array.isArray(newEntryInputData[disableDataVar]) && newEntryInputData[disableDataVar].length === 0
+                    //             ? //
+                    //               true
+                    //             : //
+                    //             //
+                    //             ["Input", "InputSuggetion", "SelectSingle"].includes(disableCheckDataField) && newEntryInputData[disableDataVar] === ""
+                    //             ? //
+                    //               true
+                    //             : //
+                    //               //
+                    //               false
+                    //         : //
+                    //           //
+                    //           false
+                    // }
                 />
                 {console.log("disableDataVar---->", ["Input", "InputSuggetion", "SelectSingle"].includes(disableCheckDataField), disableCheckDataField, newEntryInputData[disableDataVar], "-------MODAL DATA STORAGE << UPDATE")}
                 {/* {console.log(["Input", "InputSuggetion", "SelectSingle"].includes(disableCheckDataField), disableCheckDataField, "-------MODAL DATA STORAGE << UPDATE")} */}
@@ -403,29 +421,30 @@ const CustomSelect = (props) => {
                         if (!mode) {
                             console.log("++++++=+++++++++++++++++++++++++++++**MODAL DATA 1STORAGE << UPDATE");
                             setTimeout(() => {
-                                setChoosedValue("");
-                                setNewEntryInputData({ ...newEntryInputData, [dataVariable]: "" });
-                            }, 500);
+                                setChoosedValue(null);
+                                setNewEntryInputData({ ...newEntryInputData, [dataVariable]: null });
+                            }, 100);
                         }
                     }}
-                    disabled={
-                        isFieldDisabled
-                            ? //
-                              ["Select", "SelectMultiple"].includes(disableCheckDataField) && Array.isArray(newEntryInputData[disableDataVar]) && newEntryInputData[disableDataVar].length === 0
-                                ? //
-                                  true
-                                : //
-                                //
-                                ["Input", "InputSuggetion", "SelectSingle"].includes(disableCheckDataField) && newEntryInputData[disableDataVar] === ""
-                                ? //
-                                  true
-                                : //
-                                  //
-                                  false
-                            : //
-                              //
-                              false
-                    }
+                    disabled={check_isDisable({ ...props })}
+                    // disabled={
+                    //     isFieldDisabled
+                    //         ? //
+                    //           ["Select", "SelectMultiple"].includes(disableCheckDataField) && Array.isArray(newEntryInputData[disableDataVar]) && newEntryInputData[disableDataVar].length === 0
+                    //             ? //
+                    //               true
+                    //             : //
+                    //             //
+                    //             ["Input", "InputSuggetion", "SelectSingle"].includes(disableCheckDataField) && newEntryInputData[disableDataVar] === ""
+                    //             ? //
+                    //               true
+                    //             : //
+                    //               //
+                    //               false
+                    //         : //
+                    //           //
+                    //           false
+                    // }
                 />
                 {/* {console.log("disableDataVar---->", ["Input", "InputSuggetion", "SelectSingle"].includes(disableCheckDataField), disableCheckDataField, newEntryInputData[disableDataVar], "-------MODAL DATA STORAGE << UPDATE")} */}
             </Box>

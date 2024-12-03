@@ -59,7 +59,7 @@ const RequestTimeline = (props) => {
             <Timeline
                 // pending="Updgrade in progress..."
                 reverse={true}
-                items={Object.keys(timeline_data).map((index) => {
+                items={Object.keys(timeline_data || {}).map((index) => {
                     return {
                         color: statusProperty[timeline_data[index]["status"]["status"]]["color"],
                         children: <TimeLineContent status_info={timeline_data[index]} />,
@@ -139,6 +139,7 @@ const EditModal = (props) => {
 
 const TimeLineContent = (props) => {
     const { date_time, profile_info, note, status_info } = props;
+    console.log(status_info, "--CVCVCVCV");
 
     const step_name = status_info["status"]["status"];
     // const color = status_info["status"]["color"];
@@ -185,34 +186,39 @@ const TimeLineContent = (props) => {
                 {/* 2nd PERSON */}
 
                 {["Assigned", "Refered", "Handovered"].includes(step_name) && (
-                    <Box sx={{ display: "flex" }}>
-                        <Box sx={{ height: "calc(56px - 20px)", minWidth: "calc(56px - 20px)", maxWidth: "calc(56px - 20px)", bgcolor: "#e2e2e2", borderRadius: "10px", padding: "10px", margin: "0 8px 0 0", display: "flex", justifyContent: "center", alignItems: "center" }}>
+                    <Box sx={{ width: "100%", display: "flex", display: "flex", alignItems: "center", gap: "10px" }}>
+                        <Box sx={{ height: "46px", minWidth: "46px", maxWidth: "46px", bgcolor: "#e2e2e2", borderRadius: "7px", padding: "5px", display: "flex", justifyContent: "center", alignItems: "center" }}>
                             <Text style={{ fontSize: "14px" }}>To</Text>
                         </Box>
-                        <Box sx={{ width: `calc(100% - 65px)` }}>
-                            <ProfileCardXS info={status_info.assign_to.name} />
+                        <Box sx={{ width: `calc(100% - 46px)` }}>
+                            <ProfileCardXS info={status_info.assign_to} bgcolor={"#e2e2e2"} />
                         </Box>
                     </Box>
                 )}
 
                 {/* 1st PERSON */}
-                <Box sx={{ display: "flex", marginTop: "10px" }}>
-                    <Box sx={{ height: "calc(56px - 20px)", minWidth: "calc(56px - 20px)", maxWidth: "calc(56px - 20px)", bgcolor: "#e2e2e2", borderRadius: "10px", padding: "10px", margin: "0 8px 0 0", display: "flex", justifyContent: "center", alignItems: "center" }}>
+                <Box sx={{ width: "100%", display: "flex", marginTop: "10px", display: "flex", alignItems: "center", gap: "10px" }}>
+                    <Box sx={{ height: "46px", minWidth: "46px", maxWidth: "46px", bgcolor: "#e2e2e2", borderRadius: "7px", padding: "5px", display: "flex", justifyContent: "center", alignItems: "center" }}>
                         <Text style={{ fontSize: "14px" }}>{step_name === "Handovered" ? "From" : "By"}</Text>
                     </Box>
-                    <Box sx={{ width: `calc(100% - 65px)` }}>
-                        <ProfileCardXS info={status_info.updated_by.name} />
+                    <Box sx={{ width: `calc(100% - 46px)` }}>
+                        <ProfileCardXS info={status_info.updated_by} bgcolor={"#e2e2e2"} />
                     </Box>
                 </Box>
             </Box>
 
             {["Visited", "Picked", "Delivered", "Returned", "Solved", "Closed"].includes(step_name) && (status_info.note || "").trim() !== "" && (
-                <Box sx={{ width: `calc(100% - 20px)`, marginTop: "10px", textAlign: "justify", border: "0.5px solid #e2e2e2", borderRadius: "5px", padding: "10px", lineHeight: "1" }}>
-                    <CommentRoundedIcon sx={{ fontSize: "14px", color: "gray", margin: "0 2px  0 0" }} />
-                    <Text type="secondary" style={{ lineHeight: "1.1" }}>
-                        {status_info.note}
-                        {/* There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form,. */}
-                    </Text>
+                // <Box sx={{ width: `calc(100% - 20px)`, marginTop: "10px", textAlign: "justify", border: "0.5px solid #e2e2e2", borderRadius: "5px", padding: "10px", lineHeight: "1" }}>
+                <Box sx={{ width: "100%", marginTop: "10px", display: "flex", gap: "10px" }}>
+                    <Box sx={{ height: "46px", minWidth: "46px", maxWidth: "46px", bgcolor: "", borderRadius: "7px", padding: "5px", display: "flex", justifyContent: "center", alignItems: "" }}>
+                        <CommentRoundedIcon sx={{ fontSize: "24px", color: "gray" }} />
+                    </Box>
+                    <Box sx={{ width: `calc(100% - 46px)`, textAlign: "justify" }}>
+                        <Text type="secondary" style={{ lineHeight: "1.1", textAlign: "justify" }}>
+                            {status_info.note}
+                            {/* There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form,. There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form,. There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form,. */}
+                        </Text>
+                    </Box>
                 </Box>
             )}
         </Box>
@@ -631,7 +637,8 @@ export const RequestDescription = () => {
                 </Box>
 
                 {/* If no status is available, the edit button will not be shown. */}
-                {(availableStatus[data_getTicketHeaderInfo?.data["current_status"]["name"]] || []).length !== 0 && (
+                {/* {(availableStatus[data_getTicketHeaderInfo?.data["current_status"]["name"]] || []).length !== 0 && ( */}
+                {data_getTicketHeaderInfo?.data["can_edit"] && (
                     <Box sx={{ marginRight: "10px" }}>
                         {!isActiveLoading ? (
                             <Button type="primary" size="default" onClick={showModal} style={{ height: "32px", fontSize: "16px" }}>
@@ -651,7 +658,7 @@ export const RequestDescription = () => {
                     </Box>
 
                     {/* Modal Component */}
-                    {console.log(data_getTicketStatusTimeline?.data[Object.keys(data_getTicketStatusTimeline?.data || {}).slice(-1)]["status"]["status"], "XXXX")}
+                    {console.log(data_getTicketStatusTimeline?.data[Object.keys(data_getTicketStatusTimeline?.data || {})[0]]["status"]["status"], "XXXX")}
                     <EditModal isChangeingStatusLoading={isChangeingStatusLoading} data_getCoMemberOfSubDomain={data_getCoMemberOfSubDomain?.data} current_status={data_getTicketStatusTimeline?.data[Object.keys(data_getTicketStatusTimeline?.data || {}).slice(-1)]["status"]["status"]} isLoading_getAllTicketStatus={isLoading_getAllTicketStatus} availableStatus={availableStatus} statusChangedInfo={statusChangedInfo} setStatusChangedInfo={setStatusChangedInfo} ticketID={ticketID} isModalOpen={isModalOpen} handleOk={handleOk} handleCancel={handleCancel} />
                     {/* <EditModal isChangeingStatusLoading={isChangeingStatusLoading} data_getCoMemberOfSubDomain={data_getCoMemberOfSubDomain?.data} current_status={data_getTicketHeaderInfo?.data["current_status"]["name"]} isLoading_getAllTicketStatus={isLoading_getAllTicketStatus} availableStatus={availableStatus} statusChangedInfo={statusChangedInfo} setStatusChangedInfo={setStatusChangedInfo} ticketID={ticketID} isModalOpen={isModalOpen} handleOk={handleOk} handleCancel={handleCancel} /> */}
 
@@ -672,7 +679,7 @@ export const RequestDescription = () => {
                     <Box sx={{ marginTop: "10px", display: "flex", flexDirection: { xs: "column", xl: "row" }, gap: "10px" }}>
                         {data_getTicketStatusTimeline?.data[Object.keys(data_getTicketStatusTimeline?.data || {}).slice(-1)]["status"]["status"] === "Closed" && (
                             <Box sx={{ width: "fit-content" }}>
-                                <RatingBox ticketID={ticketID} isTicketRequester={data_getTicketStatusTimeline?.data[Object.keys(data_getTicketStatusTimeline?.data || {}).slice(-1)]["updated_by"]["empid"] === getLoginUserID() ? true : false} />
+                                <RatingBox ticketID={ticketID} isTicketRequester={data_getTicketStatusTimeline?.data[Object.keys(data_getTicketStatusTimeline?.data || {})[0]]["updated_by"]["empid"] === getLoginUserID() ? true : false} />
                             </Box>
                         )}
 
@@ -740,7 +747,8 @@ const RatingBox = (props) => {
     //Todo[QUEARY] Update Ticket Rating
     //*API Setup
     const fetchUpdateTicketRatingByRequeser = () => {
-        return axios.post(getAPI("submit-ticket-exprience-rating"), { empid: getLoginUserID(), ticket_id: ticketID, ...ratingInfo }, { headers: { "Content-Type": "application/json", "X-CSRFToken": getCookie("csrftoken") } });
+        console.log({ empid: getLoginUserID(), ticket_id: ticketID, ...ratingInfo },'&&&&&')
+        return axios.post(getAPI("submit-rating"), { empid: getLoginUserID(), ticket_id: ticketID, ...ratingInfo }, { headers: { "Content-Type": "application/json", "X-CSRFToken": getCookie("csrftoken") } });
     };
 
     //*Query Callback
@@ -751,7 +759,7 @@ const RatingBox = (props) => {
         error: error_getUpdateTicketRatingByRequeser,
         isFetching: isFetching_getUpdateTicketRatingByRequeser,
         refetch: refetch_getUpdateTicketRatingByRequeser,
-    } = useQuery("submit-ticket-exprience-rating-UNIQUE-1", fetchUpdateTicketRatingByRequeser, {
+    } = useQuery("submit-rating-UNIQUE-1", fetchUpdateTicketRatingByRequeser, {
         enabled: false,
     });
 
@@ -768,6 +776,7 @@ const RatingBox = (props) => {
             }, 1500);
         } else if (isError_getUpdateTicketRatingByRequeser) {
             logPrint("🔍   getUpdateTicketRatingByRequeser  ➤  ⚠️", [error_getUpdateTicketRatingByRequeser?.message, error_getUpdateTicketRatingByRequeser?.response.data]);
+            // logPrint("🔍   getUpdateTicketRatingByRequeser  ➤  ⚠️", error_getUpdateTicketRatingByRequeser);
             setPostBtnLoading([1]);
         }
     }, [isLoading_getUpdateTicketRatingByRequeser, data_getUpdateTicketRatingByRequeser, isError_getUpdateTicketRatingByRequeser, error_getUpdateTicketRatingByRequeser]);
@@ -802,7 +811,7 @@ const RatingBox = (props) => {
                         </Box>
                     ) : (
                         <Box>
-                            {ratingInfo.rating.exprience === null ? 0 : ratingInfo.rating.exprience}
+                            {/* {ratingInfo.rating.exprience === null ? 0 : ratingInfo.rating.exprience} */}
                             <Rating value={ratingInfo.rating.exprience === null ? 0 : ratingInfo.rating.exprience} onChange={(e) => setRatingInfo({ ...ratingInfo, rating: { ...ratingInfo.rating, exprience: e.target.value } })} color="marigold" style={{ pointerEvents: isTicketRequester && !data_getTicketRatingsAndComments?.data?.rating?.exprience ? "" : "none" }} />
                         </Box>
                     )}
@@ -816,7 +825,7 @@ const RatingBox = (props) => {
                             <Text>Comment on your experience.</Text>
                             <TextArea size="medium" placeholder="Make a constructive comment. Once you post your experience, you cannot undo or change it." showCount maxLength={1024} rows={3} value={ratingInfo.comment} onChange={(e) => setRatingInfo({ ...ratingInfo, comment: e.target.value })} disabled={ratingInfo?.rating?.exprience ? false : true} />
                             <Box sx={{ width: "100%", display: "flex", justifyContent: "flex-end", marginTop: "20px" }}>
-                                <Button type="primary" loading={postBtnLoading[0]} onClick={() => refetch_getUpdateTicketRatingByRequeser()} disabled={ratingInfo.rating?.exprience ? false : true}>
+                                <Button type="primary" loading={postBtnLoading[0]} onClick={() => refetch_getUpdateTicketRatingByRequeser()} disabled={ratingInfo?.rating?.exprience ? false : true}>
                                     Post
                                 </Button>
                             </Box>

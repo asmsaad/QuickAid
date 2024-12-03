@@ -42,7 +42,7 @@ const MentionPage = () => {
         isFetching: isFetching_getAllMentionedTicketsByEmpID,
         refetch: refetch_getAllMentionedTicketsByEmpID,
     } = useQuery("get-request-by-mention-UNIQUE-1", fetchAllMentionedTicketsByEmpID, {
-        enabled: true,
+        enabled: false,
     });
 
     //*Query Response Actions
@@ -58,7 +58,7 @@ const MentionPage = () => {
 
     return (
         <Box sx={{ width: "100%", height: "100%", display: "flex" }}>
-            <TicketViewerPageStructure isLoading_getAllTicketsByEmpID={isLoading_getAllMentionedTicketsByEmpID} data_getAllTicketsByEmpID={data_getAllMentionedTicketsByEmpID?.data} isError_getAllTicketsByEmpID={isError_getAllMentionedTicketsByEmpID} error_getAllTicketsByEmpID={error_getAllMentionedTicketsByEmpID} />
+            <TicketViewerPageStructure isLoading_getAllTicketsByEmpID={isLoading_getAllMentionedTicketsByEmpID} data_getAllTicketsByEmpID={data_getAllMentionedTicketsByEmpID?.data} isError_getAllTicketsByEmpID={isError_getAllMentionedTicketsByEmpID} error_getAllTicketsByEmpID={error_getAllMentionedTicketsByEmpID} refetch_getAllTicketsByEmpID={refetch_getAllMentionedTicketsByEmpID}/>
         </Box>
     );
 };

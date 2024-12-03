@@ -98,7 +98,7 @@ const Navbar = () => {
                                 {userCredential.designation}
                             </Typography>
                         </Box>
-                        <Avatar style={{ cursor: "pointer" }} alt={userCredential.name} src={userCredential.picture} sx={{ width: 32, height: 32 }} onClick={(e) => setOpen(true)} />
+                        <Avatar style={{ cursor: "pointer", userSelect: "none",  }} alt={userCredential.name} src={userCredential.picture} sx={{ width: 32, height: 32 }} onClick={(e) => setOpen(true)} />
                     </Box>
                 )}
 
@@ -110,10 +110,10 @@ const Navbar = () => {
                         <Box sx={{ width: "100%", display: "flex", justifyContent: "center", alignItems: "center", margin: "15px 0" }}>
                             <div className="avatar-wrapper">
                                 <div className="avatar-border"></div>
-                                <div className="avatar" style={{ overflow: "hidden" }}>
-                                    {/* <img src={userCredential.picture} alt="Italian Trulli" width="100px" height="100px" /> */}
+                                <div className="avatar" style={{ overflow: "hidden", userSelect: "none", pointerEvents: "none" }}>
+                                    <img src={userCredential.picture} alt="Italian Trulli" width="100px" height="100px" />
 
-                                    <img src='https://lh3.googleusercontent.com/a/ACg8ocIF7K75_0tD0da98-h0ytL7ej-Q34B_XEya5EHWjrsNn18A4TaI=s288-c-no' alt="Italian Trulli" width="100px" height="100px" />
+                                    {/* <img src='https://lh3.googleusercontent.com/a/ACg8ocIF7K75_0tD0da98-h0ytL7ej-Q34B_XEya5EHWjrsNn18A4TaI=s288-c-no' alt="Italian Trulli" width="100px" height="100px" /> */}
                                 </div>
                             </div>
                         </Box>

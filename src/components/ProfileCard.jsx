@@ -116,25 +116,28 @@ export const ProfileCardXL = (props) => {
 };
 
 export const ProfileCardXS = (props) => {
-    const name = props.info;
+    const { bgcolor } = props;
+
+    const { name, empid, designation, department, url } = props.info;
     // console.log(props.info,'==================')
     return (
-        <Box sx={{ width: "calc(100% - 20px)", bgcolor: "#fbfbfb", borderRadius: "10px", padding: "10px" }}>
+        <Box sx={{ width: "calc(100%)", bgcolor: bgcolor ? bgcolor : "#fbfbfb", borderRadius: "5px", padding: "7px" }}>
             <Box sx={{ display: "flex", width: "100%" }}>
                 <Box sx={{ heigh: "100%", display: "flex", alignItems: "center" }}>
-                    <Avatar size={36} color="dark-red" name={name} />
+                    <Avatar size={32} name={name} image={{ src: url ? url : "" }} />
                 </Box>
                 <Box sx={{ display: "flex", flexDirection: "column", marginLeft: "10px", width: `calc(100% - 36px)` }}>
                     <Box sx={{ display: "flex", alignItems: "center" }}>
-                        <Text style={{ marginLeft: "0px", lineHeight: "1.4" }} ellipsis>
+                        <Text style={{ marginLeft: "0px", lineHeight: "1.5", fontSize: "13px" }} ellipsis>
                             {name}
                         </Text>
                     </Box>
                     <Box sx={{ display: "flex", lineHeight: "1.5" }}>
                         <Box sx={{ display: "flex", alignItems: "center", width: "100%", marginTop: "-3px" }}>
                             {/* <FlowFilled style={{ color: "#939393" }} /> */}
-                            <Text style={{ lineHeight: "1.4" }} type="secondary" ellipsis>
-                                Sr. Engineer,Circuit and system design
+                            <Text style={{ lineHeight: "1.4", fontSize: "11px" }} type="secondary" ellipsis>
+                                {designation}
+                                {", "} {Object.keys(department).map((department_idx) => department[department_idx])}
                             </Text>{" "}
                         </Box>
                     </Box>

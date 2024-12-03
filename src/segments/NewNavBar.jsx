@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { makeStyles, mergeClasses, tokens, Button, Menu, MenuItem, MenuList, MenuPopover, MenuTrigger, Tab, TabList, useIsOverflowItemVisible, useOverflowMenu, Overflow, OverflowItem } from "@fluentui/react-components";
+import { makeStyles, mergeClasses, tokens, Button, Menu, MenuItem, MenuList, MenuPopover, MenuTrigger, Tab, TabList, useIsOverflowItemVisible, useOverflowMenu, Overflow, OverflowItem, Badge as FluentUIBadge } from "@fluentui/react-components";
 import { Link, useLocation } from "react-router-dom";
 import { BugFilled, HomeFilled, bundleIcon, BugRegular, HomeRegular, ClipboardTextEditFilled, ClipboardTextEditRegular, ClipboardTextRtlRegular, ClipboardTextRtlFilled, DataPieFilled, DataPieRegular, PeopleCommunityRegular, PeopleCommunityFilled, OrganizationRegular, OrganizationFilled, PersonStarburstRegular, PersonStarburstFilled, MoreHorizontalFilled, MoreHorizontalRegular, BranchRequestFilled, HistoryFilled, HistoryRegular, BranchRequestRegular, FormFilled, FormRegular, MentionFilled, MentionRegular } from "@fluentui/react-icons";
 import { Box } from "@mui/material";
@@ -132,7 +132,6 @@ export const ShortLeftNavBar = (props) => {
         }
     }, [isLoading_getUnreadMentionedTicketNumber, data_getUnreadMentionedTicketNumber, isError_getUnreadMentionedTicketNumber, error_getUnreadMentionedTicketNumber]);
 
-
     //Todo🔍   Get unviewed Request ticket number
     //*API Setup
     const fetchUnreadRequestedTicketNumber = () => {
@@ -169,9 +168,6 @@ export const ShortLeftNavBar = (props) => {
         }
     }, [isLoading_getUnreadRequestedTicketNumber, data_getUnreadRequestedTicketNumber, isError_getUnreadRequestedTicketNumber, error_getUnreadRequestedTicketNumber]);
 
-
-
-
     const styles = useStyles();
     const location = useLocation();
 
@@ -193,22 +189,21 @@ export const ShortLeftNavBar = (props) => {
 
     const IconPosition = ({ tabicon }) => <div style={iconStyle}>{tabicon}</div>;
 
-
-
-
     //* AUTO REFRESH UNREAD BUBBLE NUMBER---------------------------------------------------------------------------+
-    useEffect(() => { //                                                                                            |
+    useEffect(() => {
+        //                                                                                            |
         refetch_getUnreadMentionedTicketNumber(); // Initial fetch                                                  |
-        const interval = setInterval(refetch_getUnreadMentionedTicketNumber, 5000); // Fetch every 5 seconds        |
+        const interval = setInterval(refetch_getUnreadMentionedTicketNumber, 15000); // Fetch every 5 seconds        |
         //                                                                                                          |
         // Cleanup on unmount                                                                                       |
         return () => clearInterval(interval); //                                                                    |
     }, []); // Empty dependency array to run once                                                                   |
     //                                                                                                              |
     //* AUTO REFRESH UNREAD BUBBLE NUMBER---------------------------------------------------------------------------+
-    useEffect(() => { //                                                                                            |
+    useEffect(() => {
+        //                                                                                            |
         refetch_getUnreadRequestedTicketNumber(); // Initial fetch                                                  |
-        const interval = setInterval(refetch_getUnreadRequestedTicketNumber, 5000); // Fetch every 5 seconds        |
+        const interval = setInterval(refetch_getUnreadRequestedTicketNumber, 15000); // Fetch every 5 seconds        |
         //                                                                                                          |
         // Cleanup on unmount                                                                                       |
         return () => clearInterval(interval); //                                                                    |
@@ -250,7 +245,8 @@ export const ShortLeftNavBar = (props) => {
                             (tab, index) =>
                                 tabProperty[tab.id]["display"] && (
                                     <Link key={tab.id} to={`/quickaid${tab.id === "/quickaid" ? "" : tab.id}`}>
-                                        <Badge size="small" count={tabProperty[tab.id]["bubbleValue"]  ? tabProperty[tab.id]["bubbleValue"] : null} overflowCount={99} offset={[-20, 0]}>
+                                        {/* <FluentUIBadge appearance="tint">999+</FluentUIBadge> */}
+                                        <Badge size="small" count={tabProperty[tab.id]["bubbleValue"] ? tabProperty[tab.id]["bubbleValue"] : 0} overflowCount={99} offset={[-20, 0]}>
                                             <Tab style={tabRootStyle} icon={<IconPosition tabicon={tab.icon} />} value={tab.id}>
                                                 <div style={tabNameStyle}>{tab.name}</div>
                                             </Tab>
@@ -298,7 +294,7 @@ export const ShortLeftNavBar = (props) => {
                             (tab, index) =>
                                 tabProperty[tab.id]["display"] && (
                                     <Link key={tab.id} to={`/quickaid${tab.id === "/quickaid" ? "" : tab.id}`}>
-                                        <Badge size="small" count={tabProperty[tab.id]["bubbleValue"] ? tabProperty[tab.id]["bubbleValue"] : null} overflowCount={99} offset={[-20, 0]}>
+                                        <Badge size="small" count={tabProperty[tab.id]["bubbleValue"] ? tabProperty[tab.id]["bubbleValue"] : 0} overflowCount={99} offset={[-20, 0]}>
                                             <Tab style={{ ...tabRootStyle, width: "80px" }} icon={<IconPosition tabicon={tab.icon} />} value={tab.id}>
                                                 <div style={{ ...tabNameStyle, width: "80px", fontSize: "11px" }}>{tab.name}</div>
                                             </Tab>

@@ -42,7 +42,7 @@ const RequestPage = () => {
         isFetching: isFetching_getAllAccessabnleTicketsByEmpID,
         refetch: refetch_getAllAccessabnleTicketsByEmpID,
     } = useQuery("get-accessible-requests-UNIQUE-1", fetchAllAccessabnleTicketsByEmpID, {
-        enabled: true,
+        enabled: false,
     });
 
     //*Query Response Actions
@@ -62,7 +62,7 @@ const RequestPage = () => {
 
     return (
         <Box sx={{ width: "100%", height: "100%", display: "flex" }}>
-            <TicketViewerPageStructure isLoading_getAllTicketsByEmpID={isLoading_getAllAccessabnleTicketsByEmpID} data_getAllTicketsByEmpID={data_getAllAccessabnleTicketsByEmpID?.data} isError_getAllTicketsByEmpID={isError_getAllAccessabnleTicketsByEmpID} error_getAllTicketsByEmpID={error_getAllAccessabnleTicketsByEmpID} />
+            <TicketViewerPageStructure isLoading_getAllTicketsByEmpID={isLoading_getAllAccessabnleTicketsByEmpID} data_getAllTicketsByEmpID={data_getAllAccessabnleTicketsByEmpID?.data} isError_getAllTicketsByEmpID={isError_getAllAccessabnleTicketsByEmpID} error_getAllTicketsByEmpID={error_getAllAccessabnleTicketsByEmpID} refetch_getAllTicketsByEmpID={refetch_getAllAccessabnleTicketsByEmpID} />
         </Box>
     );
 };

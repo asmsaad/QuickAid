@@ -458,7 +458,7 @@ const IssueForm = ()=>{
  * @param {string} props.display_info - The information displayed in the popover when the info icon is hovered over.
  * @returns {JSX.Element} The rendered tooltip component with the info icon and title.
  */
-const TooltipPopover = ({ title, display_info , top_margin="10px"}) => {
+export const TooltipPopover = ({ title, display_info , top_margin="10px"}) => {
     return (
         <Box sx={{ margin: `${top_margin} 0 5px 0` }}>
             <div>

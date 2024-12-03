@@ -4,6 +4,12 @@
 // const BASE_URL = "http://192.168.10.165:8000/"; //Must be a slash at at end
 const BASE_URL = "https://www.ulka.autos/quickaid/apis/"; //Must be a slash at at end
 const apinames = {
+    "save-notification-token": BASE_URL + "save-notification-token/", //Checking Wheter the user are resgisterd at DB or not
+
+
+    "get-all-department": BASE_URL + "get-all-department/", //Checking Wheter the user are resgisterd at DB or not
+
+
     "get-managers-by-empid": BASE_URL + "get-managers-by-empid/", //Checking Wheter the user are resgisterd at DB or not
     "get-all-employee-info": BASE_URL + "get-all-employee-info/", //Checking Wheter the user are resgisterd at DB or not
     "get-all-sub-domain": BASE_URL + "get-all-sub-domain/", //Checking Wheter the user are resgisterd at DB or not
@@ -35,7 +41,7 @@ const apinames = {
     "update-user-avater": BASE_URL + "update-profile-url/", //This api store the name of the user if he viewed the ticket 
 
 
-    "submit-ticket-exprience-rating": BASE_URL + "submit-ticket-exprience-rating/", //This api store the name of the user if he viewed the ticket 
+    "submit-rating": BASE_URL + "submit-rating/", //This api store the name of the user if he viewed the ticket 
     "get-rating-by-ticketid": BASE_URL + "get-rating-by-ticketid/", //This api store the name of the user if he viewed the ticket 
 
     "get-unviewed-mentioned-ticket-number": BASE_URL + "get-unviewed-acknowledge-request-count/", //This api store the name of the user if he viewed the ticket 
@@ -46,6 +52,21 @@ const apinames = {
     "create-new-domain": BASE_URL + "create-new-domain/", //This api store the name of the user if he viewed the ticket 
 
     "get-subdomain-users-by-domain": BASE_URL + "get-subdomain-users-by-domain/", //This api store the name of the user if he viewed the ticket 
+    "create-new-sub-domain": BASE_URL + "create-new-sub-domain/", //This api store the name of the user if he viewed the ticket 
+    
+    "get-all-issue-category-with-summary": BASE_URL + "get-requests-summary/", //This api store return the all SubIssue category with statstics
+    "create-new-issue-category": BASE_URL + "create-new-service/", //This api store return the all SubIssue category with statstics
+    
+    "get-all-cities": BASE_URL + "get-all-cities/", //This api store return the all SubIssue category with statstics
+    "create-city": BASE_URL + "create-city/", //This api store return the all SubIssue category with statstics
+
+
+    "get-all-building": BASE_URL + "get-all-building/", //This api store return the all SubIssue category with statstics
+    "create-buiding": BASE_URL + "create-buiding/", //This api store return the all SubIssue category with statstics
+
+
+    "get-all-loactions": BASE_URL + "get-all-loactions/", //This api store return the all SubIssue category with statstics
+    "create-location": BASE_URL + "create-location/", //This api store return the all SubIssue category with statstics
 
 
     

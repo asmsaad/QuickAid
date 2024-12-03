@@ -53,7 +53,7 @@ const userCredentialData = {};
 
 const AppStructure = (props) => {
     // //! For DeveloperBoard
-    saveDataToLocalStorage("user-credential", { name: "Ammar Azad Khan", email: "ammar.azad.khan@ulkasemi.com", empid: "220816", designation: "Engineer" }); //todo store data at local storage
+    // saveDataToLocalStorage("user-credential", { name: "Ammar Azad Khan", email: "ammar.azad.khan@ulkasemi.com", empid: "220816", designation: "Engineer" }); //todo store data at local storage
     // saveDataToLocalStorage("user-credential", { name: "Saaaaaaaaaaaad", email: "hasan.sad@ulkasemi.com", empid: "210113", designation: "Engineer" }); //todo store data at local storage
     // // const [isLogin, setLogin] = useState(true); // USER LOGGING STATE.
 

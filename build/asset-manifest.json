@@ -1,19 +1,21 @@
 {
   "files": {
-    "main.css": "/static/css/main.f6b034fc.css",
-    "main.js": "/static/js/main.f3b41578.js",
+    "main.css": "/static/css/main.44cae2be.css",
+    "main.js": "/static/js/main.7b9c5ab1.js",
     "static/js/453.db0eccb8.chunk.js": "/static/js/453.db0eccb8.chunk.js",
+    "static/media/InterVariable-Italic.woff2": "/static/media/InterVariable-Italic.e295f70fe3e2df296c7b.woff2",
+    "static/media/InterVariable.woff2": "/static/media/InterVariable.a0e477f2f1f9d2376fde.woff2",
     "static/media/automationTeam.png": "/static/media/automationTeam.ae083497097688041e35.png",
     "static/media/login_bg1.jpg": "/static/media/login_bg1.3da890ceeaeb263e54e5.jpg",
     "static/media/quickaidLogo.png": "/static/media/quickaidLogo.ef560eba00a40e419e51.png",
     "static/media/icon.png": "/static/media/icon.e7c0aeabe51023d2c273.png",
     "index.html": "/index.html",
-    "main.f6b034fc.css.map": "/static/css/main.f6b034fc.css.map",
-    "main.f3b41578.js.map": "/static/js/main.f3b41578.js.map",
+    "main.44cae2be.css.map": "/static/css/main.44cae2be.css.map",
+    "main.7b9c5ab1.js.map": "/static/js/main.7b9c5ab1.js.map",
     "453.db0eccb8.chunk.js.map": "/static/js/453.db0eccb8.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.f6b034fc.css",
-    "static/js/main.f3b41578.js"
+    "static/css/main.44cae2be.css",
+    "static/js/main.7b9c5ab1.js"
   ]
 }

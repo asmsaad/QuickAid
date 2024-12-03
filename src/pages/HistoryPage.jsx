@@ -42,7 +42,7 @@ const HistoryPage = () => {
         isFetching: isFetching_getAllTicketsByEmpID,
         refetch: refetch_getAllTicketsByEmpID,
     } = useQuery("get-all-ticket-by-empid-UNIQUE-1", fetchAllTicketsByEmpID, {
-        enabled: true,
+        enabled: false,
     });
 
     //*Query Response Actions
@@ -58,7 +58,7 @@ const HistoryPage = () => {
 
     return (
         <Box sx={{ width: "100%", height: "100%", display: "flex" }}>
-            <TicketViewerPageStructure isLoading_getAllTicketsByEmpID={isLoading_getAllTicketsByEmpID} data_getAllTicketsByEmpID={data_getAllTicketsByEmpID?.data} isError_getAllTicketsByEmpID={isError_getAllTicketsByEmpID} error_getAllTicketsByEmpID={error_getAllTicketsByEmpID} />
+            <TicketViewerPageStructure isLoading_getAllTicketsByEmpID={isLoading_getAllTicketsByEmpID} data_getAllTicketsByEmpID={data_getAllTicketsByEmpID?.data} isError_getAllTicketsByEmpID={isError_getAllTicketsByEmpID} error_getAllTicketsByEmpID={error_getAllTicketsByEmpID} refetch_getAllTicketsByEmpID={refetch_getAllTicketsByEmpID}/>
         </Box>
     );
 };
