@@ -179,8 +179,9 @@ const RequestCard = (props) => {
         {/* <Box sx={{ width: `calc(100% - 3px)`, maxWidth: { xs: "calc(100% - 3px)", xl: "400px" }, height: "fit-content", borderRadius: "10px", border: "0.5px solid #fdfdfd", "&:hover": { border: "1px dashed grey", cursor: "pointer" }, padding: "5px 10px", bgcolor: selectedTicket == ticket_id ? "#f6f6f6" : null }}> */}
             {/* ///// */}
             {/* HEADER */}
-            <Box sx={{ minWidth: "100%", display: "flex", justifyContent: "space-between" }}>
-                <Box sx={{ display: "flex", gap: "5px" }}>
+            <Box sx={{ flex:'1', display: "flex", justifyContent: "space-between",  overflow:'hidden' }}>
+
+                <Box sx={{ display: "flex", gap: "5px", maxWidth:`calc(100% - 75px)` }}>
                     {!ticket_info.read && <Badge color={"red"} />}
                     <Tag style={{ margin: "0" }} bordered={false}>
                         {ticket_info["domain"]["name"]}-{ticket_info["issue_catagory"]["name"]}
@@ -189,15 +190,18 @@ const RequestCard = (props) => {
                     <Tag style={{ margin: "0" }} bordered={false}>
                         <CaretRightOutlined style={{ color: "gray" }} />
                     </Tag>
-                    <Tag style={{ margin: "0" }} bordered={false}>
+
+                    <Tag style={{ margin: "0", overflow: 'hidden', whiteSpace:'nowrap', textOverflow:'ellipsis'}} bordered={false}>
                         {ticket_info["issue_sub_category"]["name"]}
                     </Tag>
                 </Box>
-                <Box>
-                    <Tag style={{ margin: "0" }} color={ticket_info.status.color}>
+
+                <Box sx={{minWidth:'75px', maxWidth:'75px', display:'flex', justifyContent:'flex-end'}}>
+                    <Tag style={{ margin: "0"}} color={ticket_info.status.color}>
                         {ticket_info.status.name}
                     </Tag>
                 </Box>
+
             </Box>
             {/* ///// */}
             {/* DESCRIPTION */}
@@ -205,6 +209,8 @@ const RequestCard = (props) => {
             {/* <Box sx={{ width: "100%", height: "32px", textAlign: "justify", display: "-webkit-box", overflow: "hidden", WebkitBoxOrient: "vertical", WebkitLineClamp: 2, color: "grey", lineHeight: 1.3, fontSize: "12px", margin: "5px 0 3px 0" }}>{ticket_info.note}</Box> */}
             {/* ///// */}
             {/* FOOTER INFO */}
+
+            
             <Box sx={{ width: "100%", display: "flex", justifyContent: "space-between" }}>
                 <Box sx={{ display: "flex", flexDirection: "column", fontSize: "12px", justifyContent: "flex-end" }}>
                     <Box sx={{ fontSize: "12px", color: "grey", display: "flex", alignItems: "center" }}>
@@ -223,6 +229,7 @@ const RequestCard = (props) => {
                     </Box>
                 </Box>
             </Box>
+            
         </Box>
     );
 };

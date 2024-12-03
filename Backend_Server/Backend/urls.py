@@ -25,6 +25,7 @@ urlpatterns = [
     path('get-all-cities/', get_all_cities, name='get-all-employee-info'),
     path('get-all-building/', get_all_building, name='get-all-employee-info'),
     path('get-all-loactions/', get_all_loactions, name='get-all-employee-info'),
+    path('get-all-department/', get_all_department, name=''),
          
                
         
@@ -43,6 +44,7 @@ urlpatterns = [
     path('get-subdomain-users-by-domain/', get_subdomain_users_by_domain, name=''),
     path('get-rating-by-ticketid/', get_rating_by_ticketid, name=''),
     path('get-requests-summary/', get_requests_summary, name=''),
+    path('get-all-level/', get_all_level, name=''),
 
     
     
@@ -53,6 +55,8 @@ urlpatterns = [
     path('get-request-access/', get_request_access, name='get-all-request-by-empid'),
     path('get-hierarchy-by-domain/', get_hierarchy_by_domain, name='get-all-request-by-empid'),
     path('get-user-access-by-subdomain/', get_user_access_by_subdomain, name=''),
+    path('assign-access-level/', assign_access_level, name=''),
+    path('set-domain-interval/', set_domain_interval, name=''),
 
     
     
@@ -89,8 +93,15 @@ urlpatterns = [
     path('edit-location/', edit_location, name=''),
 
     
-    
+     
     # Statistics API's
     path('banner-statistics/', banner_statistics, name=''),
+    # path('filter-requests/', filter_requests, name=''),
+    
+    
+    
+    path('save-notification-token/', save_notification_token, name=''),
+    path('send-notification/', send_notification, name=''),
+    path('send_hello/', send_hello, name=''),
     
 ]

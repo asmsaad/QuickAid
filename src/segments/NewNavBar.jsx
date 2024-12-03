@@ -214,7 +214,7 @@ export const ShortLeftNavBar = (props) => {
             // sx={{height:{xs: "fit-content", sm: "fit-content", md: "calc(100vh - 64px)", lg: "calc(100vh -64px)"} , bgcolor:"red"}}
             // sx={{heigth:"50%", bgcolor:"red"}}
 
-            sx={{ display: "flex", justifyContent: "center" }}
+            sx={{ display: "flex", justifyContent: "center"}}
         >
             {vertical ? (
                 <Box
@@ -265,12 +265,13 @@ export const ShortLeftNavBar = (props) => {
                     sx={{
                         padding: "15px 10px 5px 10px",
                         // display: "flex",
-                        display: { xs: "flex", sm: "none", md: "none", lg: "none", xl: "none" },
+                        display: { xs: "flex", sm: "none"},
                         // flexDirection: "column",
                         justifyContent: "center",
                         background: "linear-gradient(90deg, rgba(231,231,231,1) 0%, rgba(242,242,242,1) 35%, rgba(251,251,251,1) 75%)",
                         // height: "calc(100vh -140px)",
                         width: "100vw",
+                        height: `calc(45px + 15px + 5px)`
                     }}
                 >
                     <TabList

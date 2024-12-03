@@ -55,7 +55,7 @@ const RequestTimeline = (props) => {
     // });
 
     return (
-        <div>
+        <Box sx={{ width:'100%'}}>
             <Timeline
                 // pending="Updgrade in progress..."
                 reverse={true}
@@ -66,7 +66,7 @@ const RequestTimeline = (props) => {
                     };
                 })}
             />
-        </div>
+        </Box>
     );
 };
 
@@ -148,7 +148,7 @@ const TimeLineContent = (props) => {
     const updated_on = convertTimestamp(status_info["update_on"]);
 
     return (
-        <Box sx={{ width: "100%", maxWidth: "446px" }}>
+        <Box sx={{ width: "100%", maxWidth:{xs:`calc(100% - 0px)`,sm:"446px"}, }}>
             {/*//* HEADER */}
             <Box sx={{ width: "100%", marginBottom: "10px" }}>
                 {/* STATUS NAME */}
@@ -585,9 +585,9 @@ export const RequestDescription = () => {
     }, [ticketID]);
 
     return (
-        <Box sx={{ width: "100%", height: "100%" }}>
+        <Box sx={{ width: "100%", height: "100%", bgcolor:'', }}>
             {/* HEADER */}
-            <Box sx={{ width: "calc(100% - 20px)", borderRadius: "7px", bgcolor: "#f6f6f6", display: "flex", justifyContent: "space-between", gap: "5px", padding: "10px" }}>
+            <Box sx={{ width: "100%", borderRadius: "7px", bgcolor: "#f6f6f6", display: "flex", justifyContent: "space-between", gap: "5px", padding: "10px" }}>
                 <Box sx={{ display: "flex", flexWrap: "wrap", alignItems: "center", gap: "5px" }}>
                     <Box sx={{ display: "flex", alignItems: "center", gap: "5px", flexWrap: "wrap" }}>
                         <Box sx={{ display: { xs: "flex", md: "none" } }}>
@@ -663,12 +663,12 @@ export const RequestDescription = () => {
                     {/* <EditModal isChangeingStatusLoading={isChangeingStatusLoading} data_getCoMemberOfSubDomain={data_getCoMemberOfSubDomain?.data} current_status={data_getTicketHeaderInfo?.data["current_status"]["name"]} isLoading_getAllTicketStatus={isLoading_getAllTicketStatus} availableStatus={availableStatus} statusChangedInfo={statusChangedInfo} setStatusChangedInfo={setStatusChangedInfo} ticketID={ticketID} isModalOpen={isModalOpen} handleOk={handleOk} handleCancel={handleCancel} /> */}
 
                     {/* Mentioned and viewed by */}
-                    <Box sx={{ textAlign: "justify", color: "grey", padding: "10px", width: "calc(100% - 20px)", bgcolor: "#fbfbfb", margin: "10px 0", borderRadius: "10px" }}>
+                    <Box sx={{ textAlign: "justify", color: "grey", padding: "10px", width: "calc(100% - 0px)", bgcolor: "#fbfbfb", margin: "10px 0", borderRadius: "10px" }}>
                         <AvatarGroup layout="spread" size={20} data={data_getViewedTickedByUser?.data} show_more_display_side="right" />
                     </Box>
 
                     {/* DESCRIPTION */}
-                    <Box sx={{ textAlign: "justify", color: "grey", padding: "10px", width: "calc(100% - 20px)", bgcolor: "#fbfbfb", margin: "10px 0", borderRadius: "10px" }}>
+                    <Box sx={{ textAlign: "justify", color: "grey", padding: "10px", width: "calc(100% - 0px)", bgcolor: "#fbfbfb", margin: "10px 0", borderRadius: "10px" }}>
                         {data_getTicketHeaderInfo?.data["note"]}
                         {/* There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of text. All the Lorem Ipsum generators on the Internet tend to repeat predefined chunks as necessary, making this the first true generator on the Internet. It uses a dictionary of over 200 Latin words, combined with a handful of model sentence structures, to generate Lorem Ipsum which looks reasonable. The generated Lorem Ipsum is therefore always free from repetition, injected humour, or non-characteristic words etc. */}
                         <EditOutlined />
@@ -678,12 +678,12 @@ export const RequestDescription = () => {
                     {console.log(data_getTicketStatusTimeline?.data[Object.keys(data_getTicketStatusTimeline?.data || {}).slice(-1)]["updated_by"]["empid"], "777777")}
                     <Box sx={{ marginTop: "10px", display: "flex", flexDirection: { xs: "column", xl: "row" }, gap: "10px" }}>
                         {data_getTicketStatusTimeline?.data[Object.keys(data_getTicketStatusTimeline?.data || {}).slice(-1)]["status"]["status"] === "Closed" && (
-                            <Box sx={{ width: "fit-content" }}>
+                            <Box sx={{ width: {xs:'100%', sm:'472px'} }}>
                                 <RatingBox ticketID={ticketID} isTicketRequester={data_getTicketStatusTimeline?.data[Object.keys(data_getTicketStatusTimeline?.data || {})[0]]["updated_by"]["empid"] === getLoginUserID() ? true : false} />
                             </Box>
                         )}
 
-                        <Box sx={{ width: "calc(492px - 20px)", borderRadius: "10px", bgcolor: "#fbfbfb", padding: "10px" }}>
+                        <Box sx={{ width: {xs:'100%', sm:"calc(492px - 20px)"}, borderRadius: "10px", bgcolor: "#fbfbfb", padding: "10px" }}>
                             <Box sx={{ marginBottom: "10px" }}>
                                 <Text style={{ fontSize: "15px" }}>Timeline</Text>
                             </Box>
@@ -793,10 +793,10 @@ const RatingBox = (props) => {
 
     // return(<>A</>)
     return (
-        <Box>
+        <Box sx={{ width:{xs:'100%', sm:'472px'}}}>
             {/*//* CHECKING FOR DATA */}
             {data_getTicketRatingsAndComments?.data !== undefined && (
-                <Box sx={{ width: "calc(492px - 20px)", borderRadius: "10px", bgcolor: "#fbfbfb", padding: "10px" }}>
+                <Box sx={{ width: "100%", borderRadius: "10px", bgcolor: "#fbfbfb", padding: "10px" }}>
                     {/* ///// */}
                     {/* RATING TITLE */}
                     <Text style={{ fontSize: "15px" }}>{isTicketRequester ? (rating_value !== null ? "Your experience" : "Rate your experience") : "User Experience"}</Text>
@@ -833,10 +833,12 @@ const RatingBox = (props) => {
                     ) : (
                         // IF ANY GIVEN COMMENT ARE AVAILABLE THEN DISPLAY COMENTS //?For ALL
                         (data_getTicketRatingsAndComments?.data?.comment || "").trim() !== "" && (
-                            <Box sx={{ width: `calc(100% - 20px)`, marginTop: "10px", textAlign: "justify", border: "0.5px solid #e2e2e2", borderRadius: "5px", padding: "10px", lineHeight: "1" }}>
-                                <CommentRoundedIcon sx={{ fontSize: "14px", color: "gray", margin: "0 2px 0 0" }} />
+                            <Box sx={{ width: `calc(100% - 20px)`, marginTop: "10px", textAlign: "justify", border: "0.5px solid #e2e2e2", borderRadius: "5px", padding: "10px", lineHeight: "1",}}>
+                                {/* <CommentRoundedIcon sx={{ fontSize: "14px", color: "gray", margin: "0 2px 0 0", padding:'4px 0 0 0', bgcolor:'red' }} /> */}
                                 <Text type="secondary" style={{ lineHeight: "1.1" }}>
-                                    {data_getTicketRatingsAndComments?.data?.comment}
+                                    {"💬"}
+                                    {/* {data_getTicketRatingsAndComments?.data?.comment} */}
+                                    There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of text. All the Lorem Ipsum generators on the Internet tend to repeat predefined chunks as necessary, making this the first true generator on the Internet. It uses a dictionary of over 200 Latin words, combined with a handful of model sentence structures, to generate Lorem Ipsum which looks reasonable. The generated Lorem Ipsum is therefore always free from repetition, injected humour, or non-characteristic words etc.
                                 </Text>
                             </Box>
                         )

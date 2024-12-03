@@ -9,6 +9,13 @@ from django.utils import timezone
 
 from django.views.decorators.csrf import csrf_exempt
 from django.db.models import Q
+from .serializers import AllRequestsSerializer
+
+from .send_notification import initialize_firebase
+from firebase_admin import messaging
+
+initialize_firebase()
+
 
 
 # def home(request):
@@ -407,16 +414,13 @@ def create_new_request(request):
             return Response({'error':'requestor departments can not be empty'}, status=400)
         if not managers:
             return Response({'error':'managers empid required'}, status=400)
-        if not acknowledge:
-            return Response({'error':'acknowledge empid required'}, status=400)
+
         if not sub_domain:
             return Response({'error':'sub_domain is required'}, status=400)
         if not service:
             return Response({'error':'service is required'}, status=400)
         if not location:
             return Response({'error':'location is required'}, status=400)
-        if not desk_number:
-            return Response({'error':'desk_number is required'}, status=400)
         if not urgency_id:
             return Response({'error':'urgency is required'}, status=400)
         
@@ -477,7 +481,57 @@ def create_new_request(request):
         
         request_view_status.objects.create(request = all_requests.objects.get(request_id = new_request_id))
         
-        return Response({'message': 'Request created successfully!', 'request_id': new_request.request_id}, status=200)
+        request_by_obj.total_request_count = request_by_obj.total_request_count + 1
+        request_by_obj.save()
+        
+        #Send Notifications
+        accesible_person = admin_access.objects.filter(
+                                                        domain=sub_domain_obj.domain,      
+                                                        sub_domain=sub_domain_obj,         
+                                                        service=service_obj,               
+                                                        location=location_obj,             
+                                                        department__in=dept_obj   
+                                                        )
+        
+        
+        managers = managers_obj
+        
+        acknowledge = acknowledge_obj
+        
+        combined_obj = []
+        
+        for person in managers:
+            combined_obj.append(person) 
+
+        for person in accesible_person:
+            combined_obj.append(person.user)  
+
+        for person in acknowledge:
+            combined_obj.append(person)
+        
+        
+        token_codes = []
+        for receiver in combined_obj:
+            user_obj = notification_token.objects.filter(user=receiver).first()
+            if user_obj and user_obj.token:
+                token_codes.append(user_obj.token)
+            else:
+                pass
+ 
+        for token in token_codes:
+            message = messaging.Message(
+                data={
+                    "title": ">>title",
+                    "text": ">>body",
+                    "icon": "https://www.ulka.autos/static/lunch_booking/images/vegan-food.png",
+                    "click_action": "https://google.com",
+                },
+                token=token,
+            )
+
+            response = messaging.send(message)
+
+        return Response({'message': 'Request created successfully!', 'request_id': new_request.request_id, "token":token_codes}, status=200)
     
     except Exception as e:
         return Response({'error':str(e)}, status=500)
@@ -751,6 +805,22 @@ def update_request_status(request):
             assign_to=assign_to_user_obj,
             updated_by=updated_by_user_obj
         )
+        
+        if assign_to_user_obj != None:
+            token_obj = notification_token.objects.get(user = assign_to_user_obj)
+            token = token_obj.token
+            message = messaging.Message(
+            data={
+                "title": ">>title",
+                "text": ">>body",
+                "icon": "https://www.ulka.autos/static/media/quickaid.png",
+                "click_action": "https://google.com",
+            },
+            token=token,
+            )
+
+            response = messaging.send(message)
+            
 
         return Response({'message': 'status updated successfully'}, status=200)
     
@@ -789,12 +859,14 @@ def request_status_flow_by_id(request):
                     "name": request_status.assign_to.name if request_status.assign_to else "",
                     "empid": request_status.assign_to.empid if request_status.assign_to else "",
                     "designation": request_status.assign_to.designation.designation if request_status.assign_to else "",
+                    "department":  {dept.dept_id: dept.department for dept in request_status.assign_to.department.all()} if request_status.assign_to else {} ,
                     "url": request_status.assign_to.profile_url if request_status.assign_to else ""
                 },
                 "updated_by": {
                     "name": request_status.updated_by.name if request_status.updated_by else "",
                     "empid": request_status.updated_by.empid if request_status.updated_by else "",
                     "designation": request_status.updated_by.designation.designation if request_status.updated_by else "",
+                    "department":  {dept.dept_id: dept.department for dept in request_status.updated_by.department.all()} if request_status.updated_by else {} ,
                     "url": request_status.updated_by.profile_url if request_status.updated_by else ""
                 },
                 "update_on": request_status.update_on,
@@ -855,6 +927,71 @@ def get_request_header_info(request):
                 "designation":person.designation.designation,
             }
             
+        isAdmin =  admin_access.objects.filter(user=user_obj).exists()
+        adminEdit = False
+        assignEdit = False
+        
+        if isAdmin:
+            domain_min_access_levels = domain_minimum_access_level.objects.select_related('domain', 'access_level').all()
+            accessible_subdomains = set()
+
+            for domain_access in domain_min_access_levels:
+                min_level = domain_access.access_level.level
+                domain = domain_access.domain
+                
+                subdomains = sub_domains.objects.filter(domain=domain)
+                
+                for subdomain in subdomains:
+                    user_access = admin_access_priority.objects.filter(
+                        user=user_obj,
+                        sub_domain=subdomain
+                    ).select_related('access_level').first()
+                    
+                    if user_access and user_access.access_level.level <= min_level:
+                        accessible_subdomains.add(subdomain)
+
+            admin_access_obj = admin_access.objects.filter(user=user_obj)
+
+            accessible_services = services.objects.filter(
+                admin_access__in=admin_access_obj
+            )
+
+            accessible_departments = departments.objects.filter(
+                admin_access__in=admin_access_obj
+            )
+
+            accessible_locations = locations.objects.filter(
+                admin_access__in=admin_access_obj
+            )
+
+            accessible_domains = domains.objects.filter(
+                admin_access__in=admin_access_obj
+            )
+
+            matching_requests = all_requests.objects.filter(
+                sub_domain__in=accessible_subdomains,
+                service__in=accessible_services,
+                domain__in=accessible_domains,
+                location__in=accessible_locations,
+                requestor_department__in=accessible_departments
+            ).distinct()
+            
+            
+            if request_obj in matching_requests:
+                adminEdit = True  
+            else:
+                adminEdit = False
+
+                
+        
+        current_assigned_person = current_status_obj.assign_to if current_status_obj.assign_to else None
+        if current_assigned_person != None:
+            if current_assigned_person.empid == user_obj.empid :
+                assignEdit = True
+            else:
+                assignEdit = False
+
+            
         data = {
             
                 "ticket_id": request_obj.request_id,
@@ -868,6 +1005,7 @@ def get_request_header_info(request):
                 "note":request_obj.note,
                 "current_status": {"name":current_status_obj.status.status, "color":current_status_obj.status.color},
                 "read": True if (user_obj in all_readers.viewed_by.all()) else False,
+                "can_edit": (adminEdit or assignEdit),
         }
         
 
@@ -1012,7 +1150,7 @@ def get_accessible_requests(request):
             requestor__assign_to=user 
         )
 
-        final_requests = matching_requests.union(assigned_requests)
+        final_requests = matching_requests.union(assigned_requests).order_by('-create_on')
         
         # request_ids = assigned_requests.values_list('request_id', flat=True)
         
@@ -1415,7 +1553,7 @@ def get_subdomain_users_by_domain(request):
                     'users': []
                 }
                 
-                user_accesses = admin_access_priority.objects.filter(sub_domain=subdomain)
+                user_accesses = admin_access.objects.filter(sub_domain=subdomain)
 
                 for user_access in user_accesses:
                     user = user_access.user
@@ -1444,12 +1582,12 @@ def get_requests_summary(request):
 
         data = {}
         for domain in domains_obj:
-            domain_data = {}
+            domain_data = {'domain_name':domain.domain, 'sub_domains':{}}
             
             subdomain_objs = sub_domains.objects.filter(domain=domain)
             
             for subdomain in subdomain_objs:
-                subdomain_data = {}
+                subdomain_data = {'subdomain_name':subdomain.sub_domain, 'services':{}}
                 
                 service_objs = services.objects.filter(sub_domain=subdomain)
                 
@@ -1459,14 +1597,20 @@ def get_requests_summary(request):
                     total_requests = requests.count()
                     closed_requests = requests.filter(status__status='closed').count()  
                     
-                    subdomain_data[service.service] = {
+                    users_obj = user_info.objects.filter(admin_access__service=service)
+
+                    
+                    
+                    subdomain_data['services'][service.service_id] = {
+                        'service_name':service.service,
+                        'members':{ user.empid:user.name for user in users_obj},
                         'total_requests': total_requests,
                         'closed_requests': closed_requests
                     }
                 
-                domain_data[subdomain.sub_domain] = subdomain_data
+                domain_data['sub_domains'][subdomain.sub_domain_id] = subdomain_data
             
-            data[domain.domain] = domain_data  
+            data[domain.domain_id] = domain_data  
         
         return Response(data, status=200)
     
@@ -1607,6 +1751,122 @@ def create_location(request):
         return Response({'error': str(e)}, status=500)
 
 
+
+@api_view(["POST"])
+def get_all_level(request):
+    try:
+        all_level = [ level.level for level in access_level.objects.all()]
+
+        return Response(all_level, status=201)
+
+    except Exception as e:
+        return Response({'error': str(e)}, status=500)    
+
+
+@api_view(["POST"])
+def assign_access_level(request):
+    try:
+        empid = request.data.get('empid', '')
+        sub_domain_id = request.data.get('sub_domain_id', '')
+        level = request.data.get('level', '')
+  
+        if not empid:
+            return Response({'error': 'empid name is required'}, status=400)  
+            
+        if not sub_domain_id:
+            return Response({'error': 'sub_domain_id name is required'}, status=400)  
+            
+        if not level:
+            return Response({'error': 'level name is required'}, status=400)      
+        
+     
+        try:
+            emp_obj = user_info.objects.get(empid=empid)
+        except user_info.DoesNotExist:
+            return Response({'error': 'User does not exist'}, status=404)
+        
+        try:
+            sub_domain_obj = sub_domains.objects.get(sub_domain_id=sub_domain_id)
+        except sub_domains.DoesNotExist:
+            return Response({'error': 'Sub Domain does not exist'}, status=404)
+        
+        try:
+            level_obj = access_level.objects.get(level=level)
+        except access_level.DoesNotExist:
+            return Response({'error': 'Level does not exist'}, status=404)   
+        
+        
+        exist_obj = admin_access_priority.objects.filter(user = emp_obj, sub_domain = sub_domain_obj).exists()
+        
+        if exist_obj:
+            return Response({'error': 'This user already assigned to this sub domain'}, status=406)
+        
+        else:
+            admin_access_priority.objects.create(
+                user = emp_obj,
+                sub_domain = sub_domain_obj,
+                access_level = level_obj
+            )
+        
+
+        return Response({'message': 'Access Level assigned successfully'}, status=201)
+
+    except Exception as e:
+        return Response({'error': str(e)}, status=500)   
+    
+    
+@api_view(["POST"])
+def set_domain_interval(request):
+    try:
+        domain_id = request.data.get('domain_id', '')
+        min_level = request.data.get('min_level', '')
+        max_level = request.data.get('max_level', '')
+  
+        if not domain_id:
+            return Response({'error': 'domain_id is required'}, status=404)  
+            
+        if not min_level:
+            return Response({'error': 'min_level is required'}, status=404)  
+        
+        if not max_level:
+            return Response({'error': 'max_level is required'}, status=404)  
+        
+        try:
+            domain_obj = domains.objects.get(dmaid=domain_id)
+        except domains.DoesNotExist:
+            return Response({'error': 'Domain does not exist'}, status=404)
+
+        try:
+            min_level_obj = access_level.objects.get(level=min_level)
+        except access_level.DoesNotExist:
+            return Response({'error': 'Level does not exist'}, status=404)   
+
+        exist_obj = domain_minimum_access_level.objects.filter(domain=domain_obj).exists()
+        
+        if exist_obj:
+            return Response({'error': 'This domain already assigned minimum level'}, status=406)
+        
+        else:
+            domain_minimum_access_level.objects.create(
+                domain = domain_obj,
+                access_level = min_level_obj
+            )
+
+        return Response({'message': 'Access Level assigned successfully'}, status=201)
+
+    except Exception as e:
+        return Response({'error': str(e)}, status=500)   
+    
+
+@api_view(["POST"])
+def get_all_department(request):
+    try:
+        data = {dept.dept_id:dept.department for dept in departments.objects.all()}
+
+        return Response(data, status=201)
+
+    except Exception as e:
+        return Response({'error': str(e)}, status=500)   
 
 ################################################! Administrator Section ################################################
 
@@ -2061,6 +2321,141 @@ def banner_statistics(request):
     
 
     
+# @api_view(["POST"])
+# def filter_requests(request):
+#     try:
+#         filters = Q()
+
+#         # Helper function to add filters if values are provided
+#         def add_filter(param_name, db_field):
+#             values = request.data.get(param_name, [])
+#             if values:  # Check if the list is not empty
+#                 filters.add(Q(**{f"{db_field}__in": values}), Q.AND)
+        
+#         # Add filters for each parameter
+#         add_filter('requested_by', 'request_by__empid')
+#         # add_filter('domain', 'domain__id')
+#         add_filter('status', 'status__id')
+#         # add_filter('service', 'service__id')
+#         add_filter('sub_domain', 'sub_domain__id')
+#         add_filter('urgency', 'urgency__id')
+#         add_filter('department', 'requestor_department__id')
+#         add_filter('location', 'location__id')
+        
+#         # Filter the queryset based on the combined Q object
+#         queryset = all_requests.objects.filter(filters).distinct()
+        
+#         # Serialize the filtered data
+#         serializer = AllRequestsSerializer(queryset, many=True)
+#         return Response(serializer.data, status=200)
+    
+#     except Exception as e:
+#         return Response({'error': str(e)}, status=500)
 
 
 
+################################### Notifications API's ###################################
+
+@api_view(["POST"])
+def save_notification_token(request):
+    try:
+        empid = request.data.get('empid')
+        new_token = request.data.get('token')
+        
+        if not empid:
+            return Response({'error': 'empid is required'}, status=400)
+        if not new_token:
+            return Response({'error': 'token is required'}, status=400)
+
+        try:
+            user_obj = user_info.objects.get(empid=empid)
+        except user_info.DoesNotExist:
+            return Response({'error': 'User does not exist'}, status=404)
+        
+        token_obj, created = notification_token.objects.get_or_create(user=user_obj)
+        
+        if not created and token_obj.token == new_token:
+            return Response({'message': 'Token is unchanged; no update needed'}, status=200)
+        else:
+            token_obj.token = new_token
+            token_obj.save()
+            return Response({'message': 'Token saved successfully'}, status=201)
+    
+    except Exception as e:
+        return Response({'error': str(e)}, status=500)
+    
+   
+    
+@api_view(["POST"])
+def send_notification(request):
+    try:
+        empid = request.data.get('empid')
+        message = request.data.get('message')
+        app_name = request.data.get('app_name')
+        url = request.data.get('url')
+        
+        if not empid:
+            return Response({'error': 'empid is required'}, status=400)
+        if not message:
+            return Response({'error': 'message is required'}, status=400)
+        if not app_name:
+            return Response({'error': 'app_name is required'}, status=400)
+        if not url:
+            return Response({'error': 'url is required'}, status=400)
+
+        try:
+            user_obj = user_info.objects.get(empid=empid)
+        except user_info.DoesNotExist:
+            return Response({'error': 'User does not exist'}, status=404)
+        
+        # *
+        # *
+        # *
+        # * Function
+        # *
+        # *
+        
+
+
+        return Response({'message': 'Notification Sended successfully'}, status=201)
+    
+    except Exception as e:
+        return Response({'error': str(e)}, status=500)
+    
+    
+
+
+
+
+
+
+@api_view(["POST"])
+def send_hello(request):
+    try:
+        tokens = [
+            'fFxuq04MRp3bqt-W_3N4Oy:APA91bEnKYDkXmeKyuofcizXBYwNMr99Ot97UufP1nxy_6-ZFxAjhPrJ1srupi_mcwKVsDI4zTp4QcRLlqSkt1aN2uf2wQsHHu7SXnc6J3Q5a8FxtrfbZ_i0xCNev38Xbfp6hgNgj4R9',
+        ]
+        
+        for token in tokens:
+            # Create a message payload for each token
+            message = messaging.Message(
+                data={
+                    "title": ">>title",
+                    "text": ">>body",
+                    "icon": "https://www.ulka.autos/static/lunch_booking/images/vegan-food.png",
+                    "click_action": "https://google.com",
+                },
+                token=token,
+            )
+
+            response = messaging.send(message)
+
+        return Response({'message': 'Notifications sent successfully'}, status=201)
+    
+    except Exception as e:
+        return Response({'error': str(e)}, status=500)
+
+
+    
+    
+    

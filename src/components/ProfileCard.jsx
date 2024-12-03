@@ -48,7 +48,7 @@ export const ProfileCardXL = (props) => {
     }, [isLoading_getUserData, data_getUserData, isError_getUserData, error_getUserData]);
 
     return (
-        <Box sx={{ width: "calc(100% - 20px)", height: "fit-content", bgcolor: "#fbfbfb", borderRadius: "10px", padding: "10px" }}>
+        <Box sx={{ width: "calc(100% - 0px)", height: "fit-content", bgcolor: "#fbfbfb", borderRadius: "10px", padding: "10px" }}>
             <Box sx={{ display: "flex", width: "100%" }}>
                 {/* AVATER */}
                 <Box sx={{ heigh: "100%", display: "flex", alignItems: "center", width: "96px", marginRight: "10px" }}>

@@ -191,6 +191,7 @@ class user_info(models.Model):
     joining_date = models.DateField(default=timezone.now)
     location = models.ForeignKey(locations, on_delete=models.CASCADE, null=True, blank=True)
     desk_number = models.CharField(max_length = 20, default = '', null = True)
+    total_request_count = models.IntegerField(default=0)
     create_on = models.DateTimeField(default=timezone.now)
     
     def __str__(self):
@@ -281,10 +282,11 @@ class all_requests(models.Model):
         if not self.request_id and not self.pk:
             if not self.request_by:
                 raise ValueError("The 'request_by' field must be set to generate the request_id.")
-
+            
             empid = self.request_by.empid
-            total_count = all_requests.objects.filter(request_by=self.request_by).count() + 1
-            self.request_id = f"{empid}-{total_count:02d}"  
+            total_request = self.request_by.total_request_count
+            new_request_count = total_request + 1
+            self.request_id = f"{empid}-{new_request_count:02d}"  
         super().save(*args, **kwargs)
         
         
@@ -314,3 +316,14 @@ class request_view_status(models.Model):
     
     def __str__(self):
         return f'{self.request}'
+    
+    
+
+class notification_token(models.Model):
+    user = models.OneToOneField(user_info, on_delete=models.CASCADE)
+    token =  models.CharField(max_length = 10000, default = '', null = True, blank=True)
+    
+    def __str__(self):
+        return f'{self.user}'
+    
+    

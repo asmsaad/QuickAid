@@ -236,7 +236,7 @@ const AppStructure = (props) => {
                     <Navbar />
                     <Stack direction="row" flex="1" overflow="hidden">
                         <ShortLeftNavBar vertical={true} />
-                        <Box sx={{ width: "100%", display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center", height: `calc(100vh - 65px)`, overflow: "auto",}}>{location.pathname === "/quickaid" || location.pathname === "/quickaid/" ? <HomePage /> : <Outlet />}</Box>
+                        <Box sx={{ width: "100%", display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center", height: {sx:`calc(100bvh - 65px - 64px)`, sm:`calc(100bvh - 64px)`}, overflow: "auto",}}>{location.pathname === "/quickaid" || location.pathname === "/quickaid/" ? <HomePage /> : <Outlet />}</Box>
                     </Stack>
                     <ShortLeftNavBar vertical={false} />
                 </Box>

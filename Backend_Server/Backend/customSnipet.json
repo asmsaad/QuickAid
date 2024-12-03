@@ -1,0 +1,16 @@
+{
+    "Create Django API function": {
+      "prefix": "api+",
+      "body": [
+        "@api_view([\"POST\"])",
+        "def ${1:function_name}(request):",
+        "    try:",
+        "        $0",
+        "        return Response({'message': 'Access Level assigned successfully'}, status=201)",
+        "    except Exception as e:",
+        "        return Response({'error': str(e)}, status=500)"
+      ],
+      "description": "Create a Django API function with a POST method"
+    }
+  }
+  

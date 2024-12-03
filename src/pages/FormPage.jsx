@@ -394,13 +394,15 @@ const IssueForm = ()=>{
         return <Box sx={{ width: "100%", displa: "flex", justifyContent: "center", alignItems: "center"}}>Report your issue</Box>;
     };
     return(
-        <Box sx={{ width: `calc(100% - 10px)`, maxWidth:'420px', display:"flex", flexDirection:"column"}} >
+        <Box sx={{ width: `calc(100% - 10px)`, maxWidth:'420px', display:"flex", flexDirection:"column", }} >
             {/*//* ALART MESSAGE */}
+            {sucessfullMessage &&    
             <Box style={{margin:"25px 0 0px 0", width:"100%"}} >
-                {sucessfullMessage &&                        
+                                    
                     <Alert  showIcon message="Issue submitted successfully." description="Your submitted issue can be tracked from history." type="success"  />
-                }
-            </Box>
+               
+            </Box> 
+            }
 
             {/*//* ENTRY FORM */}
             <Box sx={{ width: "100%"}}>         
